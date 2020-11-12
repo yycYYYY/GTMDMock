@@ -15,19 +15,14 @@ import static org.mockserver.model.Parameter.param;
 public class Mocktest {
     public static void main(String[] args) {
         ClientAndServer server = new ClientAndServer(1080);
-        ClientAndServer server1 = new ClientAndServer("hq-dev.com",443,1081);
+//        ClientAndServer server1 = new ClientAndServer("hq-dev.com",443,1081);
 //        ClientAndServer server2 = new ClientAndServer(1082);
         ExpectationInitializerPublic initializer = new ExpectationInitializerPublic();
 
         initializer.initializeExpectations(server);
 
-        addExpectation(server);
+//        addExpectation(server);
 
-        Expectation[] expectations = getAllExpectations(server);
-
-        for (Expectation e: expectations){
-            System.out.println(e.getId());
-        }
 //        server.stopAsync();
 //        server.when(
 //                request()
