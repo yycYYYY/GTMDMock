@@ -11,6 +11,7 @@ public class Expectations {
     private String expectationsId;
     private ServerClient server;
     private List<Expectation> expectationList;
+    private boolean isOpen;
 
     public String getProjectId() {
         return projectId;
@@ -44,5 +45,22 @@ public class Expectations {
         this.expectationList = expectationList;
     }
 
+    public boolean isOpen() {
+        return isOpen;
+    }
 
+    public void setOpen(boolean open) {
+        isOpen = open;
+    }
+
+    public void initClient() {
+        if (this.isOpen()){
+
+            for (Expectation expectation: expectationList) {
+                this.server.upsert(expectation);
+            }
+
+        }
+
+    }
 }

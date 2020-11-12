@@ -1,14 +1,16 @@
 package com.gtmdmock.core.client;
 
-import com.gtmdmock.core.model.DTO.ClientInfo;
-import org.mockserver.integration.ClientAndServer;
+import com.gtmdmock.core.expectation.ExpactationsInitializer;
+import com.gtmdmock.core.expectation.Expectations;
 import org.mockserver.mock.Expectation;
 import org.mockserver.model.HttpForward;
 import org.mockserver.model.HttpOverrideForwardedRequest;
 
+
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import static org.mockserver.model.HttpRequest.request;
 
@@ -18,10 +20,10 @@ public class ClientInitializer {
     List<ServerClient> clients;
 
     @Resource
-    ClientAction action;
+    ExpactationsInitializer expactationsInitializer;
 
 
-    //拉取当前所有mock项目配置
+    //拉取当前所有mock项目配置，生成clientInfo
     public void getProfile(){
 
         List<ClientInfo> clientInfos = new ArrayList<>();
@@ -51,7 +53,7 @@ public class ClientInitializer {
     //实例化mock server客户端，并监听端口，@TODO 并将客户端，开关信息等，写入缓存
     public List<ServerClient> clientInstantiate(){
 
-        List<ServerClient> clients = new ArrayList<>();
+        clients = new ArrayList<>();
 
         getProfile();
 
@@ -63,13 +65,22 @@ public class ClientInitializer {
                 clients.add(server);
             }
         }
-        this.clients = clients;
 
         return clients;
     }
 
     //初始化客户端期望信息
-    public void clientInit(List<ServerClient> clients,List<Exception> expectations){
+    public void clientInit(){
+        List<Expectations> expectations = expactationsInitializer.genAllExpections();
+        for (Expectations e: expectations) {
+
+            for (ServerClient client: this.clients){
+                if (client.getProjectId().equals(e.getProjectId())){
+                    e.setServer(client);
+                    e.initClient();
+                }
+            }
+        }
 
 
     }

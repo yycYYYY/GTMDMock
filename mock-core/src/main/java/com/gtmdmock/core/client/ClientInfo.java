@@ -1,4 +1,4 @@
-package com.gtmdmock.core.model.DTO;
+package com.gtmdmock.core.client;
 
 import org.mockserver.model.HttpForward;
 
@@ -65,8 +65,8 @@ public class ClientInfo {
     public ClientInfo(String test) {
         this.projectId = "1";
         this.projectName = "test_project";
-        this.port = 1080;
-        this.proxyAddress = "hq-dev.tigerfintch.com";
+        this.port = 1081;
+        this.proxyAddress = "baidu.com";
         this.scheme = HttpForward.Scheme.HTTPS;
         this.isOpen = true;
     }
