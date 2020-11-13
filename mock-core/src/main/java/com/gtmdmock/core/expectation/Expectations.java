@@ -49,18 +49,35 @@ public class Expectations {
         return isOpen;
     }
 
-    public void setOpen(boolean open) {
-        isOpen = open;
+    public void setOpen() {
+        isOpen = true;
+        this.initClient();
+    }
+
+    public void serClose(){
+        isOpen = false;
+        this.clearClient();
+
     }
 
     public void initClient() {
         if (this.isOpen()){
-
-            for (Expectation expectation: expectationList) {
+            //这里不用担心，重复增加期望，框架本身做了处理
+            for (Expectation expectation: this.expectationList) {
                 this.server.upsert(expectation);
             }
 
         }
-
     }
+
+    public void clearClient(){
+        if (!this.isOpen()){
+            for (Expectation expectation: this.expectationList){
+                this.server.clear(expectation.getHttpRequest());
+            }
+        }
+    }
+
+    //拼装expectations，可以写在构造器里，也可以写在单独方法里，被构造器调用
+    public void splitExpectations(){}
 }
