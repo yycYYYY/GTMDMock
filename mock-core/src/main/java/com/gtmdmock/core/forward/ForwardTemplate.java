@@ -1,7 +1,6 @@
 package com.gtmdmock.core.forward;
 
 import org.mockserver.model.HttpForward;
-import org.mockserver.model.HttpOverrideForwardedRequest;
 
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
