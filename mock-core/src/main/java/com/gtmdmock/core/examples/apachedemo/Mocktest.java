@@ -91,7 +91,7 @@ public class Mocktest {
         ).withPriority(1).thenRespond(
                 response().withBody("addExpectationSuccess")
         ).thenForward(
-                HttpOverrideForwardedRequest.forwardOverriddenRequest()
+                HttpOverrideForwardedRequest.forwardOverriddenRequest(request())
         );
 
         server.upsert(expectation);

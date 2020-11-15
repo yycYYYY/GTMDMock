@@ -6,9 +6,8 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class ForwardTemplate {
+
     private String requestId;
-    //TODO:这里还需要做请求转发重写，HttpOverrideForwardedRequest的支持，目前未实现
-    private String forwardType;
     private String host;
     private Integer port;
     private boolean isSecure;
@@ -20,14 +19,6 @@ public class ForwardTemplate {
 
     public void setRequestId(String requestId) {
         this.requestId = requestId;
-    }
-
-    public String getForwardType() {
-        return forwardType;
-    }
-
-    public void setForwardType(String forwardType) {
-        this.forwardType = forwardType;
     }
 
     public String getHost() {
