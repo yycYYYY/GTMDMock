@@ -4,8 +4,12 @@ import org.mockserver.client.MockServerClient;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.mock.Expectation;
 import org.mockserver.model.ClearType;
+import org.mockserver.model.HttpForward;
+import org.mockserver.model.HttpOverrideForwardedRequest;
 import org.mockserver.model.HttpRequest;
 import org.mockserver.netty.MockServer;
+
+import java.util.concurrent.TimeUnit;
 
 import static org.mockserver.model.Cookie.cookie;
 import static org.mockserver.model.HttpRequest.request;
@@ -86,6 +90,8 @@ public class Mocktest {
 
         ).withPriority(1).thenRespond(
                 response().withBody("addExpectationSuccess")
+        ).thenForward(
+                HttpOverrideForwardedRequest.forwardOverriddenRequest()
         );
 
         server.upsert(expectation);
