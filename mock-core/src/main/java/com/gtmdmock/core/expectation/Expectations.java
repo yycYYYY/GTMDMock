@@ -3,6 +3,7 @@ package com.gtmdmock.core.expectation;
 import com.gtmdmock.core.client.ServerClient;
 import org.mockserver.mock.Expectation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Expectations {
@@ -80,4 +81,38 @@ public class Expectations {
 
     //拼装expectations，可以写在构造器里，也可以写在单独方法里，被构造器调用
     public void splitExpectations(){}
+
+    //添加或修改一个expectation
+    public boolean updateExpectation(Expectation expectation){
+
+        try{
+
+            if (this.expectationList == null || this.expectationList.isEmpty()){
+                this.setExpectationList(new ArrayList<Expectation>());
+                this.updateExpectation(expectation);
+                this.server.upsert(expectation);
+            }else {
+                this.expectationList.add(expectation);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    //在expectations中删除一个期望
+    public boolean deleteExpectation(Expectation expectation){
+        try {
+            this.expectationList.remove(expectation);
+            this.server.clear(expectation.getHttpRequest());
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
 }
