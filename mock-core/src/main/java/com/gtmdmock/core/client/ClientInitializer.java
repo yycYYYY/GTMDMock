@@ -1,7 +1,8 @@
 package com.gtmdmock.core.client;
 
 import com.gtmdmock.core.expectation.Expectations;
-import com.gtmdmock.core.expectation.ExpectationsInitializer;
+
+import com.gtmdmock.core.expectation.ExpectationsAction;
 import org.mockserver.mock.Expectation;
 import org.mockserver.model.HttpForward;
 import org.mockserver.model.HttpOverrideForwardedRequest;
@@ -19,8 +20,6 @@ public class ClientInitializer {
     List<ClientInfo> clientInfos;
     List<ServerClient> clients;
 
-    @Resource
-    ExpectationsInitializer expactationsInitializer;
 
 
     //拉取当前所有mock项目配置，生成clientInfo
@@ -71,7 +70,7 @@ public class ClientInitializer {
 
     //初始化客户端期望信息
     public void clientInit(){
-        List<Expectations> expectations = expactationsInitializer.genAllExpections();
+        List<Expectations> expectations = ExpectationsAction.genAllExpections();
         for (Expectations e: expectations) {
 
             for (ServerClient client: this.clients){
