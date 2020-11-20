@@ -3,6 +3,7 @@ package com.gtmdmock.admin.service;
 import com.gtmdmock.admin.model.entity.Expectations;
 import com.gtmdmock.admin.model.entity.Project;
 import com.gtmdmock.core.client.ClientInfo;
+import com.gtmdmock.core.expectation.ExpectationsTemplate;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface ExpectationsService {
 
     void deleteExpectationsById(Integer id);
 
-    List<Project> getAllExpectationsOfAdmin();
+    List<Expectations> getAllExpectationsOfAdmin();
 
-    List<ClientInfo> getAllExpectationsOfCore();
+    List<ExpectationsTemplate> getAllExpectationsOfCore();
 }

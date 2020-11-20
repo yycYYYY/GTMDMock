@@ -4,8 +4,10 @@ import java.util.List;
 
 public class ExpectationsAction {
 
+    private List<ExpectationsTemplate> expectations;
+
     //生成当前所有配置的expectations
-    public static List<Expectations> genAllExpections() {
+    public static List<ExpectationsTemplate> genAllExpections() {
         return null;
     }
 
@@ -28,4 +30,12 @@ public class ExpectationsAction {
     //查询期望集 项目
 
     //查询期望集 归属人
+
+    public List<ExpectationsTemplate> getExpectations() {
+        return expectations;
+    }
+
+    public void setExpectations(List<ExpectationsTemplate> expectations) {
+        this.expectations = expectations;
+    }
 }

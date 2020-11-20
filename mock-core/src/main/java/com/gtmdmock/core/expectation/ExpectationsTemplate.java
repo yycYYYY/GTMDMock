@@ -6,27 +6,27 @@ import org.mockserver.mock.Expectation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Expectations {
+public class ExpectationsTemplate {
 
-    private String projectId;
-    private String expectationsId;
+    private Integer projectId;
+    private Integer expectationsId;
     private ServerClient server;
     private List<Expectation> expectationList;
     private boolean isOpen;
 
-    public String getProjectId() {
+    public Integer getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(String projectId) {
+    public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
 
-    public String getExpectationsId() {
+    public Integer getExpectationsId() {
         return expectationsId;
     }
 
-    public void setExpectationsId(String expectationsId) {
+    public void setExpectationsId(Integer expectationsId) {
         this.expectationsId = expectationsId;
     }
 
@@ -84,7 +84,6 @@ public class Expectations {
 
     //添加或修改一个expectation
     public boolean updateExpectation(Expectation expectation){
-
         try{
 
             if (this.expectationList == null || this.expectationList.isEmpty()){
@@ -112,6 +111,14 @@ public class Expectations {
             return false;
         }
         return true;
+    }
+
+    public ExpectationsTemplate buildExpectations(){
+        ExpectationsTemplate template = new ExpectationsTemplate();
+        template.setOpen();
+        template.setProjectId(this.projectId);
+        template.setExpectationsId(this.expectationsId);
+        return template;
     }
 
 

@@ -6,7 +6,7 @@ import com.gtmdmock.admin.model.mapper.RequestMapper;
 import com.gtmdmock.admin.service.RequestService;
 import com.gtmdmock.admin.utils.JsonUtils;
 import com.gtmdmock.core.request.RequestMatcher;
-import org.mockserver.model.HttpForward;
+
 import org.mockserver.model.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

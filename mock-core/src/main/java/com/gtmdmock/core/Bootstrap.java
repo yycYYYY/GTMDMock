@@ -4,6 +4,7 @@ package com.gtmdmock.core;
 import com.gtmdmock.core.client.ClientInfo;
 import com.gtmdmock.core.client.ClientAction;
 import com.gtmdmock.core.client.ServerClient;
+import com.gtmdmock.core.expectation.ExpectationsTemplate;
 import com.gtmdmock.core.expectation.ExpectationsAction;
 
 import java.util.List;
@@ -38,6 +39,25 @@ public class Bootstrap {
 
     public List<ServerClient> getClients(){
         return this.clientAction.getClients();
+    }
+
+    public List<ExpectationsTemplate> getExpectations(){
+        return this.expectationsAction.getExpectations();
+    }
+
+    //期望集
+    public void initExpectations(List<ExpectationsTemplate> expectationsList){
+        expectationsAction.setExpectations(expectationsList);
+
+        List<ServerClient> clients = this.getClients();
+        for (ExpectationsTemplate expectations: expectationsList){
+            int projectId = expectations.getProjectId();
+            for (ServerClient client: clients){
+                if (client.getProjectId() == projectId){
+                    expectations.setServer(client);
+                }
+            }
+        }
     }
 
 

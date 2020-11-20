@@ -1,6 +1,6 @@
 package com.gtmdmock.core.client;
 
-import com.gtmdmock.core.expectation.Expectations;
+import com.gtmdmock.core.expectation.ExpectationsTemplate;
 
 import com.gtmdmock.core.expectation.ExpectationsAction;
 import org.mockserver.mock.Expectation;
@@ -78,8 +78,8 @@ public class ClientAction {
 
     //初始化客户端期望信息
     public void clientInit(){
-        List<Expectations> expectations = ExpectationsAction.genAllExpections();
-        for (Expectations e: expectations) {
+        List<ExpectationsTemplate> expectations = ExpectationsAction.genAllExpections();
+        for (ExpectationsTemplate e: expectations) {
 
             for (ServerClient client: this.clients){
                 if (client.getProjectId().equals(e.getProjectId())){
