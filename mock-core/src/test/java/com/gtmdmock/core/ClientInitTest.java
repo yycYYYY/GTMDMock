@@ -1,6 +1,6 @@
 package com.gtmdmock.core;
 
-import com.gtmdmock.core.client.ClientInitializer;
+import com.gtmdmock.core.client.ClientAction;
 import com.gtmdmock.core.client.ServerClient;
 import org.junit.Test;
 
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ClientInitTest {
 
-    static ClientInitializer initializer = new ClientInitializer();
+    static ClientAction initializer = new ClientAction();
 
     @Test
     public void test(){

@@ -53,7 +53,7 @@ public class ForwardTemplate {
         this.delay = delay;
     }
 
-    public HttpForward buildForeard(){
+    public HttpForward buildForward(){
         HttpForward forward = new HttpForward();
         Optional.ofNullable(this.host).ifPresent(forward::withHost);
         Optional.ofNullable(this.port).ifPresent(forward::withPort);

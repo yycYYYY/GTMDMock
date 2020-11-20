@@ -4,18 +4,18 @@ import org.mockserver.model.HttpForward;
 
 public class ClientInfo {
 
-    private String projectId;
+    private Integer projectId;
     private String projectName;
     private int port;
     private String proxyAddress;
     private HttpForward.Scheme scheme;
-    private boolean isOpen;
 
-    public String getProjectId() {
+
+    public Integer getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(String projectId) {
+    public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
 
@@ -51,24 +51,16 @@ public class ClientInfo {
         this.scheme = scheme;
     }
 
-    public boolean isOpen() {
-        return isOpen;
-    }
-
-    public void setOpen(boolean open) {
-        isOpen = open;
-    }
-
     public ClientInfo() {
     }
 
     public ClientInfo(String test) {
-        this.projectId = "1";
+        this.projectId = 1;
         this.projectName = "test_project";
         this.port = 1081;
         this.proxyAddress = "baidu.com";
         this.scheme = HttpForward.Scheme.HTTPS;
-        this.isOpen = true;
+
     }
 
 

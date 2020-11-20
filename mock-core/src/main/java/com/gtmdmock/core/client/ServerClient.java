@@ -3,26 +3,30 @@ package com.gtmdmock.core.client;
 import org.mockserver.integration.ClientAndServer;
 
 public class ServerClient extends ClientAndServer {
-    private String projectId;
+    private Integer projectId;
 
-    public String getProjectId() {
+    public Integer getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(String projectId) {
+    public void setProjectId(Integer projectId) {
         this.projectId = projectId;
+    }
+
+    public ServerClient(int port) {
+        super(port);
     }
 
     public ServerClient(Integer... ports) {
         super(ports);
     }
 
-    public ServerClient(String projectId, Integer... ports) {
+    public ServerClient(Integer projectId, Integer... ports) {
         super(ports);
         this.projectId = projectId;
     }
 
-    public ServerClient(String remoteHost, Integer remotePort, String projectId, Integer... ports) {
+    public ServerClient(String remoteHost, Integer remotePort, Integer projectId, Integer... ports) {
         super(remoteHost, remotePort, ports);
         this.projectId = projectId;
     }

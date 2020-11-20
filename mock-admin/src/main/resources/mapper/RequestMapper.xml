@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gtmdmock.admin.model.mapper.RequestMapper">
+  <resultMap id="BaseResultMap" type="com.gtmdmock.admin.model.entity.Request">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="request_id" jdbcType="INTEGER" property="requestId" />
+    <result column="expectations_id" jdbcType="INTEGER" property="expectationsId" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="body" jdbcType="VARCHAR" property="body" />
+    <result column="isSecure" jdbcType="INTEGER" property="issecure" />
+    <result column="isKeepAlive" jdbcType="INTEGER" property="iskeepalive" />
+    <result column="headers" jdbcType="VARCHAR" property="headers" />
+    <result column="cookies" jdbcType="VARCHAR" property="cookies" />
+    <result column="query_params" jdbcType="VARCHAR" property="queryParams" />
+    <result column="path_params" jdbcType="VARCHAR" property="pathParams" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, request_id, expectations_id, path, method, body, isSecure, isKeepAlive, headers, 
+    cookies, query_params, path_params
+  </sql>
+  <select id="selectByExample" parameterType="com.gtmdmock.admin.model.entity.RequestExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from request
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from request
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from request
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gtmdmock.admin.model.entity.RequestExample">
+    delete from request
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gtmdmock.admin.model.entity.Request">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into request (id, request_id, expectations_id, 
+      path, method, body, 
+      isSecure, isKeepAlive, headers, 
+      cookies, query_params, path_params
+      )
+    values (#{id,jdbcType=INTEGER}, #{requestId,jdbcType=INTEGER}, #{expectationsId,jdbcType=INTEGER}, 
+      #{path,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, #{body,jdbcType=VARCHAR}, 
+      #{issecure,jdbcType=INTEGER}, #{iskeepalive,jdbcType=INTEGER}, #{headers,jdbcType=VARCHAR}, 
+      #{cookies,jdbcType=VARCHAR}, #{queryParams,jdbcType=VARCHAR}, #{pathParams,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gtmdmock.admin.model.entity.Request">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into request
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      <if test="requestId != null">
+        request_id,
+      </if>
+      <if test="expectationsId != null">
+        expectations_id,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="method != null">
+        method,
+      </if>
+      <if test="body != null">
+        body,
+      </if>
+      <if test="issecure != null">
+        isSecure,
+      </if>
+      <if test="iskeepalive != null">
+        isKeepAlive,
+      </if>
+      <if test="headers != null">
+        headers,
+      </if>
+      <if test="cookies != null">
+        cookies,
+      </if>
+      <if test="queryParams != null">
+        query_params,
+      </if>
+      <if test="pathParams != null">
+        path_params,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=INTEGER},
+      <if test="requestId != null">
+        #{requestId,jdbcType=INTEGER},
+      </if>
+      <if test="expectationsId != null">
+        #{expectationsId,jdbcType=INTEGER},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null">
+        #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="issecure != null">
+        #{issecure,jdbcType=INTEGER},
+      </if>
+      <if test="iskeepalive != null">
+        #{iskeepalive,jdbcType=INTEGER},
+      </if>
+      <if test="headers != null">
+        #{headers,jdbcType=VARCHAR},
+      </if>
+      <if test="cookies != null">
+        #{cookies,jdbcType=VARCHAR},
+      </if>
+      <if test="queryParams != null">
+        #{queryParams,jdbcType=VARCHAR},
+      </if>
+      <if test="pathParams != null">
+        #{pathParams,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gtmdmock.admin.model.entity.RequestExample" resultType="java.lang.Long">
+    select count(*) from request
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update request
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.requestId != null">
+        request_id = #{record.requestId,jdbcType=INTEGER},
+      </if>
+      <if test="record.expectationsId != null">
+        expectations_id = #{record.expectationsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.path != null">
+        path = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.method != null">
+        method = #{record.method,jdbcType=VARCHAR},
+      </if>
+      <if test="record.body != null">
+        body = #{record.body,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issecure != null">
+        isSecure = #{record.issecure,jdbcType=INTEGER},
+      </if>
+      <if test="record.iskeepalive != null">
+        isKeepAlive = #{record.iskeepalive,jdbcType=INTEGER},
+      </if>
+      <if test="record.headers != null">
+        headers = #{record.headers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cookies != null">
+        cookies = #{record.cookies,jdbcType=VARCHAR},
+      </if>
+      <if test="record.queryParams != null">
+        query_params = #{record.queryParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pathParams != null">
+        path_params = #{record.pathParams,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update request
+    set id = #{record.id,jdbcType=INTEGER},
+      request_id = #{record.requestId,jdbcType=INTEGER},
+      expectations_id = #{record.expectationsId,jdbcType=INTEGER},
+      path = #{record.path,jdbcType=VARCHAR},
+      method = #{record.method,jdbcType=VARCHAR},
+      body = #{record.body,jdbcType=VARCHAR},
+      isSecure = #{record.issecure,jdbcType=INTEGER},
+      isKeepAlive = #{record.iskeepalive,jdbcType=INTEGER},
+      headers = #{record.headers,jdbcType=VARCHAR},
+      cookies = #{record.cookies,jdbcType=VARCHAR},
+      query_params = #{record.queryParams,jdbcType=VARCHAR},
+      path_params = #{record.pathParams,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gtmdmock.admin.model.entity.Request">
+    update request
+    <set>
+      <if test="requestId != null">
+        request_id = #{requestId,jdbcType=INTEGER},
+      </if>
+      <if test="expectationsId != null">
+        expectations_id = #{expectationsId,jdbcType=INTEGER},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        method = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null">
+        body = #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="issecure != null">
+        isSecure = #{issecure,jdbcType=INTEGER},
+      </if>
+      <if test="iskeepalive != null">
+        isKeepAlive = #{iskeepalive,jdbcType=INTEGER},
+      </if>
+      <if test="headers != null">
+        headers = #{headers,jdbcType=VARCHAR},
+      </if>
+      <if test="cookies != null">
+        cookies = #{cookies,jdbcType=VARCHAR},
+      </if>
+      <if test="queryParams != null">
+        query_params = #{queryParams,jdbcType=VARCHAR},
+      </if>
+      <if test="pathParams != null">
+        path_params = #{pathParams,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gtmdmock.admin.model.entity.Request">
+    update request
+    set request_id = #{requestId,jdbcType=INTEGER},
+      expectations_id = #{expectationsId,jdbcType=INTEGER},
+      path = #{path,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR},
+      body = #{body,jdbcType=VARCHAR},
+      isSecure = #{issecure,jdbcType=INTEGER},
+      isKeepAlive = #{iskeepalive,jdbcType=INTEGER},
+      headers = #{headers,jdbcType=VARCHAR},
+      cookies = #{cookies,jdbcType=VARCHAR},
+      query_params = #{queryParams,jdbcType=VARCHAR},
+      path_params = #{pathParams,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public class ExpectationAction {
 
-    //改变期望
+    //改变期望,改变期望，用这个类重新生成一个期望，然后client upsert一下
 
-    //删除期望
+    //删除期望，直接让client clear一下
 
     public Expectation genExpectation(HttpRequest request, HttpResponse response, HttpForward forward, HttpOverrideForwardedRequest overrideForwarded, HttpError error){
         Expectation expectation = new Expectation(request);

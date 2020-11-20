@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.Optional;
 
 public class RequestMatcher {
-    private String requestId;
-    private String expectationId;
+    private Integer requestId;
+    private Integer expectationId;
     private String matcherType;
     private String verifyType;
     private String path;
@@ -20,19 +20,19 @@ public class RequestMatcher {
     private Map<String,String> queryParams;
     private Map<String,String> pathParams;
 
-    public String getRequestId() {
+    public Integer getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(String requestId) {
+    public void setRequestId(Integer requestId) {
         this.requestId = requestId;
     }
 
-    public String getExpectationId() {
+    public Integer getExpectationId() {
         return expectationId;
     }
 
-    public void setExpectationId(String expectationId) {
+    public void setExpectationId(Integer expectationId) {
         this.expectationId = expectationId;
     }
 
