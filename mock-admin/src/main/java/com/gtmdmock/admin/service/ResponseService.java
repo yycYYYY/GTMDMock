@@ -1,15 +1,16 @@
 package com.gtmdmock.admin.service;
 
 import com.gtmdmock.admin.model.entity.Response;
+import com.gtmdmock.core.response.ResponseTemplate;
 import org.mockserver.model.HttpResponse;
 
 import java.util.List;
 
 public interface ResponseService {
 
-    List<Response> getResponsesByRequestId(Integer requestId);
+    Response getResponsesByRequestId(Integer requestId);
 
-    HttpResponse getResponseOfCore(Response response);
+    ResponseTemplate getResponseOfCore(Response response);
 
-    List<HttpResponse> getResponsesOfCore(List<Response> responses);
+    List<ResponseTemplate> getResponsesOfCore(List<Response> responses);
 }

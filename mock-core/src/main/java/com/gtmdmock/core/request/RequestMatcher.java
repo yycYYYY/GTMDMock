@@ -8,7 +8,7 @@ import java.util.Optional;
 public class RequestMatcher {
     private Integer requestId;
     private Integer expectationId;
-    private String matcherType;
+    private String matcherType;//response、error、forward、overrideForward
     private String verifyType;
     private String path;
     private String method;

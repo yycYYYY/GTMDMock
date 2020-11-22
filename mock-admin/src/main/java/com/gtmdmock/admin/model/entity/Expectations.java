@@ -5,6 +5,9 @@ public class Expectations {
 
     private Integer projectId;
 
+    //@TODO 需要表内新增这个字段
+    private Integer expectationsId;
+
     private String expectationsName;
 
     public Integer getId() {
@@ -17,6 +20,14 @@ public class Expectations {
 
     public Integer getProjectId() {
         return projectId;
+    }
+
+    public Integer getExpectationsId() {
+        return expectationsId;
+    }
+
+    public void setExpectationsId(Integer expectationsId) {
+        this.expectationsId = expectationsId;
     }
 
     public void setProjectId(Integer projectId) {

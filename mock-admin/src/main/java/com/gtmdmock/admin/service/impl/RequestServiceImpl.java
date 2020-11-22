@@ -35,20 +35,21 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<Request> getRequestByExpectationId(Integer expectationId) {
+    public List<Request> getRequestByExpectationsId(Integer expectationsId) {
         RequestExample example = new RequestExample();
-        example.createCriteria().andExpectationsIdEqualTo(expectationId);
+        example.createCriteria().andExpectationsIdEqualTo(expectationsId);
         return mapper.selectByExample(example);
     }
 
     @Override
-    public HttpRequest getRequestOfCore(Request request) {
+    public RequestMatcher getRequestOfCore(Request request) {
         RequestMatcher requestMatcher = new RequestMatcher();
         Optional.ofNullable(request.getPath()).ifPresent(requestMatcher::setPath);
         Optional.ofNullable(request.getBody()).ifPresent(requestMatcher::setBody);
         Optional.ofNullable(request.getExpectationsId()).ifPresent(requestMatcher::setExpectationId);
         Optional.ofNullable(request.getMethod()).ifPresent(requestMatcher::setMethod);
         Optional.ofNullable(request.getRequestId()).ifPresent(requestMatcher::setRequestId);
+        Optional.ofNullable(request.getMatcherType()).ifPresent(requestMatcher::setMatcherType);
 
         if (request.getHeaders() != null && !request.getHeaders().equals("")){
             requestMatcher.setHeaders(JsonUtils.StringToMap(request.getHeaders()));
@@ -74,12 +75,12 @@ public class RequestServiceImpl implements RequestService {
             requestMatcher.setSecure(request.getIsecure() == 1);
         }
 
-        return requestMatcher.buildRequest();
+        return requestMatcher;
     }
 
     @Override
-    public List<HttpRequest> getRequestsOfCore(List<Request> requests) {
-        List<HttpRequest> httpRequests = new ArrayList<>();
+    public List<RequestMatcher> getRequestsOfCore(List<Request> requests) {
+        List<RequestMatcher> httpRequests = new ArrayList<>();
         for (Request request: requests){
             httpRequests.add(getRequestOfCore(request));
         }

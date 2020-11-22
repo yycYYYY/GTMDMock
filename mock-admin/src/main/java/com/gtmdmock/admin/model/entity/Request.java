@@ -7,6 +7,8 @@ public class Request {
 
     private Integer expectationsId;
 
+    private String matcherType;
+
     private String path;
 
     private String method;
@@ -47,6 +49,18 @@ public class Request {
 
     public void setExpectationsId(Integer expectationsId) {
         this.expectationsId = expectationsId;
+    }
+
+    public String getMatcherType() {
+        return matcherType;
+    }
+
+    public void setMatcherType(String matcherType) {
+        this.matcherType = matcherType;
+    }
+
+    public Integer getIssecure() {
+        return issecure;
     }
 
     public String getPath() {

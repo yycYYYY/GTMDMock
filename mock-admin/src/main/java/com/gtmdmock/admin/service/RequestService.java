@@ -1,9 +1,7 @@
 package com.gtmdmock.admin.service;
 
 import com.gtmdmock.admin.model.entity.Request;
-import com.gtmdmock.admin.model.entity.Response;
-import org.mockserver.model.HttpRequest;
-import org.mockserver.model.HttpResponse;
+import com.gtmdmock.core.request.RequestMatcher;
 
 import java.util.List;
 
@@ -13,9 +11,9 @@ public interface RequestService {
 
     Request getRequestById(Integer id);
 
-    List<Request> getRequestByExpectationId(Integer expectationId);
+    List<Request> getRequestByExpectationsId(Integer expectationsId);
 
-    HttpRequest getRequestOfCore(Request request);
+    RequestMatcher getRequestOfCore(Request request);
 
-    List<HttpRequest> getRequestsOfCore(List<Request> requests);
+    List<RequestMatcher> getRequestsOfCore(List<Request> requests);
 }

@@ -24,15 +24,15 @@ public class ResponseServiceImpl implements ResponseService {
     ResponseMapper mapper;
 
     @Override
-    public List<Response> getResponsesByRequestId(Integer requestId) {
+    public Response getResponsesByRequestId(Integer requestId) {
 
         ResponseExample example = new ResponseExample();
         example.createCriteria().andRequestIdEqualTo(requestId);
-        return mapper.selectByExample(example);
+        return mapper.selectByExample(example).get(0);
     }
 
     @Override
-    public HttpResponse getResponseOfCore(Response response) {
+    public ResponseTemplate getResponseOfCore(Response response) {
         ResponseTemplate template = new ResponseTemplate();
         Optional.ofNullable(response.getStatusCode()).ifPresent(template::setStatusCode);
         Optional.ofNullable(response.getBody()).ifPresent(template::setBody);
@@ -51,18 +51,18 @@ public class ResponseServiceImpl implements ResponseService {
             template.setCookies(JsonUtils.StringToMap(response.getCookies()));
         }
 
-        return template.buildResponse();
+        return template;
     }
 
     @Override
-    public List<HttpResponse> getResponsesOfCore(List<Response> responses) {
-        List<HttpResponse> httpResponses = new ArrayList<>();
+    public List<ResponseTemplate> getResponsesOfCore(List<Response> responses) {
+        List<ResponseTemplate> responseTemplates = new ArrayList<>();
 
         for (Response response: responses){
-            httpResponses.add(getResponseOfCore(response));
+            responseTemplates.add(getResponseOfCore(response));
         }
 
-        return httpResponses;
+        return responseTemplates;
     }
 
 }
