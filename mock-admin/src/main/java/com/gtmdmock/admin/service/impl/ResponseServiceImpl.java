@@ -39,15 +39,15 @@ public class ResponseServiceImpl implements ResponseService {
         Optional.ofNullable(response.getDelay()).ifPresent(template::setDelay);
 
         //注意，此处的处理可能有问题，MediaType.parse的源码太长了，没有完全阅读，但大致应该是这意思
-        if (response.getContentType() != null || !response.getContentType().equals("")){
+        if (Optional.ofNullable(response.getContentType()).isPresent() && !response.getContentType().equals("")){
             template.setContentType(MediaType.parse(response.getContentType()));
         }
 
-        if (response.getHeaders() != null && !response.getHeaders().equals("")){
+        if (Optional.ofNullable(response.getHeaders()).isPresent() && !response.getHeaders().equals("")){
             template.setHeaders(JsonUtils.StringToMap(response.getHeaders()));
         }
 
-        if (response.getCookies() != null && !response.getCookies().equals("")){
+        if (Optional.ofNullable(response.getCookies()).isPresent() && !response.getCookies().equals("")){
             template.setCookies(JsonUtils.StringToMap(response.getCookies()));
         }
 

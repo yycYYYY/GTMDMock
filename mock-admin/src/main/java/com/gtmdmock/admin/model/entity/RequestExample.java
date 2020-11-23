@@ -284,6 +284,76 @@ public class RequestExample {
             return (Criteria) this;
         }
 
+        public Criteria andMatcherTypeIsNull() {
+            addCriterion("matcher_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMatcherTypeIsNotNull() {
+            addCriterion("matcher_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMatcherTypeEqualTo(String value) {
+            addCriterion("matcher_type =", value, "matcherType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMatcherTypeNotEqualTo(String value) {
+            addCriterion("matcher_type <>", value, "matcherType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMatcherTypeGreaterThan(String value) {
+            addCriterion("matcher_type >", value, "matcherType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMatcherTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("matcher_type >=", value, "matcherType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMatcherTypeLessThan(String value) {
+            addCriterion("matcher_type <", value, "matcherType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMatcherTypeLessThanOrEqualTo(String value) {
+            addCriterion("matcher_type <=", value, "matcherType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMatcherTypeLike(String value) {
+            addCriterion("matcher_type like", value, "matcherType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMatcherTypeNotLike(String value) {
+            addCriterion("matcher_type not like", value, "matcherType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMatcherTypeIn(List<String> values) {
+            addCriterion("matcher_type in", values, "matcherType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMatcherTypeNotIn(List<String> values) {
+            addCriterion("matcher_type not in", values, "matcherType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMatcherTypeBetween(String value1, String value2) {
+            addCriterion("matcher_type between", value1, value2, "matcherType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMatcherTypeNotBetween(String value1, String value2) {
+            addCriterion("matcher_type not between", value1, value2, "matcherType");
+            return (Criteria) this;
+        }
+
         public Criteria andPathIsNull() {
             addCriterion("path is null");
             return (Criteria) this;
@@ -554,63 +624,63 @@ public class RequestExample {
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveIsNull() {
-            addCriterion("isKeepAlive is null");
+        public Criteria andIsKeepAliveIsNull() {
+            addCriterion("is_keep_alive is null");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveIsNotNull() {
-            addCriterion("isKeepAlive is not null");
+        public Criteria andIsKeepAliveIsNotNull() {
+            addCriterion("is_keep_alive is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveEqualTo(Integer value) {
-            addCriterion("isKeepAlive =", value, "iskeepalive");
+        public Criteria andIsKeepAliveEqualTo(Integer value) {
+            addCriterion("is_keep_alive =", value, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveNotEqualTo(Integer value) {
-            addCriterion("isKeepAlive <>", value, "iskeepalive");
+        public Criteria andIsKeepAliveNotEqualTo(Integer value) {
+            addCriterion("is_keep_alive <>", value, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveGreaterThan(Integer value) {
-            addCriterion("isKeepAlive >", value, "iskeepalive");
+        public Criteria andIsKeepAliveGreaterThan(Integer value) {
+            addCriterion("is_keep_alive >", value, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveGreaterThanOrEqualTo(Integer value) {
-            addCriterion("isKeepAlive >=", value, "iskeepalive");
+        public Criteria andIsKeepAliveGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_keep_alive >=", value, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveLessThan(Integer value) {
-            addCriterion("isKeepAlive <", value, "iskeepalive");
+        public Criteria andIsKeepAliveLessThan(Integer value) {
+            addCriterion("is_keep_alive <", value, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveLessThanOrEqualTo(Integer value) {
-            addCriterion("isKeepAlive <=", value, "iskeepalive");
+        public Criteria andIsKeepAliveLessThanOrEqualTo(Integer value) {
+            addCriterion("is_keep_alive <=", value, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveIn(List<Integer> values) {
-            addCriterion("isKeepAlive in", values, "iskeepalive");
+        public Criteria andIsKeepAliveIn(List<Integer> values) {
+            addCriterion("is_keep_alive in", values, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveNotIn(List<Integer> values) {
-            addCriterion("isKeepAlive not in", values, "iskeepalive");
+        public Criteria andIsKeepAliveNotIn(List<Integer> values) {
+            addCriterion("is_keep_alive not in", values, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveBetween(Integer value1, Integer value2) {
-            addCriterion("isKeepAlive between", value1, value2, "iskeepalive");
+        public Criteria andIsKeepAliveBetween(Integer value1, Integer value2) {
+            addCriterion("is_keep_alive between", value1, value2, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveNotBetween(Integer value1, Integer value2) {
-            addCriterion("isKeepAlive not between", value1, value2, "iskeepalive");
+        public Criteria andIsKeepAliveNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_keep_alive not between", value1, value2, "isKeepAlive");
             return (Criteria) this;
         }
 

@@ -7,7 +7,6 @@ import com.gtmdmock.admin.service.RequestService;
 import com.gtmdmock.admin.utils.JsonUtils;
 import com.gtmdmock.core.request.RequestMatcher;
 
-import org.mockserver.model.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,13 +66,13 @@ public class RequestServiceImpl implements RequestService {
             requestMatcher.setQueryParams(JsonUtils.StringToMap(request.getQueryParams()));
         }
 
-        if (request.getIskeepalive() != null){
-            requestMatcher.setKeepAlive(request.getIskeepalive() == 1);
+        if (request.getIsKeepAlive() != null){
+            requestMatcher.setKeepAlive(request.getIsKeepAlive() == 1);
         }
 
-        if (request.getIsecure() != null){
-            requestMatcher.setSecure(request.getIsecure() == 1);
-        }
+//        if (request.getIsecure() != null){
+//            requestMatcher.setSecure(request.getIsecure() == 1);
+//        }
 
         return requestMatcher;
     }

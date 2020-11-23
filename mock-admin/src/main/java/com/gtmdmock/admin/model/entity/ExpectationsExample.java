@@ -224,6 +224,66 @@ public class ExpectationsExample {
             return (Criteria) this;
         }
 
+        public Criteria andExpectationsIdIsNull() {
+            addCriterion("expectations_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectationsIdIsNotNull() {
+            addCriterion("expectations_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectationsIdEqualTo(Integer value) {
+            addCriterion("expectations_id =", value, "expectationsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectationsIdNotEqualTo(Integer value) {
+            addCriterion("expectations_id <>", value, "expectationsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectationsIdGreaterThan(Integer value) {
+            addCriterion("expectations_id >", value, "expectationsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectationsIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("expectations_id >=", value, "expectationsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectationsIdLessThan(Integer value) {
+            addCriterion("expectations_id <", value, "expectationsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectationsIdLessThanOrEqualTo(Integer value) {
+            addCriterion("expectations_id <=", value, "expectationsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectationsIdIn(List<Integer> values) {
+            addCriterion("expectations_id in", values, "expectationsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectationsIdNotIn(List<Integer> values) {
+            addCriterion("expectations_id not in", values, "expectationsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectationsIdBetween(Integer value1, Integer value2) {
+            addCriterion("expectations_id between", value1, value2, "expectationsId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpectationsIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("expectations_id not between", value1, value2, "expectationsId");
+            return (Criteria) this;
+        }
+
         public Criteria andExpectationsNameIsNull() {
             addCriterion("expectations_name is null");
             return (Criteria) this;

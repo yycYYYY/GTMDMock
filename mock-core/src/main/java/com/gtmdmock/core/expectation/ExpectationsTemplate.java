@@ -38,7 +38,11 @@ public class ExpectationsTemplate {
         this.server = server;
     }
 
+    //这种解决bug的方式，是强行打补丁，有问题，优化的时候，需要看下，怎么把问题，在对象实例化阶段解决掉
     public List<Expectation> getExpectationList() {
+        if (this.expectationList == null){
+            this.setExpectationList(new ArrayList<>());
+        }
         return expectationList;
     }
 
@@ -50,6 +54,7 @@ public class ExpectationsTemplate {
         return isOpen;
     }
 
+    //这里的命名也有问题，这个方法，有些问题
     public void setOpen() {
         isOpen = true;
         this.initClient();

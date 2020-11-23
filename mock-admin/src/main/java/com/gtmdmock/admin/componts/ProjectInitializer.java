@@ -53,7 +53,7 @@ public class ProjectInitializer implements ApplicationRunner {
                 expectationsTemplate.getExpectationList().add(expectation);
             }
 
-            expectationsTemplate.initClient();
+            expectationsTemplate.setOpen();
         }
 
 

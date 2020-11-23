@@ -17,7 +17,7 @@ public class Request {
 
     private Integer issecure;
 
-    private Integer iskeepalive;
+    private Integer isKeepAlive;
 
     private String headers;
 
@@ -56,11 +56,7 @@ public class Request {
     }
 
     public void setMatcherType(String matcherType) {
-        this.matcherType = matcherType;
-    }
-
-    public Integer getIssecure() {
-        return issecure;
+        this.matcherType = matcherType == null ? null : matcherType.trim();
     }
 
     public String getPath() {
@@ -87,7 +83,7 @@ public class Request {
         this.body = body == null ? null : body.trim();
     }
 
-    public Integer getIsecure() {
+    public Integer getIssecure() {
         return issecure;
     }
 
@@ -95,12 +91,12 @@ public class Request {
         this.issecure = issecure;
     }
 
-    public Integer getIskeepalive() {
-        return iskeepalive;
+    public Integer getIsKeepAlive() {
+        return isKeepAlive;
     }
 
-    public void setIskeepalive(Integer iskeepalive) {
-        this.iskeepalive = iskeepalive;
+    public void setIsKeepAlive(Integer isKeepAlive) {
+        this.isKeepAlive = isKeepAlive;
     }
 
     public String getHeaders() {

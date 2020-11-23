@@ -5,11 +5,12 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="request_id" jdbcType="INTEGER" property="requestId" />
     <result column="expectations_id" jdbcType="INTEGER" property="expectationsId" />
+    <result column="matcher_type" jdbcType="VARCHAR" property="matcherType" />
     <result column="path" jdbcType="VARCHAR" property="path" />
     <result column="method" jdbcType="VARCHAR" property="method" />
     <result column="body" jdbcType="VARCHAR" property="body" />
     <result column="isSecure" jdbcType="INTEGER" property="issecure" />
-    <result column="isKeepAlive" jdbcType="INTEGER" property="iskeepalive" />
+    <result column="is_keep_alive" jdbcType="INTEGER" property="isKeepAlive" />
     <result column="headers" jdbcType="VARCHAR" property="headers" />
     <result column="cookies" jdbcType="VARCHAR" property="cookies" />
     <result column="query_params" jdbcType="VARCHAR" property="queryParams" />
@@ -74,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, request_id, expectations_id, path, method, body, isSecure, isKeepAlive, headers, 
-    cookies, query_params, path_params
+    id, request_id, expectations_id, matcher_type, path, method, body, isSecure, is_keep_alive, 
+    headers, cookies, query_params, path_params
   </sql>
   <select id="selectByExample" parameterType="com.gtmdmock.admin.model.entity.RequestExample" resultMap="BaseResultMap">
     select
@@ -112,15 +113,15 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into request (id, request_id, expectations_id, 
-      path, method, body, 
-      isSecure, isKeepAlive, headers, 
-      cookies, query_params, path_params
-      )
+      matcher_type, path, method, 
+      body, isSecure, is_keep_alive, 
+      headers, cookies, query_params, 
+      path_params)
     values (#{id,jdbcType=INTEGER}, #{requestId,jdbcType=INTEGER}, #{expectationsId,jdbcType=INTEGER}, 
-      #{path,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, #{body,jdbcType=VARCHAR}, 
-      #{issecure,jdbcType=INTEGER}, #{iskeepalive,jdbcType=INTEGER}, #{headers,jdbcType=VARCHAR}, 
-      #{cookies,jdbcType=VARCHAR}, #{queryParams,jdbcType=VARCHAR}, #{pathParams,jdbcType=VARCHAR}
-      )
+      #{matcherType,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, 
+      #{body,jdbcType=VARCHAR}, #{issecure,jdbcType=INTEGER}, #{isKeepAlive,jdbcType=INTEGER}, 
+      #{headers,jdbcType=VARCHAR}, #{cookies,jdbcType=VARCHAR}, #{queryParams,jdbcType=VARCHAR}, 
+      #{pathParams,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gtmdmock.admin.model.entity.Request">
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
@@ -135,6 +136,9 @@
       <if test="expectationsId != null">
         expectations_id,
       </if>
+      <if test="matcherType != null">
+        matcher_type,
+      </if>
       <if test="path != null">
         path,
       </if>
@@ -147,8 +151,8 @@
       <if test="issecure != null">
         isSecure,
       </if>
-      <if test="iskeepalive != null">
-        isKeepAlive,
+      <if test="isKeepAlive != null">
+        is_keep_alive,
       </if>
       <if test="headers != null">
         headers,
@@ -171,6 +175,9 @@
       <if test="expectationsId != null">
         #{expectationsId,jdbcType=INTEGER},
       </if>
+      <if test="matcherType != null">
+        #{matcherType,jdbcType=VARCHAR},
+      </if>
       <if test="path != null">
         #{path,jdbcType=VARCHAR},
       </if>
@@ -183,8 +190,8 @@
       <if test="issecure != null">
         #{issecure,jdbcType=INTEGER},
       </if>
-      <if test="iskeepalive != null">
-        #{iskeepalive,jdbcType=INTEGER},
+      <if test="isKeepAlive != null">
+        #{isKeepAlive,jdbcType=INTEGER},
       </if>
       <if test="headers != null">
         #{headers,jdbcType=VARCHAR},
@@ -218,6 +225,9 @@
       <if test="record.expectationsId != null">
         expectations_id = #{record.expectationsId,jdbcType=INTEGER},
       </if>
+      <if test="record.matcherType != null">
+        matcher_type = #{record.matcherType,jdbcType=VARCHAR},
+      </if>
       <if test="record.path != null">
         path = #{record.path,jdbcType=VARCHAR},
       </if>
@@ -230,8 +240,8 @@
       <if test="record.issecure != null">
         isSecure = #{record.issecure,jdbcType=INTEGER},
       </if>
-      <if test="record.iskeepalive != null">
-        isKeepAlive = #{record.iskeepalive,jdbcType=INTEGER},
+      <if test="record.isKeepAlive != null">
+        is_keep_alive = #{record.isKeepAlive,jdbcType=INTEGER},
       </if>
       <if test="record.headers != null">
         headers = #{record.headers,jdbcType=VARCHAR},
@@ -255,11 +265,12 @@
     set id = #{record.id,jdbcType=INTEGER},
       request_id = #{record.requestId,jdbcType=INTEGER},
       expectations_id = #{record.expectationsId,jdbcType=INTEGER},
+      matcher_type = #{record.matcherType,jdbcType=VARCHAR},
       path = #{record.path,jdbcType=VARCHAR},
       method = #{record.method,jdbcType=VARCHAR},
       body = #{record.body,jdbcType=VARCHAR},
       isSecure = #{record.issecure,jdbcType=INTEGER},
-      isKeepAlive = #{record.iskeepalive,jdbcType=INTEGER},
+      is_keep_alive = #{record.isKeepAlive,jdbcType=INTEGER},
       headers = #{record.headers,jdbcType=VARCHAR},
       cookies = #{record.cookies,jdbcType=VARCHAR},
       query_params = #{record.queryParams,jdbcType=VARCHAR},
@@ -277,6 +288,9 @@
       <if test="expectationsId != null">
         expectations_id = #{expectationsId,jdbcType=INTEGER},
       </if>
+      <if test="matcherType != null">
+        matcher_type = #{matcherType,jdbcType=VARCHAR},
+      </if>
       <if test="path != null">
         path = #{path,jdbcType=VARCHAR},
       </if>
@@ -289,8 +303,8 @@
       <if test="issecure != null">
         isSecure = #{issecure,jdbcType=INTEGER},
       </if>
-      <if test="iskeepalive != null">
-        isKeepAlive = #{iskeepalive,jdbcType=INTEGER},
+      <if test="isKeepAlive != null">
+        is_keep_alive = #{isKeepAlive,jdbcType=INTEGER},
       </if>
       <if test="headers != null">
         headers = #{headers,jdbcType=VARCHAR},
@@ -311,11 +325,12 @@
     update request
     set request_id = #{requestId,jdbcType=INTEGER},
       expectations_id = #{expectationsId,jdbcType=INTEGER},
+      matcher_type = #{matcherType,jdbcType=VARCHAR},
       path = #{path,jdbcType=VARCHAR},
       method = #{method,jdbcType=VARCHAR},
       body = #{body,jdbcType=VARCHAR},
       isSecure = #{issecure,jdbcType=INTEGER},
-      isKeepAlive = #{iskeepalive,jdbcType=INTEGER},
+      is_keep_alive = #{isKeepAlive,jdbcType=INTEGER},
       headers = #{headers,jdbcType=VARCHAR},
       cookies = #{cookies,jdbcType=VARCHAR},
       query_params = #{queryParams,jdbcType=VARCHAR},

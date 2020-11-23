@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.gtmdmock.admin.model.entity.Expectations">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="expectations_id" jdbcType="INTEGER" property="expectationsId" />
     <result column="expectations_name" jdbcType="VARCHAR" property="expectationsName" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, project_id, expectations_name
+    id, project_id, expectations_id, expectations_name
   </sql>
   <select id="selectByExample" parameterType="com.gtmdmock.admin.model.entity.ExpectationsExample" resultMap="BaseResultMap">
     select
@@ -101,10 +102,10 @@
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into expectations (id, project_id, expectations_name
-      )
-    values (#{id,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{expectationsName,jdbcType=VARCHAR}
-      )
+    insert into expectations (id, project_id, expectations_id, 
+      expectations_name)
+    values (#{id,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{expectationsId,jdbcType=INTEGER}, 
+      #{expectationsName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gtmdmock.admin.model.entity.Expectations">
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
@@ -116,6 +117,9 @@
       <if test="projectId != null">
         project_id,
       </if>
+      <if test="expectationsId != null">
+        expectations_id,
+      </if>
       <if test="expectationsName != null">
         expectations_name,
       </if>
@@ -124,6 +128,9 @@
       #{id,jdbcType=INTEGER},
       <if test="projectId != null">
         #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="expectationsId != null">
+        #{expectationsId,jdbcType=INTEGER},
       </if>
       <if test="expectationsName != null">
         #{expectationsName,jdbcType=VARCHAR},
@@ -145,6 +152,9 @@
       <if test="record.projectId != null">
         project_id = #{record.projectId,jdbcType=INTEGER},
       </if>
+      <if test="record.expectationsId != null">
+        expectations_id = #{record.expectationsId,jdbcType=INTEGER},
+      </if>
       <if test="record.expectationsName != null">
         expectations_name = #{record.expectationsName,jdbcType=VARCHAR},
       </if>
@@ -157,6 +167,7 @@
     update expectations
     set id = #{record.id,jdbcType=INTEGER},
       project_id = #{record.projectId,jdbcType=INTEGER},
+      expectations_id = #{record.expectationsId,jdbcType=INTEGER},
       expectations_name = #{record.expectationsName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -168,6 +179,9 @@
       <if test="projectId != null">
         project_id = #{projectId,jdbcType=INTEGER},
       </if>
+      <if test="expectationsId != null">
+        expectations_id = #{expectationsId,jdbcType=INTEGER},
+      </if>
       <if test="expectationsName != null">
         expectations_name = #{expectationsName,jdbcType=VARCHAR},
       </if>
@@ -177,6 +191,7 @@
   <update id="updateByPrimaryKey" parameterType="com.gtmdmock.admin.model.entity.Expectations">
     update expectations
     set project_id = #{projectId,jdbcType=INTEGER},
+      expectations_id = #{expectationsId,jdbcType=INTEGER},
       expectations_name = #{expectationsName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
