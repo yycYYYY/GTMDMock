@@ -30,7 +30,7 @@ public class ProjectInitializer implements ApplicationRunner {
     @Autowired
     ExpectationService expectationService;
 
-    private Bootstrap bootstrap = Bootstrap.getInstance();
+    private final Bootstrap bootstrap = Bootstrap.getInstance();
 
 
     private void initProject(){

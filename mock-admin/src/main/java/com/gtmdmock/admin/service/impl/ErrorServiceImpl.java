@@ -10,6 +10,26 @@ import java.util.List;
 public class ErrorServiceImpl implements ErrorService {
 
     @Override
+    public void insertError() {
+
+    }
+
+    @Override
+    public void updateError() {
+
+    }
+
+    @Override
+    public void deleteErrorById() {
+
+    }
+
+    @Override
+    public void deleteErrorByRequestId() {
+
+    }
+
+    @Override
     public ErrorTemplate getErrorByRequestId(Integer requestId) {
         return null;
     }

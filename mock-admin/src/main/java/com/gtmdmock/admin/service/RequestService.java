@@ -7,6 +7,18 @@ import java.util.List;
 
 public interface RequestService {
 
+    void insertRequest(Request request);
+
+    void updateRequest(Request request);
+
+    void deleteRequest(Integer id);
+
+    void insertRequestToCore(Request request);
+
+    void updateRequestOfCore(Request request);
+
+    void  deleteRequestOfCore(Integer id);
+
     List<Request> getAllRequests();
 
     Request getRequestById(Integer id);

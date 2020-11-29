@@ -18,28 +18,43 @@ import java.util.Optional;
 public class ExpectationsServiceImpl implements ExpectationsService {
 
     @Autowired
-    private ExpectationsMapper mapper;
+    private ExpectationsMapper expectationsMapper;
 
     @Override
-    public Expectations getProjectById() {
-        return null;
+    public void insertExpectations(Expectations expectations) {
+        expectationsMapper.insert(expectations);
     }
 
     @Override
     public void updateExpectations(Expectations expectations) {
-
+        expectationsMapper.updateByPrimaryKey(expectations);
     }
 
     @Override
     public void deleteExpectationsById(Integer id) {
+        expectationsMapper.deleteByPrimaryKey(id);
+    }
 
+    @Override
+    public void insertExpectationsToCore(Expectations expectations) {
+
+    }
+
+    @Override
+    public void deleteExpectationsOfCoreById(Integer id) {
+
+    }
+
+    @Override
+    public Expectations getProjectById(Integer id) {
+        return expectationsMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public List<Expectations> getAllExpectationsOfAdmin() {
         ExpectationsExample example = new ExpectationsExample();
         example.createCriteria().andIdIsNotNull();
-        return mapper.selectByExample(example);
+        return expectationsMapper.selectByExample(example);
     }
 
     @Override

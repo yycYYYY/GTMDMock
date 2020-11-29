@@ -21,14 +21,41 @@ import java.util.Optional;
 public class ResponseServiceImpl implements ResponseService {
 
     @Autowired
-    ResponseMapper mapper;
+    ResponseMapper responseMapper;
+
+    @Override
+    public void insertResponse(Response response) {
+        responseMapper.insert(response);
+    }
+
+    @Override
+    public void updateResponse(Response response) {
+        responseMapper.updateByPrimaryKey(response);
+    }
+
+    @Override
+    public void deleteResponseById(Integer id) {
+        responseMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void deleteResponseByRequestId(Integer requestId) {
+        ResponseExample example = new ResponseExample();
+        example.createCriteria().andRequestIdEqualTo(requestId);
+        responseMapper.deleteByExample(example);
+    }
+
+    @Override
+    public void deleteResponseOfCore(Integer requestId) {
+        //TODO:删除core中的response
+    }
 
     @Override
     public Response getResponsesByRequestId(Integer requestId) {
 
         ResponseExample example = new ResponseExample();
         example.createCriteria().andRequestIdEqualTo(requestId);
-        return mapper.selectByExample(example).get(0);
+        return responseMapper.selectByExample(example).get(0);
     }
 
     @Override

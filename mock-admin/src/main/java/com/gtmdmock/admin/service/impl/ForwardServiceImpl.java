@@ -4,6 +4,7 @@ import com.gtmdmock.admin.model.entity.Forward;
 import com.gtmdmock.admin.model.entity.ForwardExample;
 import com.gtmdmock.admin.model.mapper.ForwardMapper;
 import com.gtmdmock.admin.service.ForwardService;
+import com.gtmdmock.core.Bootstrap;
 import com.gtmdmock.core.forward.ForwardTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,45 @@ public class ForwardServiceImpl implements ForwardService {
 
     @Autowired
     ForwardMapper forwardMapper;
+
+    private final Bootstrap bootstrap = Bootstrap.getInstance();
+
+    @Override
+    public void insertForward(Forward forward) {
+        forwardMapper.insert(forward);
+    }
+
+    @Override
+    public void updateForward(Forward forward) {
+        forwardMapper.updateByPrimaryKey(forward);
+    }
+
+    @Override
+    public void deleteForwardById(Integer id) {
+        forwardMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void deleteForwardByRequestId(Integer requestId) {
+        ForwardExample example = new ForwardExample();
+        example.createCriteria().andRequestIdEqualTo(requestId);
+        forwardMapper.deleteByExample(example);
+    }
+
+    @Override
+    public void insertForwardToCore(Forward forward) {
+
+    }
+
+    @Override
+    public void updateForwardOfCore(Forward forward) {
+
+    }
+
+    @Override
+    public void deleteForwardOfCore(Integer requestId) {
+
+    }
 
     @Override
     public Forward getForwardByRequestId(Integer requestId) {

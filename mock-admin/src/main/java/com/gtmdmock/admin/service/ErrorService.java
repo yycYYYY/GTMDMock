@@ -8,6 +8,14 @@ import java.util.List;
 
 public interface ErrorService {
 
+    void insertError();
+
+    void updateError();
+
+    void deleteErrorById();
+
+    void deleteErrorByRequestId();
+
     ErrorTemplate getErrorByRequestId(Integer requestId);
 
     ErrorTemplate getErrorOfCore(ErrorTemplate error);

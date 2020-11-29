@@ -20,28 +20,37 @@ public class ProjectServiceImpl implements ProjectService {
     ProjectMapper mapper;
 
     @Override
-    public Project getProjectByName() {
-        return null;
+    public Project getProjectByName(String name) {
+        ProjectExample example = new ProjectExample();
+        example.createCriteria().andProjectNameEqualTo(name);
+        return mapper.selectByExample(example).get(0);
     }
 
     @Override
-    public Project getProjectById() {
-        return null;
+    public Project getProjectById(Integer id) {
+        return mapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void inertProject(Project project) {
+        mapper.insert(project);
     }
 
     @Override
     public void updateProject(Project project) {
-
+        mapper.updateByPrimaryKey(project);
     }
 
     @Override
     public void deleteProjectById(Integer id) {
-
+        mapper.deleteByPrimaryKey(id);
     }
 
     @Override
     public void deleteProjectByName(String projectName) {
-
+        ProjectExample example = new ProjectExample();
+        example.createCriteria().andProjectNameEqualTo(projectName);
+        mapper.deleteByExample(example);
     }
 
     @Override

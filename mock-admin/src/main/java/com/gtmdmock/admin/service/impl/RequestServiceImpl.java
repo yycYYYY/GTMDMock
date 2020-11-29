@@ -18,26 +18,56 @@ import java.util.Optional;
 public class RequestServiceImpl implements RequestService {
 
     @Autowired
-    RequestMapper mapper;
+    RequestMapper requestMapper;
+
+    @Override
+    public void insertRequest(Request request) {
+        requestMapper.insert(request);
+    }
+
+    @Override
+    public void updateRequest(Request request) {
+        requestMapper.updateByPrimaryKey(request);
+    }
+
+    @Override
+    public void deleteRequest(Integer id) {
+        requestMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void insertRequestToCore(Request request) {
+
+    }
+
+    @Override
+    public void updateRequestOfCore(Request request) {
+
+    }
+
+    @Override
+    public void deleteRequestOfCore(Integer id) {
+
+    }
 
     @Override
     public List<Request> getAllRequests() {
         RequestExample example = new RequestExample();
         example.createCriteria().andIdIsNotNull();
-        return mapper.selectByExample(example);
+        return requestMapper.selectByExample(example);
     }
 
     @Override
     public Request getRequestById(Integer id) {
 
-        return mapper.selectByPrimaryKey(id);
+        return requestMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public List<Request> getRequestByExpectationsId(Integer expectationsId) {
         RequestExample example = new RequestExample();
         example.createCriteria().andExpectationsIdEqualTo(expectationsId);
-        return mapper.selectByExample(example);
+        return requestMapper.selectByExample(example);
     }
 
     @Override

@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface ProjectService {
 
-    Project getProjectByName();
+    Project getProjectByName(String name);
 
-    Project getProjectById();
+    Project getProjectById(Integer id);
+
+    void inertProject(Project project);
 
     void updateProject(Project project);
 

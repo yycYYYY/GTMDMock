@@ -9,12 +9,17 @@ import java.util.List;
 
 public interface ExpectationsService {
 
+    void insertExpectations(Expectations expectations);
 
-    Expectations getProjectById();
 
     void updateExpectations(Expectations expectations);
 
     void deleteExpectationsById(Integer id);
+
+    void insertExpectationsToCore(Expectations expectations);
+
+    void deleteExpectationsOfCoreById(Integer id);
+    Expectations getProjectById(Integer id);
 
     List<Expectations> getAllExpectationsOfAdmin();
 

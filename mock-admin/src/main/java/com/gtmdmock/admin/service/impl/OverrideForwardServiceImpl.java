@@ -6,6 +6,7 @@ import com.gtmdmock.admin.model.mapper.OverrideForwardMapper;
 import com.gtmdmock.admin.service.OverrideForwardService;
 import com.gtmdmock.admin.utils.JsonUtils;
 import com.gtmdmock.core.forward.OverrideForwardTemplate;
+import javafx.print.PageOrientation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,48 @@ public class OverrideForwardServiceImpl implements OverrideForwardService {
 
     @Autowired
     OverrideForwardMapper overrideForwardMapper;
+
+    @Override
+    public void insertOverrideForward(OverrideForward overrideForward) {
+        overrideForwardMapper.insert(overrideForward);
+    }
+
+    @Override
+    public void updateOverrideForward(OverrideForward overrideForward) {
+        overrideForwardMapper.updateByPrimaryKey(overrideForward);
+    }
+
+    @Override
+    public void deleteOverrideForwardById(Integer id) {
+        overrideForwardMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void deleteOverrideForwardByRequestId(Integer requestID) {
+        OverrideForwardExample example = new OverrideForwardExample();
+        example.createCriteria().andRequestIdEqualTo(requestID);
+        overrideForwardMapper.deleteByExample(example);
+    }
+
+    @Override
+    public void insertOverrideForwardToCore(OverrideForward overrideForward) {
+
+    }
+
+    @Override
+    public void updateOverrideForwardOfCore(OverrideForward overrideForward) {
+
+    }
+
+    @Override
+    public void deleteOverrideForwardOfCoreById(Integer id) {
+
+    }
+
+    @Override
+    public void deleteOverrideForwardOfCoreByRequestId(Integer requestID) {
+
+    }
 
     @Override
     public OverrideForward getOverrideForwardByRequestId(Integer overrideForwardId) {

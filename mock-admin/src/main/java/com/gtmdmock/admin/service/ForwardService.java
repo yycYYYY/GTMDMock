@@ -7,6 +7,20 @@ import java.util.List;
 
 public interface ForwardService {
 
+    void insertForward(Forward forward);
+
+    void updateForward(Forward forward);
+
+    void deleteForwardById(Integer id);
+
+    void deleteForwardByRequestId(Integer requestId);
+
+    void insertForwardToCore(Forward forward);
+
+    void updateForwardOfCore(Forward forward);
+
+    void deleteForwardOfCore(Integer requestId);
+
     Forward getForwardByRequestId(Integer requestId);
 
     ForwardTemplate getForwardOfCore(Forward forward);
