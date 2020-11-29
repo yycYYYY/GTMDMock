@@ -7,17 +7,17 @@ import java.util.concurrent.TimeUnit;
 
 public class ForwardTemplate {
 
-    private String requestId;
+    private Integer requestId;
     private String host;
     private Integer port;
     private boolean isSecure;
     private Integer delay;
 
-    public String getRequestId() {
+    public Integer getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(String requestId) {
+    public void setRequestId(Integer requestId) {
         this.requestId = requestId;
     }
 

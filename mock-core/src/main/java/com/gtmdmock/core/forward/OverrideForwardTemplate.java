@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class OverrideForwardTemplate {
-    private String requestId;
+    private Integer requestId;
     private String host;
     private Integer port;
     private boolean isSecure;
@@ -23,11 +23,11 @@ public class OverrideForwardTemplate {
     private Map<String,String> pathParams;
     private boolean isKeepAlive;
 
-    public String getRequestId() {
+    public Integer getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(String requestId) {
+    public void setRequestId(Integer requestId) {
         this.requestId = requestId;
     }
 

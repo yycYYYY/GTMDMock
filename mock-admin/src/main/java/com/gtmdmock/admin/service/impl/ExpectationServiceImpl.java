@@ -6,6 +6,9 @@ import com.gtmdmock.admin.service.ForwardService;
 import com.gtmdmock.admin.service.OverrideForwardService;
 import com.gtmdmock.admin.service.ResponseService;
 import com.gtmdmock.core.expectation.ExpectationAction;
+import com.gtmdmock.core.forward.ForwardTemplate;
+import com.gtmdmock.core.forward.OverrideForwardTemplate;
+import com.gtmdmock.core.httperror.ErrorTemplate;
 import com.gtmdmock.core.request.RequestMatcher;
 import com.gtmdmock.core.response.ResponseTemplate;
 import org.mockserver.mock.Expectation;
@@ -37,15 +40,22 @@ public class ExpectationServiceImpl implements ExpectationService {
                         .getResponseOfCore(responseService
                                 .getResponsesByRequestId(requestMatcher.getRequestId()));
                 return action.genExpectation(requestMatcher.buildRequest(),responseTemplate.buildResponse());
-//TODO：这里需要补充完剩下三种类型
-            case "forward":
-                return null;
 
+            case "forward":
+                ForwardTemplate forwardTemplate = forwardService
+                        .getForwardOfCore(forwardService
+                                .getForwardByRequestId(requestMatcher.getRequestId()));
+                return action.genExpectation(requestMatcher.buildRequest(),forwardTemplate.buildForward());
+//          TODO:这里待编写，因为缺少error实体类，到公司写完sql，自动生成
             case "error":
-                return null;
+                ErrorTemplate errorTemplate = new ErrorTemplate();
+                return action.genExpectation(requestMatcher.buildRequest(),errorTemplate.buildError());
 
             case "overrideForward":
-                return null;
+                OverrideForwardTemplate overrideForwardTemplate = overrideForwardService
+                        .getOverrideForwardOfCore(overrideForwardService
+                        .getOverrideForwardByRequestId(requestMatcher.getRequestId()));
+                return action.genExpectation(requestMatcher.buildRequest(),overrideForwardTemplate.buildOverrideForward());
         }
 
         return null;
