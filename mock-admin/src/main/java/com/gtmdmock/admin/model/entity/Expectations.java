@@ -5,8 +5,6 @@ public class Expectations {
 
     private Integer projectId;
 
-    private Integer expectationsId;
-
     private String expectationsName;
 
     public Integer getId() {
@@ -23,14 +21,6 @@ public class Expectations {
 
     public void setProjectId(Integer projectId) {
         this.projectId = projectId;
-    }
-
-    public Integer getExpectationsId() {
-        return expectationsId;
-    }
-
-    public void setExpectationsId(Integer expectationsId) {
-        this.expectationsId = expectationsId;
     }
 
     public String getExpectationsName() {

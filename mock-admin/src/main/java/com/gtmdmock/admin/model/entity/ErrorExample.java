@@ -3,14 +3,14 @@ package com.gtmdmock.admin.model.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExpectationsExample {
+public class ErrorExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public ExpectationsExample() {
+    public ErrorExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -164,133 +164,253 @@ public class ExpectationsExample {
             return (Criteria) this;
         }
 
-        public Criteria andProjectIdIsNull() {
-            addCriterion("project_id is null");
+        public Criteria andRequestIdIsNull() {
+            addCriterion("request_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andProjectIdIsNotNull() {
-            addCriterion("project_id is not null");
+        public Criteria andRequestIdIsNotNull() {
+            addCriterion("request_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andProjectIdEqualTo(Integer value) {
-            addCriterion("project_id =", value, "projectId");
+        public Criteria andRequestIdEqualTo(Integer value) {
+            addCriterion("request_id =", value, "requestId");
             return (Criteria) this;
         }
 
-        public Criteria andProjectIdNotEqualTo(Integer value) {
-            addCriterion("project_id <>", value, "projectId");
+        public Criteria andRequestIdNotEqualTo(Integer value) {
+            addCriterion("request_id <>", value, "requestId");
             return (Criteria) this;
         }
 
-        public Criteria andProjectIdGreaterThan(Integer value) {
-            addCriterion("project_id >", value, "projectId");
+        public Criteria andRequestIdGreaterThan(Integer value) {
+            addCriterion("request_id >", value, "requestId");
             return (Criteria) this;
         }
 
-        public Criteria andProjectIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("project_id >=", value, "projectId");
+        public Criteria andRequestIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("request_id >=", value, "requestId");
             return (Criteria) this;
         }
 
-        public Criteria andProjectIdLessThan(Integer value) {
-            addCriterion("project_id <", value, "projectId");
+        public Criteria andRequestIdLessThan(Integer value) {
+            addCriterion("request_id <", value, "requestId");
             return (Criteria) this;
         }
 
-        public Criteria andProjectIdLessThanOrEqualTo(Integer value) {
-            addCriterion("project_id <=", value, "projectId");
+        public Criteria andRequestIdLessThanOrEqualTo(Integer value) {
+            addCriterion("request_id <=", value, "requestId");
             return (Criteria) this;
         }
 
-        public Criteria andProjectIdIn(List<Integer> values) {
-            addCriterion("project_id in", values, "projectId");
+        public Criteria andRequestIdIn(List<Integer> values) {
+            addCriterion("request_id in", values, "requestId");
             return (Criteria) this;
         }
 
-        public Criteria andProjectIdNotIn(List<Integer> values) {
-            addCriterion("project_id not in", values, "projectId");
+        public Criteria andRequestIdNotIn(List<Integer> values) {
+            addCriterion("request_id not in", values, "requestId");
             return (Criteria) this;
         }
 
-        public Criteria andProjectIdBetween(Integer value1, Integer value2) {
-            addCriterion("project_id between", value1, value2, "projectId");
+        public Criteria andRequestIdBetween(Integer value1, Integer value2) {
+            addCriterion("request_id between", value1, value2, "requestId");
             return (Criteria) this;
         }
 
-        public Criteria andProjectIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("project_id not between", value1, value2, "projectId");
+        public Criteria andRequestIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("request_id not between", value1, value2, "requestId");
             return (Criteria) this;
         }
 
-        public Criteria andExpectationsNameIsNull() {
-            addCriterion("expectations_name is null");
+        public Criteria andResponseIsNull() {
+            addCriterion("response is null");
             return (Criteria) this;
         }
 
-        public Criteria andExpectationsNameIsNotNull() {
-            addCriterion("expectations_name is not null");
+        public Criteria andResponseIsNotNull() {
+            addCriterion("response is not null");
             return (Criteria) this;
         }
 
-        public Criteria andExpectationsNameEqualTo(String value) {
-            addCriterion("expectations_name =", value, "expectationsName");
+        public Criteria andResponseEqualTo(String value) {
+            addCriterion("response =", value, "response");
             return (Criteria) this;
         }
 
-        public Criteria andExpectationsNameNotEqualTo(String value) {
-            addCriterion("expectations_name <>", value, "expectationsName");
+        public Criteria andResponseNotEqualTo(String value) {
+            addCriterion("response <>", value, "response");
             return (Criteria) this;
         }
 
-        public Criteria andExpectationsNameGreaterThan(String value) {
-            addCriterion("expectations_name >", value, "expectationsName");
+        public Criteria andResponseGreaterThan(String value) {
+            addCriterion("response >", value, "response");
             return (Criteria) this;
         }
 
-        public Criteria andExpectationsNameGreaterThanOrEqualTo(String value) {
-            addCriterion("expectations_name >=", value, "expectationsName");
+        public Criteria andResponseGreaterThanOrEqualTo(String value) {
+            addCriterion("response >=", value, "response");
             return (Criteria) this;
         }
 
-        public Criteria andExpectationsNameLessThan(String value) {
-            addCriterion("expectations_name <", value, "expectationsName");
+        public Criteria andResponseLessThan(String value) {
+            addCriterion("response <", value, "response");
             return (Criteria) this;
         }
 
-        public Criteria andExpectationsNameLessThanOrEqualTo(String value) {
-            addCriterion("expectations_name <=", value, "expectationsName");
+        public Criteria andResponseLessThanOrEqualTo(String value) {
+            addCriterion("response <=", value, "response");
             return (Criteria) this;
         }
 
-        public Criteria andExpectationsNameLike(String value) {
-            addCriterion("expectations_name like", value, "expectationsName");
+        public Criteria andResponseLike(String value) {
+            addCriterion("response like", value, "response");
             return (Criteria) this;
         }
 
-        public Criteria andExpectationsNameNotLike(String value) {
-            addCriterion("expectations_name not like", value, "expectationsName");
+        public Criteria andResponseNotLike(String value) {
+            addCriterion("response not like", value, "response");
             return (Criteria) this;
         }
 
-        public Criteria andExpectationsNameIn(List<String> values) {
-            addCriterion("expectations_name in", values, "expectationsName");
+        public Criteria andResponseIn(List<String> values) {
+            addCriterion("response in", values, "response");
             return (Criteria) this;
         }
 
-        public Criteria andExpectationsNameNotIn(List<String> values) {
-            addCriterion("expectations_name not in", values, "expectationsName");
+        public Criteria andResponseNotIn(List<String> values) {
+            addCriterion("response not in", values, "response");
             return (Criteria) this;
         }
 
-        public Criteria andExpectationsNameBetween(String value1, String value2) {
-            addCriterion("expectations_name between", value1, value2, "expectationsName");
+        public Criteria andResponseBetween(String value1, String value2) {
+            addCriterion("response between", value1, value2, "response");
             return (Criteria) this;
         }
 
-        public Criteria andExpectationsNameNotBetween(String value1, String value2) {
-            addCriterion("expectations_name not between", value1, value2, "expectationsName");
+        public Criteria andResponseNotBetween(String value1, String value2) {
+            addCriterion("response not between", value1, value2, "response");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDropConnectionIsNull() {
+            addCriterion("is_drop_connection is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDropConnectionIsNotNull() {
+            addCriterion("is_drop_connection is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDropConnectionEqualTo(Integer value) {
+            addCriterion("is_drop_connection =", value, "isDropConnection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDropConnectionNotEqualTo(Integer value) {
+            addCriterion("is_drop_connection <>", value, "isDropConnection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDropConnectionGreaterThan(Integer value) {
+            addCriterion("is_drop_connection >", value, "isDropConnection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDropConnectionGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_drop_connection >=", value, "isDropConnection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDropConnectionLessThan(Integer value) {
+            addCriterion("is_drop_connection <", value, "isDropConnection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDropConnectionLessThanOrEqualTo(Integer value) {
+            addCriterion("is_drop_connection <=", value, "isDropConnection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDropConnectionIn(List<Integer> values) {
+            addCriterion("is_drop_connection in", values, "isDropConnection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDropConnectionNotIn(List<Integer> values) {
+            addCriterion("is_drop_connection not in", values, "isDropConnection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDropConnectionBetween(Integer value1, Integer value2) {
+            addCriterion("is_drop_connection between", value1, value2, "isDropConnection");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDropConnectionNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_drop_connection not between", value1, value2, "isDropConnection");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelayIsNull() {
+            addCriterion("delay is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelayIsNotNull() {
+            addCriterion("delay is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelayEqualTo(Integer value) {
+            addCriterion("delay =", value, "delay");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelayNotEqualTo(Integer value) {
+            addCriterion("delay <>", value, "delay");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelayGreaterThan(Integer value) {
+            addCriterion("delay >", value, "delay");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelayGreaterThanOrEqualTo(Integer value) {
+            addCriterion("delay >=", value, "delay");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelayLessThan(Integer value) {
+            addCriterion("delay <", value, "delay");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelayLessThanOrEqualTo(Integer value) {
+            addCriterion("delay <=", value, "delay");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelayIn(List<Integer> values) {
+            addCriterion("delay in", values, "delay");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelayNotIn(List<Integer> values) {
+            addCriterion("delay not in", values, "delay");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelayBetween(Integer value1, Integer value2) {
+            addCriterion("delay between", value1, value2, "delay");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelayNotBetween(Integer value1, Integer value2) {
+            addCriterion("delay not between", value1, value2, "delay");
             return (Criteria) this;
         }
     }

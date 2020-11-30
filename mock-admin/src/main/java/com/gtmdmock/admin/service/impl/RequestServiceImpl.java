@@ -100,9 +100,9 @@ public class RequestServiceImpl implements RequestService {
             requestMatcher.setKeepAlive(request.getIsKeepAlive() == 1);
         }
 
-//        if (request.getIsecure() != null){
-//            requestMatcher.setSecure(request.getIsecure() == 1);
-//        }
+        if (request.getIsSecure() != null){
+            requestMatcher.setSecure(request.getIsSecure() == 1);
+        }
 
         return requestMatcher;
     }

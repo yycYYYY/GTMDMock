@@ -9,7 +9,7 @@
     <result column="path" jdbcType="VARCHAR" property="path" />
     <result column="method" jdbcType="VARCHAR" property="method" />
     <result column="body" jdbcType="VARCHAR" property="body" />
-    <result column="isSecure" jdbcType="INTEGER" property="issecure" />
+    <result column="is_secure" jdbcType="INTEGER" property="isSecure" />
     <result column="is_keep_alive" jdbcType="INTEGER" property="isKeepAlive" />
     <result column="headers" jdbcType="VARCHAR" property="headers" />
     <result column="cookies" jdbcType="VARCHAR" property="cookies" />
@@ -75,7 +75,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, request_id, expectations_id, matcher_type, path, method, body, isSecure, is_keep_alive, 
+    id, request_id, expectations_id, matcher_type, path, method, body, is_secure, is_keep_alive, 
     headers, cookies, query_params, path_params
   </sql>
   <select id="selectByExample" parameterType="com.gtmdmock.admin.model.entity.RequestExample" resultMap="BaseResultMap">
@@ -114,12 +114,12 @@
     </selectKey>
     insert into request (id, request_id, expectations_id, 
       matcher_type, path, method, 
-      body, isSecure, is_keep_alive, 
+      body, is_secure, is_keep_alive, 
       headers, cookies, query_params, 
       path_params)
     values (#{id,jdbcType=INTEGER}, #{requestId,jdbcType=INTEGER}, #{expectationsId,jdbcType=INTEGER}, 
       #{matcherType,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, 
-      #{body,jdbcType=VARCHAR}, #{issecure,jdbcType=INTEGER}, #{isKeepAlive,jdbcType=INTEGER}, 
+      #{body,jdbcType=VARCHAR}, #{isSecure,jdbcType=INTEGER}, #{isKeepAlive,jdbcType=INTEGER}, 
       #{headers,jdbcType=VARCHAR}, #{cookies,jdbcType=VARCHAR}, #{queryParams,jdbcType=VARCHAR}, 
       #{pathParams,jdbcType=VARCHAR})
   </insert>
@@ -148,8 +148,8 @@
       <if test="body != null">
         body,
       </if>
-      <if test="issecure != null">
-        isSecure,
+      <if test="isSecure != null">
+        is_secure,
       </if>
       <if test="isKeepAlive != null">
         is_keep_alive,
@@ -187,8 +187,8 @@
       <if test="body != null">
         #{body,jdbcType=VARCHAR},
       </if>
-      <if test="issecure != null">
-        #{issecure,jdbcType=INTEGER},
+      <if test="isSecure != null">
+        #{isSecure,jdbcType=INTEGER},
       </if>
       <if test="isKeepAlive != null">
         #{isKeepAlive,jdbcType=INTEGER},
@@ -237,8 +237,8 @@
       <if test="record.body != null">
         body = #{record.body,jdbcType=VARCHAR},
       </if>
-      <if test="record.issecure != null">
-        isSecure = #{record.issecure,jdbcType=INTEGER},
+      <if test="record.isSecure != null">
+        is_secure = #{record.isSecure,jdbcType=INTEGER},
       </if>
       <if test="record.isKeepAlive != null">
         is_keep_alive = #{record.isKeepAlive,jdbcType=INTEGER},
@@ -269,7 +269,7 @@
       path = #{record.path,jdbcType=VARCHAR},
       method = #{record.method,jdbcType=VARCHAR},
       body = #{record.body,jdbcType=VARCHAR},
-      isSecure = #{record.issecure,jdbcType=INTEGER},
+      is_secure = #{record.isSecure,jdbcType=INTEGER},
       is_keep_alive = #{record.isKeepAlive,jdbcType=INTEGER},
       headers = #{record.headers,jdbcType=VARCHAR},
       cookies = #{record.cookies,jdbcType=VARCHAR},
@@ -300,8 +300,8 @@
       <if test="body != null">
         body = #{body,jdbcType=VARCHAR},
       </if>
-      <if test="issecure != null">
-        isSecure = #{issecure,jdbcType=INTEGER},
+      <if test="isSecure != null">
+        is_secure = #{isSecure,jdbcType=INTEGER},
       </if>
       <if test="isKeepAlive != null">
         is_keep_alive = #{isKeepAlive,jdbcType=INTEGER},
@@ -329,7 +329,7 @@
       path = #{path,jdbcType=VARCHAR},
       method = #{method,jdbcType=VARCHAR},
       body = #{body,jdbcType=VARCHAR},
-      isSecure = #{issecure,jdbcType=INTEGER},
+      is_secure = #{isSecure,jdbcType=INTEGER},
       is_keep_alive = #{isKeepAlive,jdbcType=INTEGER},
       headers = #{headers,jdbcType=VARCHAR},
       cookies = #{cookies,jdbcType=VARCHAR},

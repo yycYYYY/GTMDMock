@@ -15,7 +15,7 @@ public class Request {
 
     private String body;
 
-    private Integer issecure;
+    private Integer isSecure;
 
     private Integer isKeepAlive;
 
@@ -83,12 +83,12 @@ public class Request {
         this.body = body == null ? null : body.trim();
     }
 
-    public Integer getIssecure() {
-        return issecure;
+    public Integer getIsSecure() {
+        return isSecure;
     }
 
-    public void setIssecure(Integer issecure) {
-        this.issecure = issecure;
+    public void setIsSecure(Integer isSecure) {
+        this.isSecure = isSecure;
     }
 
     public Integer getIsKeepAlive() {

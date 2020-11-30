@@ -904,63 +904,63 @@ public class OverrideForwardExample {
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveIsNull() {
-            addCriterion("isKeepAlive is null");
+        public Criteria andIsKeepAliveIsNull() {
+            addCriterion("is_keep_alive is null");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveIsNotNull() {
-            addCriterion("isKeepAlive is not null");
+        public Criteria andIsKeepAliveIsNotNull() {
+            addCriterion("is_keep_alive is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveEqualTo(Integer value) {
-            addCriterion("isKeepAlive =", value, "iskeepalive");
+        public Criteria andIsKeepAliveEqualTo(Integer value) {
+            addCriterion("is_keep_alive =", value, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveNotEqualTo(Integer value) {
-            addCriterion("isKeepAlive <>", value, "iskeepalive");
+        public Criteria andIsKeepAliveNotEqualTo(Integer value) {
+            addCriterion("is_keep_alive <>", value, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveGreaterThan(Integer value) {
-            addCriterion("isKeepAlive >", value, "iskeepalive");
+        public Criteria andIsKeepAliveGreaterThan(Integer value) {
+            addCriterion("is_keep_alive >", value, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveGreaterThanOrEqualTo(Integer value) {
-            addCriterion("isKeepAlive >=", value, "iskeepalive");
+        public Criteria andIsKeepAliveGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_keep_alive >=", value, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveLessThan(Integer value) {
-            addCriterion("isKeepAlive <", value, "iskeepalive");
+        public Criteria andIsKeepAliveLessThan(Integer value) {
+            addCriterion("is_keep_alive <", value, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveLessThanOrEqualTo(Integer value) {
-            addCriterion("isKeepAlive <=", value, "iskeepalive");
+        public Criteria andIsKeepAliveLessThanOrEqualTo(Integer value) {
+            addCriterion("is_keep_alive <=", value, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveIn(List<Integer> values) {
-            addCriterion("isKeepAlive in", values, "iskeepalive");
+        public Criteria andIsKeepAliveIn(List<Integer> values) {
+            addCriterion("is_keep_alive in", values, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveNotIn(List<Integer> values) {
-            addCriterion("isKeepAlive not in", values, "iskeepalive");
+        public Criteria andIsKeepAliveNotIn(List<Integer> values) {
+            addCriterion("is_keep_alive not in", values, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveBetween(Integer value1, Integer value2) {
-            addCriterion("isKeepAlive between", value1, value2, "iskeepalive");
+        public Criteria andIsKeepAliveBetween(Integer value1, Integer value2) {
+            addCriterion("is_keep_alive between", value1, value2, "isKeepAlive");
             return (Criteria) this;
         }
 
-        public Criteria andIskeepaliveNotBetween(Integer value1, Integer value2) {
-            addCriterion("isKeepAlive not between", value1, value2, "iskeepalive");
+        public Criteria andIsKeepAliveNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_keep_alive not between", value1, value2, "isKeepAlive");
             return (Criteria) this;
         }
     }

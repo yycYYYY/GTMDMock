@@ -14,7 +14,7 @@
     <result column="cookies" jdbcType="VARCHAR" property="cookies" />
     <result column="query_params" jdbcType="VARCHAR" property="queryParams" />
     <result column="path_params" jdbcType="VARCHAR" property="pathParams" />
-    <result column="isKeepAlive" jdbcType="INTEGER" property="iskeepalive" />
+    <result column="is_keep_alive" jdbcType="INTEGER" property="isKeepAlive" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -76,7 +76,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, request_id, host, is_secure, delay, path, method, body, headers, cookies, query_params, 
-    path_params, isKeepAlive
+    path_params, is_keep_alive
   </sql>
   <select id="selectByExample" parameterType="com.gtmdmock.admin.model.entity.OverrideForwardExample" resultMap="BaseResultMap">
     select
@@ -116,12 +116,12 @@
       is_secure, delay, path, 
       method, body, headers, 
       cookies, query_params, path_params, 
-      isKeepAlive)
+      is_keep_alive)
     values (#{id,jdbcType=INTEGER}, #{requestId,jdbcType=INTEGER}, #{host,jdbcType=VARCHAR}, 
       #{isSecure,jdbcType=INTEGER}, #{delay,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, 
       #{method,jdbcType=VARCHAR}, #{body,jdbcType=VARCHAR}, #{headers,jdbcType=VARCHAR}, 
       #{cookies,jdbcType=VARCHAR}, #{queryParams,jdbcType=VARCHAR}, #{pathParams,jdbcType=VARCHAR}, 
-      #{iskeepalive,jdbcType=INTEGER})
+      #{isKeepAlive,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.gtmdmock.admin.model.entity.OverrideForward">
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
@@ -163,8 +163,8 @@
       <if test="pathParams != null">
         path_params,
       </if>
-      <if test="iskeepalive != null">
-        isKeepAlive,
+      <if test="isKeepAlive != null">
+        is_keep_alive,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -202,8 +202,8 @@
       <if test="pathParams != null">
         #{pathParams,jdbcType=VARCHAR},
       </if>
-      <if test="iskeepalive != null">
-        #{iskeepalive,jdbcType=INTEGER},
+      <if test="isKeepAlive != null">
+        #{isKeepAlive,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -252,8 +252,8 @@
       <if test="record.pathParams != null">
         path_params = #{record.pathParams,jdbcType=VARCHAR},
       </if>
-      <if test="record.iskeepalive != null">
-        isKeepAlive = #{record.iskeepalive,jdbcType=INTEGER},
+      <if test="record.isKeepAlive != null">
+        is_keep_alive = #{record.isKeepAlive,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -274,7 +274,7 @@
       cookies = #{record.cookies,jdbcType=VARCHAR},
       query_params = #{record.queryParams,jdbcType=VARCHAR},
       path_params = #{record.pathParams,jdbcType=VARCHAR},
-      isKeepAlive = #{record.iskeepalive,jdbcType=INTEGER}
+      is_keep_alive = #{record.isKeepAlive,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -315,8 +315,8 @@
       <if test="pathParams != null">
         path_params = #{pathParams,jdbcType=VARCHAR},
       </if>
-      <if test="iskeepalive != null">
-        isKeepAlive = #{iskeepalive,jdbcType=INTEGER},
+      <if test="isKeepAlive != null">
+        is_keep_alive = #{isKeepAlive,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -334,7 +334,7 @@
       cookies = #{cookies,jdbcType=VARCHAR},
       query_params = #{queryParams,jdbcType=VARCHAR},
       path_params = #{pathParams,jdbcType=VARCHAR},
-      isKeepAlive = #{iskeepalive,jdbcType=INTEGER}
+      is_keep_alive = #{isKeepAlive,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

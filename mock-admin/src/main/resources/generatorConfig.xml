@@ -111,5 +111,12 @@
             <columnOverride column="host" javaType="java.lang.String" jdbcType="VARCHAR" />
 
         </table>
+
+        <table schema="db_mock" tableName="error">
+            <generatedKey column="id" sqlStatement="mysql"/>
+            <!--如果没有这两行，mbg会生成BLOBS对象来映射数据库中的较大字段-->
+            <columnOverride column="response" javaType="java.lang.String" jdbcType="VARCHAR" />
+
+        </table>
     </context>
 </generatorConfiguration>

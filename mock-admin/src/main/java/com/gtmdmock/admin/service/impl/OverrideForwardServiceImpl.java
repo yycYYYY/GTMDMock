@@ -95,8 +95,8 @@ public class OverrideForwardServiceImpl implements OverrideForwardService {
             template.setQueryParams(JsonUtils.StringToMap(overrideForward.getQueryParams()));
         }
 
-        if (overrideForward.getIskeepalive() != null){
-            template.setKeepAlive(overrideForward.getIskeepalive() == 1);
+        if (overrideForward.getIsKeepAlive() != null){
+            template.setKeepAlive(overrideForward.getIsKeepAlive() == 1);
         }
 
         if (overrideForward.getIsSecure() != null){

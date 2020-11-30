@@ -64,7 +64,7 @@ public class ExpectationsServiceImpl implements ExpectationsService {
         for (Expectations expectations: expectationsList){
             ExpectationsTemplate template = new ExpectationsTemplate();
             Optional.ofNullable(expectations.getProjectId()).ifPresent(template::setProjectId);
-            Optional.ofNullable(expectations.getExpectationsId()).ifPresent(template::setExpectationsId);
+            Optional.ofNullable(expectations.getId()).ifPresent(template::setExpectationsId);
 
             templates.add(template);
         }

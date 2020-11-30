@@ -25,7 +25,7 @@ public class OverrideForward {
 
     private String pathParams;
 
-    private Integer iskeepalive;
+    private Integer isKeepAlive;
 
     public Integer getId() {
         return id;
@@ -123,11 +123,11 @@ public class OverrideForward {
         this.pathParams = pathParams == null ? null : pathParams.trim();
     }
 
-    public Integer getIskeepalive() {
-        return iskeepalive;
+    public Integer getIsKeepAlive() {
+        return isKeepAlive;
     }
 
-    public void setIskeepalive(Integer iskeepalive) {
-        this.iskeepalive = iskeepalive;
+    public void setIsKeepAlive(Integer isKeepAlive) {
+        this.isKeepAlive = isKeepAlive;
     }
 }

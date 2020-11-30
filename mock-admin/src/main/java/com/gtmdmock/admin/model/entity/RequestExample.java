@@ -564,63 +564,63 @@ public class RequestExample {
             return (Criteria) this;
         }
 
-        public Criteria andIssecureIsNull() {
-            addCriterion("isSecure is null");
+        public Criteria andIsSecureIsNull() {
+            addCriterion("is_secure is null");
             return (Criteria) this;
         }
 
-        public Criteria andIssecureIsNotNull() {
-            addCriterion("isSecure is not null");
+        public Criteria andIsSecureIsNotNull() {
+            addCriterion("is_secure is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIssecureEqualTo(Integer value) {
-            addCriterion("isSecure =", value, "issecure");
+        public Criteria andIsSecureEqualTo(Integer value) {
+            addCriterion("is_secure =", value, "isSecure");
             return (Criteria) this;
         }
 
-        public Criteria andIssecureNotEqualTo(Integer value) {
-            addCriterion("isSecure <>", value, "issecure");
+        public Criteria andIsSecureNotEqualTo(Integer value) {
+            addCriterion("is_secure <>", value, "isSecure");
             return (Criteria) this;
         }
 
-        public Criteria andIssecureGreaterThan(Integer value) {
-            addCriterion("isSecure >", value, "issecure");
+        public Criteria andIsSecureGreaterThan(Integer value) {
+            addCriterion("is_secure >", value, "isSecure");
             return (Criteria) this;
         }
 
-        public Criteria andIssecureGreaterThanOrEqualTo(Integer value) {
-            addCriterion("isSecure >=", value, "issecure");
+        public Criteria andIsSecureGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_secure >=", value, "isSecure");
             return (Criteria) this;
         }
 
-        public Criteria andIssecureLessThan(Integer value) {
-            addCriterion("isSecure <", value, "issecure");
+        public Criteria andIsSecureLessThan(Integer value) {
+            addCriterion("is_secure <", value, "isSecure");
             return (Criteria) this;
         }
 
-        public Criteria andIssecureLessThanOrEqualTo(Integer value) {
-            addCriterion("isSecure <=", value, "issecure");
+        public Criteria andIsSecureLessThanOrEqualTo(Integer value) {
+            addCriterion("is_secure <=", value, "isSecure");
             return (Criteria) this;
         }
 
-        public Criteria andIssecureIn(List<Integer> values) {
-            addCriterion("isSecure in", values, "issecure");
+        public Criteria andIsSecureIn(List<Integer> values) {
+            addCriterion("is_secure in", values, "isSecure");
             return (Criteria) this;
         }
 
-        public Criteria andIssecureNotIn(List<Integer> values) {
-            addCriterion("isSecure not in", values, "issecure");
+        public Criteria andIsSecureNotIn(List<Integer> values) {
+            addCriterion("is_secure not in", values, "isSecure");
             return (Criteria) this;
         }
 
-        public Criteria andIssecureBetween(Integer value1, Integer value2) {
-            addCriterion("isSecure between", value1, value2, "issecure");
+        public Criteria andIsSecureBetween(Integer value1, Integer value2) {
+            addCriterion("is_secure between", value1, value2, "isSecure");
             return (Criteria) this;
         }
 
-        public Criteria andIssecureNotBetween(Integer value1, Integer value2) {
-            addCriterion("isSecure not between", value1, value2, "issecure");
+        public Criteria andIsSecureNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_secure not between", value1, value2, "isSecure");
             return (Criteria) this;
         }
 
