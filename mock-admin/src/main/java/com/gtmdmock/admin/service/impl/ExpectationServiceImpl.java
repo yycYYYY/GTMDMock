@@ -1,10 +1,7 @@
 package com.gtmdmock.admin.service.impl;
 
 import com.gtmdmock.admin.model.mapper.ResponseMapper;
-import com.gtmdmock.admin.service.ExpectationService;
-import com.gtmdmock.admin.service.ForwardService;
-import com.gtmdmock.admin.service.OverrideForwardService;
-import com.gtmdmock.admin.service.ResponseService;
+import com.gtmdmock.admin.service.*;
 import com.gtmdmock.core.expectation.ExpectationAction;
 import com.gtmdmock.core.forward.ForwardTemplate;
 import com.gtmdmock.core.forward.OverrideForwardTemplate;
@@ -27,6 +24,9 @@ public class ExpectationServiceImpl implements ExpectationService {
     @Autowired
     OverrideForwardService overrideForwardService;
 
+    @Autowired
+    ErrorService errorService;
+
     ExpectationAction action = new ExpectationAction();
 
 
@@ -46,9 +46,11 @@ public class ExpectationServiceImpl implements ExpectationService {
                         .getForwardOfCore(forwardService
                                 .getForwardByRequestId(requestMatcher.getRequestId()));
                 return action.genExpectation(requestMatcher.buildRequest(),forwardTemplate.buildForward());
-//          TODO:这里待编写，因为缺少error实体类，到公司写完sql，自动生成
+
             case "error":
-                ErrorTemplate errorTemplate = new ErrorTemplate();
+                ErrorTemplate errorTemplate = errorService
+                        .getErrorOfCore(errorService
+                        .getErrorByRequestId(requestMatcher.getRequestId()));
                 return action.genExpectation(requestMatcher.buildRequest(),errorTemplate.buildError());
 
             case "overrideForward":

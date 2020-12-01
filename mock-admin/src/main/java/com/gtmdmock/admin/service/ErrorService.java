@@ -1,5 +1,6 @@
 package com.gtmdmock.admin.service;
 
+import com.gtmdmock.admin.model.entity.Error;
 import com.gtmdmock.admin.model.entity.Forward;
 import com.gtmdmock.core.forward.ForwardTemplate;
 import com.gtmdmock.core.httperror.ErrorTemplate;
@@ -8,17 +9,17 @@ import java.util.List;
 
 public interface ErrorService {
 
-    void insertError();
+    void insertError(Error error);
 
-    void updateError();
+    void updateError(Error error);
 
-    void deleteErrorById();
+    void deleteErrorById(Integer id);
 
-    void deleteErrorByRequestId();
+    void deleteErrorByRequestId(Integer requestId);
 
-    ErrorTemplate getErrorByRequestId(Integer requestId);
+    Error getErrorByRequestId(Integer requestId);
 
-    ErrorTemplate getErrorOfCore(ErrorTemplate error);
+    ErrorTemplate getErrorOfCore(Error error);
 
-    List<ErrorTemplate> getErrorsOfCore(List<ErrorTemplate> errors);
+    List<ErrorTemplate> getErrorsOfCore(List<Error> errors);
 }
