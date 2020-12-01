@@ -57,6 +57,17 @@ public class ClientAction {
         server.upsert(proxyExpectation);
     }
 
+    public ServerClient newClient(ClientInfo info){
+        this.clientInfos.add(info);
+        ServerClient server = new ServerClient(info.getPort());
+        server.setProjectId(info.getProjectId());
+        if (info.getProxyAddress() != null){
+            setGlobalProxy(server,info.getProxyAddress(),info.getScheme());
+        }
+        this.clients.add(server);
+        return server;
+    }
+
     //实例化mock server客户端，并监听端口，@TODO 并将客户端，开关信息等，写入缓存
     public List<ServerClient> clientInstantiate(){
 
@@ -88,9 +99,5 @@ public class ClientAction {
                 }
             }
         }
-
-
     }
-
-
 }

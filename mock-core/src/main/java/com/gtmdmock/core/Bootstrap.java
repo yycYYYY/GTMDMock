@@ -29,6 +29,14 @@ public class Bootstrap {
         return instance;
     }
 
+    public ClientAction getClientAction() {
+        return clientAction;
+    }
+
+    public ExpectationsAction getExpectationsAction() {
+        return expectationsAction;
+    }
+
     private final ClientAction clientAction = new ClientAction();
     private final ExpectationsAction expectationsAction = new ExpectationsAction();
 

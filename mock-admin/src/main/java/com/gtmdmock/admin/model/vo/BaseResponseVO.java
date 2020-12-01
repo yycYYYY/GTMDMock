@@ -8,29 +8,29 @@ public class BaseResponseVO implements Serializable {
 
         private int code;
         private String message;
-        private Object content;
+        private Object data;
 
-        public static BaseResponseVO success(Object content){
-            return new BaseResponseVO(SUCCESS.getCode(),SUCCESS.getMessage(),content);
+        public static BaseResponseVO success(Object data){
+            return new BaseResponseVO(SUCCESS.getCode(),SUCCESS.getMessage(),data);
         }
 
-        public static BaseResponseVO fail(Object content){
-            return new BaseResponseVO(FAIL.getCode(),FAIL.getMessage(),content);
+        public static BaseResponseVO fail(Object data){
+            return new BaseResponseVO(FAIL.getCode(),FAIL.getMessage(),data);
         }
 
-        public static BaseResponseVO error(Object content){
-            return new BaseResponseVO(ERROR.getCode(),ERROR.getMessage(),content);
+        public static BaseResponseVO error(Object data){
+            return new BaseResponseVO(ERROR.getCode(),ERROR.getMessage(),data);
         }
 
         public static BaseResponseVO warn(Class<?> aClass, String eMessage, String message, String s){
             return new BaseResponseVO(ERROR.getCode(),ERROR.getMessage(),aClass);
         }
 
-        BaseResponseVO(int code, String message, Object content) {
+        BaseResponseVO(int code, String message, Object data) {
 
             this.code = code;
             this.message = message;
-            this.content = content;
+            this.data = data;
         }
 
         public int getCode() {
@@ -49,12 +49,12 @@ public class BaseResponseVO implements Serializable {
             this.message = message;
         }
 
-        public Object getContent() {
-            return content;
+        public Object getData() {
+            return data;
         }
 
-        public void setContent(Object content) {
-            this.content = content;
+        public void setData(Object data) {
+            this.data = data;
         }
 
         @Override
@@ -62,7 +62,7 @@ public class BaseResponseVO implements Serializable {
             return "BaseResponseVO{" +
                     "code=" + code +
                     ", message='" + message + '\'' +
-                    ", content=" + content +
+                    ", data=" + data +
                     '}';
         }
     }

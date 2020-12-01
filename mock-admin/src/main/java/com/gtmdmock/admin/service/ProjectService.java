@@ -19,7 +19,15 @@ public interface ProjectService {
 
     void deleteProjectByName(String projectName);
 
+    void insertProjectToCore(Project project);
+
+    void updateProjectOfCore(Project project);
+
+    void deleteProjectOfCore(Integer id);
+
     List<Project> getAllProjects();
+
+    ClientInfo getClientInfo(Project project);
 
     List<ClientInfo> getAllClientInfos();
 }

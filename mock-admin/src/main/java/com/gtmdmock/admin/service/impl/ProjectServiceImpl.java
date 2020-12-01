@@ -4,6 +4,8 @@ import com.gtmdmock.admin.model.entity.Project;
 import com.gtmdmock.admin.model.entity.ProjectExample;
 import com.gtmdmock.admin.model.mapper.ProjectMapper;
 import com.gtmdmock.admin.service.ProjectService;
+import com.gtmdmock.core.Bootstrap;
+import com.gtmdmock.core.client.ClientAction;
 import com.gtmdmock.core.client.ClientInfo;
 import org.mockserver.model.HttpForward;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,48 +18,79 @@ import java.util.Optional;
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
+    private final Bootstrap bootstrap = Bootstrap.getInstance();
+
     @Autowired
-    ProjectMapper mapper;
+    ProjectMapper projectMapper;
 
     @Override
     public Project getProjectByName(String name) {
         ProjectExample example = new ProjectExample();
         example.createCriteria().andProjectNameEqualTo(name);
-        return mapper.selectByExample(example).get(0);
+        return projectMapper.selectByExample(example).get(0);
     }
 
     @Override
     public Project getProjectById(Integer id) {
-        return mapper.selectByPrimaryKey(id);
+        return projectMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public void inertProject(Project project) {
-        mapper.insert(project);
+        projectMapper.insert(project);
     }
 
     @Override
     public void updateProject(Project project) {
-        mapper.updateByPrimaryKey(project);
+        projectMapper.updateByPrimaryKey(project);
     }
 
     @Override
     public void deleteProjectById(Integer id) {
-        mapper.deleteByPrimaryKey(id);
+        projectMapper.deleteByPrimaryKey(id);
     }
 
     @Override
     public void deleteProjectByName(String projectName) {
         ProjectExample example = new ProjectExample();
         example.createCriteria().andProjectNameEqualTo(projectName);
-        mapper.deleteByExample(example);
+        projectMapper.deleteByExample(example);
+    }
+
+    @Override
+    public void insertProjectToCore(Project project) {
+        ClientAction clientAction = bootstrap.getClientAction();
+        clientAction.newClient(getClientInfo(project));
+    }
+
+    @Override
+    public void updateProjectOfCore(Project project) {
+//        todo:更新project of core
+    }
+
+    @Override
+    public void deleteProjectOfCore(Integer id) {
+//        todo:删除project of core
     }
 
     @Override
     public List<Project> getAllProjects() {
         ProjectExample example = new ProjectExample();
         example.createCriteria().andIdIsNotNull();
-        return mapper.selectByExample(example);
+        return projectMapper.selectByExample(example);
+    }
+
+    @Override
+    public ClientInfo getClientInfo(Project project) {
+        ClientInfo info = new ClientInfo();
+        info.setProjectName(project.getProjectName());
+        info.setProjectId(project.getId());
+        Optional.ofNullable(project.getProxyAddress()).ifPresent(info::setProxyAddress);
+        Optional.ofNullable(project.getPort()).ifPresent(info::setPort);
+        if (project.getIsSecure() != null){
+            info.setScheme(project.getIsSecure() == 1? HttpForward.Scheme.HTTPS: HttpForward.Scheme.HTTP);
+        }
+        return info;
     }
 
     @Override
@@ -65,14 +98,7 @@ public class ProjectServiceImpl implements ProjectService {
         List<Project> configs = getAllProjects();
         List<ClientInfo> infos = new ArrayList<>();
         for (Project config:configs){
-            ClientInfo info = new ClientInfo();
-            info.setProjectName(config.getProjectName());
-            info.setProjectId(config.getId());
-            Optional.ofNullable(config.getProxyAddress()).ifPresent(info::setProxyAddress);
-            Optional.ofNullable(config.getPort()).ifPresent(info::setPort);
-            if (config.getIsSecure() != null){
-                info.setScheme(config.getIsSecure() == 1? HttpForward.Scheme.HTTPS: HttpForward.Scheme.HTTP);
-            }
+            ClientInfo info = getClientInfo(config);
             infos.add(info);
         }
         return infos;
