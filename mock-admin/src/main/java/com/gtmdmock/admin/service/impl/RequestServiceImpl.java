@@ -5,6 +5,10 @@ import com.gtmdmock.admin.model.entity.RequestExample;
 import com.gtmdmock.admin.model.mapper.RequestMapper;
 import com.gtmdmock.admin.service.RequestService;
 import com.gtmdmock.admin.utils.JsonUtils;
+import com.gtmdmock.core.Bootstrap;
+import com.gtmdmock.core.expectation.ExpectationAction;
+import com.gtmdmock.core.expectation.ExpectationsAction;
+import com.gtmdmock.core.expectation.ExpectationsTemplate;
 import com.gtmdmock.core.request.RequestMatcher;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,12 @@ import java.util.Optional;
 
 @Service
 public class RequestServiceImpl implements RequestService {
+
+    private final Bootstrap bootstrap = Bootstrap.getInstance();
+
+    private final ExpectationsAction expectationsAction = bootstrap.getExpectationsAction();
+
+    private final ExpectationAction expectationUtils = new ExpectationAction();
 
     @Autowired
     RequestMapper requestMapper;
@@ -37,17 +47,26 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void insertRequestToCore(Request request) {
+        this.insertRequest(request);
+        ExpectationsTemplate template = expectationsAction.getExpectationTemplate(request.getExpectationsId());
+        template.updateExpectation(expectationUtils.genExpectation(getRequestOfCore(request).buildRequest()));
 
     }
 
     @Override
     public void updateRequestOfCore(Request request) {
+        this.updateRequest(request);
+        ExpectationsTemplate template = expectationsAction.getExpectationTemplate(request.getExpectationsId());
+        template.updateExpectation(expectationUtils.genExpectation(getRequestOfCore(request).buildRequest()));
 
     }
 
     @Override
     public void deleteRequestOfCore(Integer id) {
-
+        this.deleteRequest(id);
+        Request request = getRequestById(id);
+        ExpectationsTemplate template = expectationsAction.getExpectationTemplate(request.getExpectationsId());
+        template.deleteExpectation(expectationUtils.genExpectation(getRequestOfCore(request).buildRequest()));
     }
 
     @Override

@@ -3,9 +3,15 @@ package com.gtmdmock.admin.service.impl;
 import com.gtmdmock.admin.model.entity.RequestExample;
 import com.gtmdmock.admin.model.entity.Response;
 import com.gtmdmock.admin.model.entity.ResponseExample;
+import com.gtmdmock.admin.model.mapper.RequestMapper;
 import com.gtmdmock.admin.model.mapper.ResponseMapper;
+import com.gtmdmock.admin.service.RequestService;
 import com.gtmdmock.admin.service.ResponseService;
 import com.gtmdmock.admin.utils.JsonUtils;
+import com.gtmdmock.core.Bootstrap;
+import com.gtmdmock.core.expectation.ExpectationsAction;
+import com.gtmdmock.core.expectation.ExpectationsTemplate;
+import com.gtmdmock.core.request.RequestMatcher;
 import com.gtmdmock.core.response.ResponseTemplate;
 import org.mockserver.model.HttpResponse;
 import org.mockserver.model.MediaType;
@@ -20,8 +26,16 @@ import java.util.Optional;
 @Service
 public class ResponseServiceImpl implements ResponseService {
 
+
+    @Autowired
+    RequestService requestService;
+
     @Autowired
     ResponseMapper responseMapper;
+
+    private final Bootstrap bootstrap = Bootstrap.getInstance();
+
+    private final ExpectationsAction expectationsAction = bootstrap.getExpectationsAction();
 
     @Override
     public void insertResponse(Response response) {
@@ -43,6 +57,17 @@ public class ResponseServiceImpl implements ResponseService {
         ResponseExample example = new ResponseExample();
         example.createCriteria().andRequestIdEqualTo(requestId);
         responseMapper.deleteByExample(example);
+    }
+
+    @Override
+    public void insertResponseToCOre(Response response) {
+        //TODO:增加core中的response，完了战线拉的太长，有点想不起来之前的代码逻辑了，周末看下
+        RequestMatcher request = requestService.getRequestOfCore(requestService.getRequestById(response.getRequestId()));
+    }
+
+    @Override
+    public void updateResponseOfCore(Response response) {
+        //TODO:更新core中的response
     }
 
     @Override

@@ -16,6 +16,10 @@ public interface ResponseService {
 
     void deleteResponseByRequestId(Integer requestId);
 
+    void insertResponseToCOre(Response response);
+
+    void updateResponseOfCore(Response response);
+
     void deleteResponseOfCore(Integer requestId);
 
     Response getResponsesByRequestId(Integer requestId);

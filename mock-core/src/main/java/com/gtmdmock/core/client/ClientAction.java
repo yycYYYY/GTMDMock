@@ -10,6 +10,7 @@ import org.mockserver.model.HttpOverrideForwardedRequest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 import static org.mockserver.model.HttpRequest.request;
@@ -68,6 +69,18 @@ public class ClientAction {
         return server;
     }
 
+    public void deleteClient(Integer clientId){
+
+        for (ServerClient client: this.clients){
+            if (Objects.equals(clientId, client.getProjectId())){
+                client.stop();
+                this.clients.remove(client);
+            }
+        }
+
+        this.clientInfos.removeIf(info -> Objects.equals(clientId, info.getProjectId()));
+    }
+
     //实例化mock server客户端，并监听端口，@TODO 并将客户端，开关信息等，写入缓存
     public List<ServerClient> clientInstantiate(){
 
@@ -90,12 +103,14 @@ public class ClientAction {
     //初始化客户端期望信息
     public void clientInit(){
         List<ExpectationsTemplate> expectations = ExpectationsAction.genAllExpections();
-        for (ExpectationsTemplate e: expectations) {
+        if (expectations != null) {
+            for (ExpectationsTemplate e: expectations) {
 
-            for (ServerClient client: this.clients){
-                if (client.getProjectId().equals(e.getProjectId())){
-                    e.setServer(client);
-                    e.initClient();
+                for (ServerClient client: this.clients){
+                    if (client.getProjectId().equals(e.getProjectId())){
+                        e.setServer(client);
+                        e.initClient();
+                    }
                 }
             }
         }

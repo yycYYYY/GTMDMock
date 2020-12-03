@@ -14,7 +14,11 @@ import java.util.List;
  */
 public class Bootstrap {
 
+    private final ClientAction clientAction = new ClientAction();
+    private final ExpectationsAction expectationsAction = new ExpectationsAction();
+
     private static volatile Bootstrap instance = null;
+
 
     private Bootstrap() {}
 
@@ -37,9 +41,6 @@ public class Bootstrap {
         return expectationsAction;
     }
 
-    private final ClientAction clientAction = new ClientAction();
-    private final ExpectationsAction expectationsAction = new ExpectationsAction();
-
     public void initClients(List<ClientInfo> infos){
         this.clientAction.setClientInfos(infos);
         this.clientAction.clientInstantiate();
@@ -49,8 +50,8 @@ public class Bootstrap {
         return this.clientAction.getClients();
     }
 
-    public List<ExpectationsTemplate> getExpectations(){
-        return this.expectationsAction.getExpectations();
+    public List<ExpectationsTemplate> getAllExpectations(){
+        return this.expectationsAction.getAllExpectations();
     }
 
     //期望集

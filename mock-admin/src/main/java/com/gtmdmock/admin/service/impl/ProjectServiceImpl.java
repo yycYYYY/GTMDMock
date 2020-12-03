@@ -20,6 +20,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     private final Bootstrap bootstrap = Bootstrap.getInstance();
 
+    ClientAction clientAction = bootstrap.getClientAction();
+
     @Autowired
     ProjectMapper projectMapper;
 
@@ -59,18 +61,20 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void insertProjectToCore(Project project) {
-        ClientAction clientAction = bootstrap.getClientAction();
+
         clientAction.newClient(getClientInfo(project));
     }
 
     @Override
     public void updateProjectOfCore(Project project) {
-//        todo:更新project of core
+        ClientAction clientAction = bootstrap.getClientAction();
+
+        //TODO:更新project of core,这里得好好盘一下core那部分的逻辑，那块写的时间有点长了。淦，有点记不清逻辑了
     }
 
     @Override
     public void deleteProjectOfCore(Integer id) {
-//        todo:删除project of core
+        clientAction.deleteClient(id);
     }
 
     @Override

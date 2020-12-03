@@ -43,7 +43,7 @@ public class ProjectInitializer implements ApplicationRunner {
         List<ExpectationsTemplate> expectations = expectationsService.getAllExpectationsOfCore();
         bootstrap.initExpectations(expectations);
 
-        for (ExpectationsTemplate expectationsTemplate: bootstrap.getExpectations()){
+        for (ExpectationsTemplate expectationsTemplate: bootstrap.getAllExpectations()){
             List<RequestMatcher> requestMatchers = requestService
                     .getRequestsOfCore(requestService
                             .getRequestByExpectationsId(expectationsTemplate.getExpectationsId()));
