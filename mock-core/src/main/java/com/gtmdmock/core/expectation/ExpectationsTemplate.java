@@ -110,7 +110,7 @@ public class ExpectationsTemplate {
     public boolean deleteExpectation(Expectation expectation){
         try {
             this.server.clear(expectation.getHttpRequest());
-//            todo:这里删除期望的代码可能有点问题，后续需要优化，这种实际上在内存中应该没有删掉旧的期望实例，可能造成内存溢出
+            //TODO:这里删除期望的代码可能有点问题，后续需要优化，这种实际上在内存中应该没有删掉旧的期望实例，可能造成内存溢出
             this.expectationList.remove(expectation);
         }catch (Exception e){
             e.printStackTrace();
