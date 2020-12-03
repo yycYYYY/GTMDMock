@@ -18,7 +18,7 @@ public class ProjectController {
     @Autowired
     ProjectService projectService;
 
-    @GetMapping("/getAll")
+    @GetMapping("/list")
     public BaseResponseVO getAllProjects(@RequestParam(value = "pn",defaultValue = "1") Integer pageNumber){
         //TODO:分页这里有点问题，需要再改下
         PageHelper.startPage(pageNumber,5);
@@ -28,8 +28,16 @@ public class ProjectController {
     }
 
     @PostMapping("/add")
-    public BaseResponseVO addProject(@RequestParam(value = "pn",defaultValue = "1") Integer pageNumber){
+    public BaseResponseVO addProject(@RequestBody Project project){
+
+        projectService.insertProjectToCore(project);
 //      TODO: CRUD有点烦，后续等到放松大脑，休息的时候再写
+        return BaseResponseVO.success("success");
+    }
+
+    @GetMapping("/del")
+    public BaseResponseVO deleteProject(@RequestParam(value = "projectId") Integer projectId){
+        projectService.deleteProjectOfCore(projectId);
         return BaseResponseVO.success("success");
     }
 }

@@ -1,5 +1,8 @@
 package com.gtmdmock.admin.service.impl;
 
+import com.gtmdmock.admin.model.entity.Expectations;
+import com.gtmdmock.admin.model.entity.ExpectationsExample;
+import com.gtmdmock.admin.model.mapper.ExpectationsMapper;
 import com.gtmdmock.admin.model.mapper.ResponseMapper;
 import com.gtmdmock.admin.service.*;
 import com.gtmdmock.core.expectation.ExpectationAction;
@@ -12,8 +15,13 @@ import org.mockserver.mock.Expectation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ExpectationServiceImpl implements ExpectationService {
+
+    @Autowired
+    ExpectationsMapper expectationsMapper;
 
     @Autowired
     ResponseService responseService;
@@ -33,7 +41,7 @@ public class ExpectationServiceImpl implements ExpectationService {
 
     @Override
     public Expectation getExpectation(RequestMatcher requestMatcher) {
-        Expectation expectation;
+
         switch (requestMatcher.getMatcherType()){
             case "response":
                 ResponseTemplate responseTemplate = responseService
@@ -61,5 +69,12 @@ public class ExpectationServiceImpl implements ExpectationService {
         }
 
         return null;
+    }
+
+    @Override
+    public List<Expectations> getExpectationsByProjectId(Integer projectId) {
+        ExpectationsExample expectationsExample = new ExpectationsExample();
+        expectationsExample.createCriteria().andProjectIdEqualTo(projectId);
+        return expectationsMapper.selectByExample(expectationsExample);
     }
 }
