@@ -9,15 +9,13 @@ import com.gtmdmock.admin.service.ExpectationService;
 import com.gtmdmock.admin.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller("/request")
+@RequestMapping("/request")
+@Controller
 public class RequestController {
 
     @Autowired
@@ -47,7 +45,6 @@ public class RequestController {
     public BaseResponseVO addProject(@RequestBody Request request){
 
         requestService.insertRequestToCore(request);
-//      TODO: CRUD有点烦，后续等到放松大脑，休息的时候再写
         return BaseResponseVO.success("success");
     }
 

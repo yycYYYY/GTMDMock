@@ -20,10 +20,10 @@ public class ProjectController {
 
     @GetMapping("/list")
     public BaseResponseVO getAllProjects(@RequestParam(value = "pn",defaultValue = "1") Integer pageNumber){
-        //TODO:分页这里有点问题，需要再改下
+
         PageHelper.startPage(pageNumber,5);
         List<Project> projects = projectService.getAllProjects();
-        PageInfo<Project> pageInfo = new PageInfo<>(projects,5);
+        PageInfo<Project> pageInfo = new PageInfo<>(projects);
         return BaseResponseVO.success(pageInfo);
     }
 
