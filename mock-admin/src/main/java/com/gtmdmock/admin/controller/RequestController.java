@@ -7,15 +7,18 @@ import com.gtmdmock.admin.model.entity.Request;
 import com.gtmdmock.admin.model.vo.BaseResponseVO;
 import com.gtmdmock.admin.service.ExpectationService;
 import com.gtmdmock.admin.service.RequestService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Api(value = "request")
 @RequestMapping("/request")
-@Controller
+@RestController
 public class RequestController {
 
     @Autowired
@@ -23,7 +26,8 @@ public class RequestController {
 
     @Autowired
     ExpectationService expectationService;
-
+    
+    @ApiOperation(value = "获取全部request")
     @GetMapping("/list")
     public BaseResponseVO getRequests(@RequestParam(value = "projectId") Integer projectId,
                                       @RequestParam(value = "pn",defaultValue = "1") Integer pageNumber){
@@ -45,7 +49,7 @@ public class RequestController {
     public BaseResponseVO addProject(@RequestBody Request request){
 
         requestService.insertRequestToCore(request);
-        return BaseResponseVO.success("success");
+        return BaseResponseVO.success("添加成功");
     }
 
     @GetMapping("/del")

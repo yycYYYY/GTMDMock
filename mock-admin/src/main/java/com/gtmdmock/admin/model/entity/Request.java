@@ -1,6 +1,8 @@
 package com.gtmdmock.admin.model.entity;
 
-public class Request {
+import java.io.Serializable;
+
+public class Request implements Serializable {
     private Integer id;
 
     private Integer requestId;
