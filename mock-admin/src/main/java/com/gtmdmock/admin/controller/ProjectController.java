@@ -27,12 +27,23 @@ public class ProjectController {
         return BaseResponseVO.success(pageInfo);
     }
 
+    @GetMapping("/get")
+    public BaseResponseVO getProjectById(@RequestParam(value = "projectId") Integer projectId){
+        Project project = projectService.getProjectById(projectId);
+        return BaseResponseVO.success(project);
+    }
+
     @PostMapping("/add")
     public BaseResponseVO addProject(@RequestBody Project project){
 
         projectService.insertProjectToCore(project);
-//      TODO: CRUD有点烦，后续等到放松大脑，休息的时候再写
         return BaseResponseVO.success("success");
+    }
+
+    @PostMapping("/update")
+    public BaseResponseVO updateProject(@RequestBody Project project){
+        projectService.updateProjectOfCore(project);
+        return BaseResponseVO.success("更新成功");
     }
 
     @GetMapping("/del")

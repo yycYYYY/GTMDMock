@@ -67,6 +67,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void updateProjectOfCore(Project project) {
+        this.updateProject(project);
         ClientAction clientAction = bootstrap.getClientAction();
 
         //TODO:更新project of core,这里得好好盘一下core那部分的逻辑，那块写的时间有点长了。淦，有点记不清逻辑了

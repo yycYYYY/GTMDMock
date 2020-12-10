@@ -6,7 +6,7 @@
 //
 //@Aspect
 //@Component
-//public class ControllerAOP {
+public class ControllerAOP {
 //    private static final Logger logger = LoggerFactory.getLogger(ControllerAOP.class);
 //
 //    public Object handlerControllerMethod(ProceedingJoinPoint pjp) {
@@ -46,4 +46,4 @@
 //
 //        return result;
 //    }
-//}
+}

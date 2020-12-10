@@ -11,14 +11,16 @@ public interface ExpectationsService {
 
     void insertExpectations(Expectations expectations);
 
-
     void updateExpectations(Expectations expectations);
 
     void deleteExpectationsById(Integer id);
 
     void insertExpectationsToCore(Expectations expectations);
 
+    void updateExpectationsOfCore(Expectations expectations);
+
     void deleteExpectationsOfCoreById(Integer id);
+
     Expectations getProjectById(Integer id);
 
     List<Expectations> getAllExpectationsOfAdmin();

@@ -27,14 +27,21 @@ public class ExpectationsController {
 
 
     @PostMapping("/add")
-    public BaseResponseVO addResponse(@RequestBody Expectations expectations){
+    public BaseResponseVO addExpectations(@RequestBody Expectations expectations){
 
         expectationsService.insertExpectationsToCore(expectations);
         return BaseResponseVO.success("success");
     }
 
+    @PostMapping("/update")
+    public BaseResponseVO updateExpectations(@RequestBody Expectations expectations){
+
+        expectationsService.updateExpectationsOfCore(expectations);
+        return BaseResponseVO.success("success");
+    }
+
     @GetMapping("/del")
-    public BaseResponseVO deleteResponse(@RequestParam(value = "projectId") Integer requestId){
+    public BaseResponseVO deleteExpectations(@RequestParam(value = "projectId") Integer requestId){
 
         return BaseResponseVO.success("success");
     }

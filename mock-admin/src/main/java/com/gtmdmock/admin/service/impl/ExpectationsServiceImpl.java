@@ -37,12 +37,20 @@ public class ExpectationsServiceImpl implements ExpectationsService {
 
     @Override
     public void insertExpectationsToCore(Expectations expectations) {
+        this.insertExpectations(expectations);
+        //TODO:  insertExpectationsToCore
+    }
 
+    @Override
+    public void updateExpectationsOfCore(Expectations expectations) {
+        this.updateExpectations(expectations);
+//        TODO:updateExpectationsToCore
     }
 
     @Override
     public void deleteExpectationsOfCoreById(Integer id) {
-
+        this.deleteExpectationsById(id);
+//        TODO:deleteExpectationsOfCoreById
     }
 
     @Override
