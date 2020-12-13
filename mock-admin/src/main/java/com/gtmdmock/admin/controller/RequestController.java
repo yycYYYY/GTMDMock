@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Api(value = "request")
 @RequestMapping("/request")
 @RestController
@@ -23,28 +24,30 @@ public class RequestController {
 
     @Autowired
     RequestService requestService;
-
-    @Autowired
-    ExpectationService expectationService;
     
-    @ApiOperation(value = "获取全部request")
+    @ApiOperation(value = "获取某个ExpectationsId下的所有request")
     @GetMapping("/list")
-    public BaseResponseVO getRequests(@RequestParam(value = "projectId") Integer projectId,
+    public BaseResponseVO getRequests(@RequestParam(value = "expectationsId") Integer expectationsId,
                                       @RequestParam(value = "pn",defaultValue = "1") Integer pageNumber){
 
-        List<Request> requests = new ArrayList<>();
+        List<Request> requests = requestService.getRequestByExpectationsId(expectationsId);
 
         PageHelper.startPage(pageNumber,5);
-        List<Expectations> expectationsList = expectationService.getExpectationsByProjectId(projectId);
 
-        for (Expectations expectations: expectationsList){
-            requests.addAll(requestService.getRequestByExpectationsId(expectations.getId()));
-        }
         PageInfo<Request> pageInfo = new PageInfo<>(requests,5);
 
         return BaseResponseVO.success(pageInfo);
     }
 
+    @ApiOperation(value = "根据requestId获取某个request")
+    @GetMapping("/get")
+    public BaseResponseVO getRequest(@RequestParam(value = "requestId") Integer requestId){
+
+        Request request = requestService.getRequestById(requestId);
+        return BaseResponseVO.success(request);
+    }
+
+    @ApiOperation(value = "添加一个request,并同步至core")
     @PostMapping("/add")
     public BaseResponseVO addProject(@RequestBody Request request){
 
@@ -52,9 +55,18 @@ public class RequestController {
         return BaseResponseVO.success("添加成功");
     }
 
+    @ApiOperation(value = "更新一个request,并同步至core")
+    @PostMapping("/upd")
+    public BaseResponseVO updateProject(@RequestBody Request request){
+
+        requestService.updateRequestOfCore(request);
+        return BaseResponseVO.success("添加成功");
+    }
+
+    @ApiOperation(value = "根据requestId删除一个request，并同步至core")
     @GetMapping("/del")
     public BaseResponseVO deleteProject(@RequestParam(value = "requestId") Integer requestId){
-        requestService.deleteRequest(requestId);
+        requestService.deleteRequestOfCore(requestId);
         return BaseResponseVO.success("success");
     }
 }

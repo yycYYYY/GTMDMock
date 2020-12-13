@@ -13,7 +13,11 @@ public class ExpectationAction {
 
     public Expectation genExpectation(HttpRequest request, HttpResponse response, HttpForward forward, HttpOverrideForwardedRequest overrideForwarded, HttpError error){
         Expectation expectation = new Expectation(request);
-        Optional.ofNullable(response).ifPresent(expectation::thenRespond);
+        if (Optional.ofNullable(response).isPresent()){
+            expectation.thenRespond(response);
+        }else {
+            expectation.thenRespond(HttpResponse.response().withBody("null"));
+        }
         Optional.ofNullable(forward).ifPresent(expectation::thenForward);
         Optional.ofNullable(overrideForwarded).ifPresent(expectation::thenForward);
         Optional.ofNullable(error).ifPresent(expectation::thenError);

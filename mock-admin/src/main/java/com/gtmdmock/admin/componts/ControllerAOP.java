@@ -1,4 +1,4 @@
-//package com.gtmdmock.admin.componts;
+package com.gtmdmock.admin.componts;
 //
 //import com.gtmdmock.admin.model.vo.BaseResponseVO;
 //import org.slf4j.Logger;

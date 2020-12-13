@@ -97,6 +97,7 @@ public class ExpectationsTemplate {
                 this.server.upsert(expectation);
             }else {
                 this.expectationList.add(expectation);
+                this.server.upsert(expectation);
             }
 
         }catch (Exception e){
