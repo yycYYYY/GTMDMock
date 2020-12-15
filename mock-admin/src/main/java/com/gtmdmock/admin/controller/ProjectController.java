@@ -40,7 +40,7 @@ public class ProjectController {
         return BaseResponseVO.success("success");
     }
 
-    @PostMapping("/update")
+    @PostMapping("/upd")
     public BaseResponseVO updateProject(@RequestBody Project project){
         projectService.updateProjectOfCore(project);
         return BaseResponseVO.success("更新成功");

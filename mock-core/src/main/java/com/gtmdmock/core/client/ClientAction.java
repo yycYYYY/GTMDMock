@@ -8,34 +8,39 @@ import org.mockserver.model.HttpForward;
 import org.mockserver.model.HttpOverrideForwardedRequest;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 import static org.mockserver.model.HttpRequest.request;
 
 public class ClientAction {
 
-    private List<ClientInfo> clientInfos;
-    private List<ServerClient> clients;
+    private Map<Integer,ClientInfo> clientInfos = new HashMap<>();
+    private Map<Integer,ServerClient> clients = new HashMap<>();
 
     //TODO 开启客户端
     //TODO 关闭客户端
 
-    public List<ClientInfo> getClientInfos() {
+
+    public Map<Integer, ClientInfo> getClientInfos() {
         return clientInfos;
     }
 
-    public void setClientInfos(List<ClientInfo> clientInfos) {
+    public void setClientInfos(Map<Integer, ClientInfo> clientInfos) {
         this.clientInfos = clientInfos;
     }
 
-    public List<ServerClient> getClients() {
+    public void setClientInfos(List<ClientInfo> clientInfos) {
+        for (ClientInfo c : clientInfos) {
+            this.clientInfos.put(c.getProjectId(),c);
+        }
+    }
+
+    public Map<Integer, ServerClient> getClients() {
         return clients;
     }
 
-    public void setClients(List<ServerClient> clients) {
+    public void setClients(Map<Integer, ServerClient> clients) {
         this.clients = clients;
     }
 
@@ -59,41 +64,38 @@ public class ClientAction {
     }
 
     public ServerClient newClient(ClientInfo info){
-        this.clientInfos.add(info);
+        this.clientInfos.put(info.getProjectId(),info);
         ServerClient server = new ServerClient(info.getPort());
         server.setProjectId(info.getProjectId());
         if (info.getProxyAddress() != null){
             setGlobalProxy(server,info.getProxyAddress(),info.getScheme());
         }
-        this.clients.add(server);
+        this.clients.put(server.getProjectId(),server);
         return server;
     }
 
     public void deleteClient(Integer clientId){
 
-        for (ServerClient client: this.clients){
-            if (Objects.equals(clientId, client.getProjectId())){
-                client.stop();
-                this.clients.remove(client);
-            }
-        }
+        ServerClient client = this.clients.get(clientId);
+        client.stop();
+        this.clients.remove(clientId);
+        this.clientInfos.remove(clientId);
 
-        this.clientInfos.removeIf(info -> Objects.equals(clientId, info.getProjectId()));
     }
 
     //实例化mock server客户端，并监听端口，@TODO 并将客户端，开关信息等，写入缓存
-    public List<ServerClient> clientInstantiate(){
+    public Map<Integer,ServerClient> clientInstantiate(){
 
-        clients = new ArrayList<>();
+        clients = new HashMap<>();
 
         if (this.clientInfos != null){
-            for (ClientInfo info : clientInfos){
-                ServerClient server = new ServerClient(info.getPort());
-                server.setProjectId(info.getProjectId());
-                if (info.getProxyAddress() != null){
-                    setGlobalProxy(server,info.getProxyAddress(),info.getScheme());
+            for (Map.Entry<Integer,ClientInfo> entry : clientInfos.entrySet()){
+                ServerClient server = new ServerClient(entry.getValue().getPort());
+                server.setProjectId(entry.getValue().getProjectId());
+                if (entry.getValue().getProxyAddress() != null){
+                    setGlobalProxy(server,entry.getValue().getProxyAddress(),entry.getValue().getScheme());
                 }
-                clients.add(server);
+                clients.put(server.getProjectId(),server);
             }
         }
 
@@ -106,12 +108,9 @@ public class ClientAction {
         if (expectations != null) {
             for (ExpectationsTemplate e: expectations) {
 
-                for (ServerClient client: this.clients){
-                    if (client.getProjectId().equals(e.getProjectId())){
-                        e.setServer(client);
-                        e.initClient();
-                    }
-                }
+                ServerClient client = this.clients.get(e.getProjectId());
+                e.setServer(client);
+                e.initClient();
             }
         }
     }

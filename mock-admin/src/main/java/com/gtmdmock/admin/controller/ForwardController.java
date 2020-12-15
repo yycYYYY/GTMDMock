@@ -36,7 +36,7 @@ public class ForwardController {
     }
 
     @ApiOperation(value = "更新一个forward,并同步至core")
-    @PostMapping("/add")
+    @PostMapping("/upd")
     public BaseResponseVO updateForward(@RequestBody Forward forward){
 
         forwardService.updateForwardOfCore(forward);

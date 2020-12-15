@@ -8,13 +8,12 @@ import com.gtmdmock.core.expectation.ExpectationsTemplate;
 import com.gtmdmock.core.expectation.ExpectationsAction;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 整个项目的引导器
  */
 public class Bootstrap {
-
-    //TODO:400行一个类，一行注释没有，真的傻逼，明晚补注释！！！！！！！
 
     private final ClientAction clientAction = new ClientAction();
     private final ExpectationsAction expectationsAction = new ExpectationsAction();
@@ -48,7 +47,7 @@ public class Bootstrap {
         this.clientAction.clientInstantiate();
     }
 
-    public List<ServerClient> getClients(){
+    public Map<Integer,ServerClient> getClients(){
         return this.clientAction.getClients();
     }
 
@@ -60,21 +59,12 @@ public class Bootstrap {
     public void initExpectations(List<ExpectationsTemplate> expectationsList){
         expectationsAction.setExpectations(expectationsList);
 
-        List<ServerClient> clients = this.getClients();
+        Map<Integer,ServerClient> clients = this.getClients();
         for (ExpectationsTemplate expectations: expectationsList){
             int projectId = expectations.getProjectId();
-            for (ServerClient client: clients){
-                if (client.getProjectId() == projectId){
-                    expectations.setServer(client);
-                }
-            }
+            ServerClient client = clients.get(projectId);
+            expectations.setServer(client);
         }
     }
-
-
-
-
-
-
 
 }

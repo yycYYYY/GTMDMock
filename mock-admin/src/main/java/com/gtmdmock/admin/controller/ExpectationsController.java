@@ -48,7 +48,7 @@ public class ExpectationsController {
     }
 
     @ApiOperation("删除一个期望集")
-    @GetMapping("/delAll")
+    @GetMapping("/del")
     public BaseResponseVO deleteExpectations(@RequestParam(value = "expectations") Integer expectationsId){
         expectationsService.deleteExpectationsOfCoreById(expectationsId);
         return BaseResponseVO.success("success");
