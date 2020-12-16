@@ -1,13 +1,6 @@
 package com.gtmdmock.admin.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
-import java.io.Serializable;
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class Error implements Serializable {
-
-
+public class Error {
     private Integer id;
 
     private Integer requestId;

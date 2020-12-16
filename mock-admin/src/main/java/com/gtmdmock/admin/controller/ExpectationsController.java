@@ -1,5 +1,7 @@
 package com.gtmdmock.admin.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.gtmdmock.admin.model.entity.Expectations;
 import com.gtmdmock.admin.model.vo.BaseResponseVO;
 import com.gtmdmock.admin.service.ExpectationsService;
@@ -8,7 +10,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@Api("expectations")
+import java.util.List;
+
+@Api(tags = "expectations")
 @RequestMapping("/expectations")
 @RestController
 public class ExpectationsController {
@@ -20,8 +24,10 @@ public class ExpectationsController {
     @GetMapping("/list")
     public BaseResponseVO getAllExpectations(@RequestParam(value = "pn",defaultValue = "1") Integer pageNumber,
                                              @RequestParam(value = "projectId") Integer projectId){
-        //TODO:待补充
-        return null;
+        PageHelper.startPage(pageNumber,5);
+        List<Expectations> expectations = expectationsService.getAllExpectationsOfAdminByProjectId(projectId);
+        PageInfo<Expectations> pageInfo = new PageInfo<>(expectations);
+        return BaseResponseVO.success(pageInfo);
     }
 
     @ApiOperation("新增一个期望集，并同步至core")

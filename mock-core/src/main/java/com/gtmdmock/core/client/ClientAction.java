@@ -6,6 +6,7 @@ import com.gtmdmock.core.expectation.ExpectationsAction;
 import org.mockserver.mock.Expectation;
 import org.mockserver.model.HttpForward;
 import org.mockserver.model.HttpOverrideForwardedRequest;
+import org.mockserver.model.LogEventRequestAndResponse;
 
 
 import java.util.*;
@@ -38,6 +39,10 @@ public class ClientAction {
 
     public Map<Integer, ServerClient> getClients() {
         return clients;
+    }
+
+    public ServerClient getClient(Integer projectId){
+        return this.clients.get(projectId);
     }
 
     public void setClients(Map<Integer, ServerClient> clients) {
@@ -134,5 +139,26 @@ public class ClientAction {
         );
 
         return expectations;
+    }
+
+    //获取所有的记录RequestAndResponse
+    public LogEventRequestAndResponse[] retrieveAllRequestAndResponse(ServerClient client){
+
+        LogEventRequestAndResponse[] logEventRequestAndResponses = client.retrieveRecordedRequestsAndResponses(
+                request()
+        );
+
+        return logEventRequestAndResponses;
+    }
+
+    //获取某Path下所有的记录RequestAndResponse
+    public LogEventRequestAndResponse[] retrieveRequestAndResponseByPath(ServerClient client,String path){
+
+        LogEventRequestAndResponse[] logEventRequestAndResponses = client.retrieveRecordedRequestsAndResponses(
+                request()
+                        .withPath(path)
+        );
+
+        return logEventRequestAndResponses;
     }
 }

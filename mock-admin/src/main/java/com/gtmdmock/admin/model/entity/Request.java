@@ -1,11 +1,7 @@
 package com.gtmdmock.admin.model.entity;
 
-import java.io.Serializable;
-
-public class Request implements Serializable {
+public class Request {
     private Integer id;
-
-    private Integer requestId;
 
     private Integer expectationsId;
 
@@ -35,14 +31,6 @@ public class Request implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getRequestId() {
-        return requestId;
-    }
-
-    public void setRequestId(Integer requestId) {
-        this.requestId = requestId;
     }
 
     public Integer getExpectationsId() {

@@ -100,7 +100,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gtmdmock.admin.model.entity.Project">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into project (id, project_name, proxy_address, 
@@ -109,7 +109,7 @@
       #{port,jdbcType=INTEGER}, #{isSecure,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.gtmdmock.admin.model.entity.Project">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into project

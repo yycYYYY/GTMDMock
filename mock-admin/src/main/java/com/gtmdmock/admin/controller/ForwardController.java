@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@Api(value = "forward")
+@Api(tags = "forward")
 @RequestMapping("/forward")
 @RestController
 public class ForwardController {

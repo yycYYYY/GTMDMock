@@ -50,12 +50,10 @@ public class ForwardServiceImpl implements ForwardService {
 
     @Override
     public void updateForwardOfCore(Forward forward) {
-
     }
 
     @Override
     public void deleteForwardOfCore(Integer requestId) {
-
     }
 
     @Override

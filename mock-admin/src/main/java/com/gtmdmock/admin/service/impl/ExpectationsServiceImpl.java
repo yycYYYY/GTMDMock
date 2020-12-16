@@ -39,6 +39,7 @@ public class ExpectationsServiceImpl implements ExpectationsService {
     public void insertExpectationsToCore(Expectations expectations) {
         this.insertExpectations(expectations);
         //TODO:  insertExpectationsToCore
+
     }
 
     @Override
@@ -54,7 +55,7 @@ public class ExpectationsServiceImpl implements ExpectationsService {
     }
 
     @Override
-    public Expectations getProjectById(Integer id) {
+    public Expectations getExpectationsById(Integer id) {
         return expectationsMapper.selectByPrimaryKey(id);
     }
 
@@ -62,6 +63,13 @@ public class ExpectationsServiceImpl implements ExpectationsService {
     public List<Expectations> getAllExpectationsOfAdmin() {
         ExpectationsExample example = new ExpectationsExample();
         example.createCriteria().andIdIsNotNull();
+        return expectationsMapper.selectByExample(example);
+    }
+
+    @Override
+    public List<Expectations> getAllExpectationsOfAdminByProjectId(Integer projectId) {
+        ExpectationsExample example = new ExpectationsExample();
+        example.createCriteria().andProjectIdEqualTo(projectId);
         return expectationsMapper.selectByExample(example);
     }
 

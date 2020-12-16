@@ -21,9 +21,11 @@ public interface ExpectationsService {
 
     void deleteExpectationsOfCoreById(Integer id);
 
-    Expectations getProjectById(Integer id);
+    Expectations getExpectationsById(Integer id);
 
     List<Expectations> getAllExpectationsOfAdmin();
+
+    List<Expectations> getAllExpectationsOfAdminByProjectId(Integer projectId);
 
     List<ExpectationsTemplate> getAllExpectationsOfCore();
 }

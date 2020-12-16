@@ -3,7 +3,6 @@
 <mapper namespace="com.gtmdmock.admin.model.mapper.RequestMapper">
   <resultMap id="BaseResultMap" type="com.gtmdmock.admin.model.entity.Request">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="request_id" jdbcType="INTEGER" property="requestId" />
     <result column="expectations_id" jdbcType="INTEGER" property="expectationsId" />
     <result column="matcher_type" jdbcType="VARCHAR" property="matcherType" />
     <result column="path" jdbcType="VARCHAR" property="path" />
@@ -75,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, request_id, expectations_id, matcher_type, path, method, body, is_secure, is_keep_alive, 
+    id, expectations_id, matcher_type, path, method, body, is_secure, is_keep_alive, 
     headers, cookies, query_params, path_params
   </sql>
   <select id="selectByExample" parameterType="com.gtmdmock.admin.model.entity.RequestExample" resultMap="BaseResultMap">
@@ -109,30 +108,27 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gtmdmock.admin.model.entity.Request">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into request (id, request_id, expectations_id, 
-      matcher_type, path, method, 
-      body, is_secure, is_keep_alive, 
-      headers, cookies, query_params, 
-      path_params)
-    values (#{id,jdbcType=INTEGER}, #{requestId,jdbcType=INTEGER}, #{expectationsId,jdbcType=INTEGER}, 
-      #{matcherType,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, 
-      #{body,jdbcType=VARCHAR}, #{isSecure,jdbcType=INTEGER}, #{isKeepAlive,jdbcType=INTEGER}, 
-      #{headers,jdbcType=VARCHAR}, #{cookies,jdbcType=VARCHAR}, #{queryParams,jdbcType=VARCHAR}, 
-      #{pathParams,jdbcType=VARCHAR})
+    insert into request (id, expectations_id, matcher_type, 
+      path, method, body, 
+      is_secure, is_keep_alive, headers, 
+      cookies, query_params, path_params
+      )
+    values (#{id,jdbcType=INTEGER}, #{expectationsId,jdbcType=INTEGER}, #{matcherType,jdbcType=VARCHAR}, 
+      #{path,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, #{body,jdbcType=VARCHAR}, 
+      #{isSecure,jdbcType=INTEGER}, #{isKeepAlive,jdbcType=INTEGER}, #{headers,jdbcType=VARCHAR}, 
+      #{cookies,jdbcType=VARCHAR}, #{queryParams,jdbcType=VARCHAR}, #{pathParams,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.gtmdmock.admin.model.entity.Request">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into request
     <trim prefix="(" suffix=")" suffixOverrides=",">
       id,
-      <if test="requestId != null">
-        request_id,
-      </if>
       <if test="expectationsId != null">
         expectations_id,
       </if>
@@ -169,9 +165,6 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       #{id,jdbcType=INTEGER},
-      <if test="requestId != null">
-        #{requestId,jdbcType=INTEGER},
-      </if>
       <if test="expectationsId != null">
         #{expectationsId,jdbcType=INTEGER},
       </if>
@@ -219,9 +212,6 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.requestId != null">
-        request_id = #{record.requestId,jdbcType=INTEGER},
-      </if>
       <if test="record.expectationsId != null">
         expectations_id = #{record.expectationsId,jdbcType=INTEGER},
       </if>
@@ -263,7 +253,6 @@
   <update id="updateByExample" parameterType="map">
     update request
     set id = #{record.id,jdbcType=INTEGER},
-      request_id = #{record.requestId,jdbcType=INTEGER},
       expectations_id = #{record.expectationsId,jdbcType=INTEGER},
       matcher_type = #{record.matcherType,jdbcType=VARCHAR},
       path = #{record.path,jdbcType=VARCHAR},
@@ -282,9 +271,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.gtmdmock.admin.model.entity.Request">
     update request
     <set>
-      <if test="requestId != null">
-        request_id = #{requestId,jdbcType=INTEGER},
-      </if>
       <if test="expectationsId != null">
         expectations_id = #{expectationsId,jdbcType=INTEGER},
       </if>
@@ -323,8 +309,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gtmdmock.admin.model.entity.Request">
     update request
-    set request_id = #{requestId,jdbcType=INTEGER},
-      expectations_id = #{expectationsId,jdbcType=INTEGER},
+    set expectations_id = #{expectationsId,jdbcType=INTEGER},
       matcher_type = #{matcherType,jdbcType=VARCHAR},
       path = #{path,jdbcType=VARCHAR},
       method = #{method,jdbcType=VARCHAR},

@@ -61,17 +61,20 @@ public class ResponseServiceImpl implements ResponseService {
 
     @Override
     public void insertResponseToCOre(Response response) {
+        this.insertResponse(response);
         //TODO:增加core中的response，完了战线拉的太长，有点想不起来之前的代码逻辑了，周末看下
         RequestMatcher request = requestService.getRequestOfCore(requestService.getRequestById(response.getRequestId()));
     }
 
     @Override
     public void updateResponseOfCore(Response response) {
+        this.updateResponse(response);
         //TODO:更新core中的response
     }
 
     @Override
     public void deleteResponseOfCore(Integer requestId) {
+        this.deleteResponseById(requestId);
         //TODO:删除core中的response
     }
 

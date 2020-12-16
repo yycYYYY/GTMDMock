@@ -109,7 +109,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gtmdmock.admin.model.entity.OverrideForward">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into override_forward (id, request_id, host, 
@@ -124,7 +124,7 @@
       #{isKeepAlive,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.gtmdmock.admin.model.entity.OverrideForward">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into override_forward

@@ -11,6 +11,8 @@ import com.gtmdmock.core.expectation.ExpectationsAction;
 import com.gtmdmock.core.expectation.ExpectationsTemplate;
 import com.gtmdmock.core.request.RequestMatcher;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,8 @@ import java.util.Optional;
 
 @Service
 public class RequestServiceImpl implements RequestService {
+
+    private final Logger logger = LoggerFactory.getLogger(RequestServiceImpl.class);
 
     private final Bootstrap bootstrap = Bootstrap.getInstance();
 
@@ -33,6 +37,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public void insertRequest(Request request) {
         requestMapper.insert(request);
+        logger.info("{}",request.getId());
     }
 
     @Override
@@ -96,7 +101,7 @@ public class RequestServiceImpl implements RequestService {
         Optional.ofNullable(request.getBody()).ifPresent(requestMatcher::setBody);
         Optional.ofNullable(request.getExpectationsId()).ifPresent(requestMatcher::setExpectationId);
         Optional.ofNullable(request.getMethod()).ifPresent(requestMatcher::setMethod);
-        Optional.ofNullable(request.getRequestId()).ifPresent(requestMatcher::setRequestId);
+        Optional.ofNullable(request.getId()).ifPresent(requestMatcher::setRequestId);
         Optional.ofNullable(request.getMatcherType()).ifPresent(requestMatcher::setMatcherType);
 
         if (request.getHeaders() != null && !request.getHeaders().equals("")){

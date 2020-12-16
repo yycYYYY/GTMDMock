@@ -8,6 +8,8 @@ import com.gtmdmock.core.Bootstrap;
 import com.gtmdmock.core.client.ClientAction;
 import com.gtmdmock.core.client.ClientInfo;
 import org.mockserver.model.HttpForward;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ import java.util.Optional;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
+
+    private final Logger logger = LoggerFactory.getLogger("ProjectServiceImpl.class");
 
     private final Bootstrap bootstrap = Bootstrap.getInstance();
 
@@ -61,8 +65,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void insertProjectToCore(Project project) {
-
+        this.inertProject(project);
         clientAction.newClient(getClientInfo(project));
+
     }
 
     @Override
@@ -71,10 +76,12 @@ public class ProjectServiceImpl implements ProjectService {
         ClientAction clientAction = bootstrap.getClientAction();
 
         //TODO:更新project of core,这里得好好盘一下core那部分的逻辑，那块写的时间有点长了。淦，有点记不清逻辑了
+
     }
 
     @Override
     public void deleteProjectOfCore(Integer id) {
+        this.deleteProjectById(id);
         clientAction.deleteClient(id);
     }
 

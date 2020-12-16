@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@Api(value = "error")
+@Api(tags = "error相关操作")//，error为mock响应的一种
 @RequestMapping("/error")
 @RestController
 public class ErrorController {

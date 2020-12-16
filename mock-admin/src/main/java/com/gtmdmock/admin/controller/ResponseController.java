@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-@Api(value = "forward")
+@Api(tags = "response相关操作")
 @RequestMapping("/response")
 @RestController
 public class ResponseController {
@@ -47,7 +47,7 @@ public class ResponseController {
 
     @ApiOperation(value = "删除一个response,并同步至core")
     @GetMapping("/del")
-    public BaseResponseVO deleteResponse(@RequestParam(value = "projectId") Integer requestId){
+    public BaseResponseVO deleteResponse(@RequestParam(value = "requestId") Integer requestId){
         responseService.deleteResponseOfCore(requestId);
         return BaseResponseVO.success("success");
     }

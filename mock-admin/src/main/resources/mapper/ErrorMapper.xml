@@ -100,7 +100,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gtmdmock.admin.model.entity.Error">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into error (id, request_id, response, 
@@ -109,7 +109,7 @@
       #{isDropConnection,jdbcType=INTEGER}, #{delay,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.gtmdmock.admin.model.entity.Error">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into error

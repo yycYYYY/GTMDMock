@@ -164,66 +164,6 @@ public class RequestExample {
             return (Criteria) this;
         }
 
-        public Criteria andRequestIdIsNull() {
-            addCriterion("request_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRequestIdIsNotNull() {
-            addCriterion("request_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRequestIdEqualTo(Integer value) {
-            addCriterion("request_id =", value, "requestId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRequestIdNotEqualTo(Integer value) {
-            addCriterion("request_id <>", value, "requestId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRequestIdGreaterThan(Integer value) {
-            addCriterion("request_id >", value, "requestId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRequestIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("request_id >=", value, "requestId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRequestIdLessThan(Integer value) {
-            addCriterion("request_id <", value, "requestId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRequestIdLessThanOrEqualTo(Integer value) {
-            addCriterion("request_id <=", value, "requestId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRequestIdIn(List<Integer> values) {
-            addCriterion("request_id in", values, "requestId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRequestIdNotIn(List<Integer> values) {
-            addCriterion("request_id not in", values, "requestId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRequestIdBetween(Integer value1, Integer value2) {
-            addCriterion("request_id between", value1, value2, "requestId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRequestIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("request_id not between", value1, value2, "requestId");
-            return (Criteria) this;
-        }
-
         public Criteria andExpectationsIdIsNull() {
             addCriterion("expectations_id is null");
             return (Criteria) this;

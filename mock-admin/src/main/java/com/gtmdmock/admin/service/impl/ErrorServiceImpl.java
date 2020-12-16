@@ -5,6 +5,8 @@ import com.gtmdmock.admin.model.entity.ErrorExample;
 import com.gtmdmock.admin.model.mapper.ErrorMapper;
 import com.gtmdmock.admin.service.ErrorService;
 import com.gtmdmock.core.httperror.ErrorTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +17,15 @@ import java.util.Optional;
 @Service
 public class ErrorServiceImpl implements ErrorService {
 
+    private final Logger logger = LoggerFactory.getLogger(ErrorServiceImpl.class);
+
     @Autowired
     ErrorMapper errorMapper;
-
 
     @Override
     public void insertError(Error error) {
         errorMapper.insert(error);
+        logger.info("{}",error.getId());
     }
 
     @Override

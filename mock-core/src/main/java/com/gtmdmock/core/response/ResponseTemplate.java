@@ -85,7 +85,7 @@ public class ResponseTemplate {
 
         if (headers != null){
             for (Map.Entry<String,String > entry: this.headers.entrySet()){
-                response.withHeader(entry.getKey(),entry.getValue());
+                response.withHeader(String.valueOf(entry.getKey()),String.valueOf(entry.getValue()));
             }
         }
 

@@ -5,6 +5,7 @@ import org.mockserver.mock.Expectation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ExpectationsTemplate {
 
@@ -67,7 +68,7 @@ public class ExpectationsTemplate {
     }
 
     public void initClient() {
-        if (this.isOpen()){
+        if (this.isOpen() && expectationList != null  && !expectationList.isEmpty()){
             //这里不用担心，重复增加期望，框架本身做了处理
             for (Expectation expectation: this.expectationList) {
                 this.server.upsert(expectation);
@@ -77,7 +78,7 @@ public class ExpectationsTemplate {
     }
 
     public void clearClient(){
-        if (!this.isOpen()){
+        if (!this.isOpen()&& expectationList != null  && !expectationList.isEmpty()){
             for (Expectation expectation: this.expectationList){
                 this.server.clear(expectation.getHttpRequest());
             }

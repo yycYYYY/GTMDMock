@@ -103,7 +103,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gtmdmock.admin.model.entity.Response">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into response (id, request_id, status_code, 
@@ -114,7 +114,7 @@
       #{cookies,jdbcType=VARCHAR}, #{delay,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.gtmdmock.admin.model.entity.Response">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into response
