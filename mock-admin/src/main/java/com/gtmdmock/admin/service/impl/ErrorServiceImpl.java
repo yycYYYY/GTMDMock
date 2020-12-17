@@ -25,7 +25,6 @@ public class ErrorServiceImpl implements ErrorService {
     @Override
     public void insertError(Error error) {
         errorMapper.insert(error);
-        logger.info("{}",error.getId());
     }
 
     @Override

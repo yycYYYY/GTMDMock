@@ -26,12 +26,11 @@ import java.util.Optional;
 @Service
 public class ResponseServiceImpl implements ResponseService {
 
+    @Autowired
+    ResponseMapper responseMapper;
 
     @Autowired
     RequestService requestService;
-
-    @Autowired
-    ResponseMapper responseMapper;
 
     private final Bootstrap bootstrap = Bootstrap.getInstance();
 

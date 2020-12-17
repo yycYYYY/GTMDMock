@@ -4,7 +4,10 @@ import com.gtmdmock.admin.model.entity.OverrideForward;
 import com.gtmdmock.admin.model.entity.OverrideForwardExample;
 import com.gtmdmock.admin.model.mapper.OverrideForwardMapper;
 import com.gtmdmock.admin.service.OverrideForwardService;
+import com.gtmdmock.admin.service.RequestService;
 import com.gtmdmock.admin.utils.JsonUtils;
+import com.gtmdmock.core.Bootstrap;
+import com.gtmdmock.core.expectation.ExpectationsAction;
 import com.gtmdmock.core.forward.OverrideForwardTemplate;
 import javafx.print.PageOrientation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,13 @@ public class OverrideForwardServiceImpl implements OverrideForwardService {
 
     @Autowired
     OverrideForwardMapper overrideForwardMapper;
+
+    @Autowired
+    RequestService requestService;
+
+    private final Bootstrap bootstrap = Bootstrap.getInstance();
+
+    private final ExpectationsAction expectationsAction = bootstrap.getExpectationsAction();
 
     @Override
     public void insertOverrideForward(OverrideForward overrideForward) {

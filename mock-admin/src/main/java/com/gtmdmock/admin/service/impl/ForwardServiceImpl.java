@@ -4,7 +4,9 @@ import com.gtmdmock.admin.model.entity.Forward;
 import com.gtmdmock.admin.model.entity.ForwardExample;
 import com.gtmdmock.admin.model.mapper.ForwardMapper;
 import com.gtmdmock.admin.service.ForwardService;
+import com.gtmdmock.admin.service.RequestService;
 import com.gtmdmock.core.Bootstrap;
+import com.gtmdmock.core.expectation.ExpectationsAction;
 import com.gtmdmock.core.forward.ForwardTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,12 @@ public class ForwardServiceImpl implements ForwardService {
     @Autowired
     ForwardMapper forwardMapper;
 
+    @Autowired
+    RequestService requestService;
+
     private final Bootstrap bootstrap = Bootstrap.getInstance();
+
+    private final ExpectationsAction expectationsAction = bootstrap.getExpectationsAction();
 
     @Override
     public void insertForward(Forward forward) {

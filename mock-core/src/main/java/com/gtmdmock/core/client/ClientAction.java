@@ -19,10 +19,6 @@ public class ClientAction {
     private Map<Integer,ClientInfo> clientInfos = new HashMap<>();
     private Map<Integer,ServerClient> clients = new HashMap<>();
 
-    //TODO 开启客户端
-    //TODO 关闭客户端
-
-
     public Map<Integer, ClientInfo> getClientInfos() {
         return clientInfos;
     }
@@ -88,7 +84,7 @@ public class ClientAction {
 
     }
 
-    //实例化mock server客户端，并监听端口，@TODO 并将客户端，开关信息等，写入缓存
+    //实例化mock server客户端，并监听端口
     public Map<Integer,ServerClient> clientInstantiate(){
 
         clients = new HashMap<>();
