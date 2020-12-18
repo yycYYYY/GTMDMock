@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Api( tags = "overrideForward")
+@Api( tags = "overrideForward相关操作")
 @RequestMapping("/overrideMapping")
 @RestController
 public class OverrideForwardController {

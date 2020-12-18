@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(tags = "expectations")
+@Api(tags = "expectations相关操作")
 @RequestMapping("/expectations")
 @RestController
 public class ExpectationsController {
@@ -30,7 +30,7 @@ public class ExpectationsController {
         return BaseResponseVO.success(pageInfo);
     }
 
-    @ApiOperation("新增一个期望集，并同步至core")
+    @ApiOperation("新增一个期望集，如果isOpen为1，在添加的同时，也会同步至core")
     @PostMapping("/add")
     public BaseResponseVO addExpectations(@RequestBody Expectations expectations){
 
@@ -38,7 +38,7 @@ public class ExpectationsController {
         return BaseResponseVO.success("success");
     }
 
-    @ApiOperation("更新一个期望集，并同步至core")
+    @ApiOperation("更新一个期望集，可以通过更改isOpen字段，来开启/关闭期望集是否生效")
     @PostMapping("/update")
     public BaseResponseVO updateExpectations(@RequestBody Expectations expectations){
 
@@ -53,7 +53,7 @@ public class ExpectationsController {
         return BaseResponseVO.success("success");
     }
 
-    @ApiOperation("删除一个期望集")
+    @ApiOperation("通过expectations删除一个期望集")
     @GetMapping("/del")
     public BaseResponseVO deleteExpectations(@RequestParam(value = "expectations") Integer expectationsId){
         expectationsService.deleteExpectationsOfCoreById(expectationsId);

@@ -7,6 +7,8 @@ public class Expectations {
 
     private String expectationsName;
 
+    private Integer isOpen;
+
     public Integer getId() {
         return id;
     }
@@ -29,5 +31,13 @@ public class Expectations {
 
     public void setExpectationsName(String expectationsName) {
         this.expectationsName = expectationsName == null ? null : expectationsName.trim();
+    }
+
+    public Integer getIsOpen() {
+        return isOpen;
+    }
+
+    public void setIsOpen(Integer isOpen) {
+        this.isOpen = isOpen;
     }
 }

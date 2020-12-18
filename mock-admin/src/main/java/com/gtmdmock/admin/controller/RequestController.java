@@ -47,7 +47,7 @@ public class RequestController {
         return BaseResponseVO.success(request);
     }
 
-    @ApiOperation(value = "添加一个request,并同步至core")
+    @ApiOperation(value = "添加一个request，如果isOpen为1，在添加的同时，也会同步至core")
     @PostMapping("/add")
     public BaseResponseVO addProject(@RequestBody Request request){
 
@@ -55,7 +55,7 @@ public class RequestController {
         return BaseResponseVO.success("添加成功");
     }
 
-    @ApiOperation(value = "更新一个request,并同步至core")
+    @ApiOperation(value = "更新一个request，可以通过更改isOpen字段，来开启/关闭request所属的期望是否生效")
     @PostMapping("/upd")
     public BaseResponseVO updateProject(@RequestBody Request request){
 
@@ -63,7 +63,7 @@ public class RequestController {
         return BaseResponseVO.success("添加成功");
     }
 
-    @ApiOperation(value = "根据requestId删除一个request，并同步至core")
+    @ApiOperation(value = "根据requestId删除一个request")
     @GetMapping("/del")
     public BaseResponseVO deleteProject(@RequestParam(value = "requestId") Integer requestId){
         requestService.deleteRequestOfCore(requestId);

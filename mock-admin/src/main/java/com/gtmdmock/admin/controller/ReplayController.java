@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = "录制回放")
+@Api(tags = "录制回放相关操作")
 @RequestMapping("/replay")
 @RestController
 public class ReplayController {

@@ -18,12 +18,6 @@ class MockAdminApplicationTests {
 	ResponseService responseService;
 
 	@Test
-	void contextLoads() {
-		projectService.getAllProjects();
-
-	}
-
-	@Test
 	void test(){
 		Response response = responseService.getResponsesByRequestId(1);
 		ResponseTemplate responseTemplate = responseService.getResponseOfCore(response);

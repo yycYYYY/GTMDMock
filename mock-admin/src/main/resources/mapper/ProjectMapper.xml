@@ -7,6 +7,7 @@
     <result column="proxy_address" jdbcType="VARCHAR" property="proxyAddress" />
     <result column="port" jdbcType="INTEGER" property="port" />
     <result column="is_secure" jdbcType="INTEGER" property="isSecure" />
+    <result column="is_open" jdbcType="INTEGER" property="isOpen" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, project_name, proxy_address, port, is_secure
+    id, project_name, proxy_address, port, is_secure, is_open
   </sql>
   <select id="selectByExample" parameterType="com.gtmdmock.admin.model.entity.ProjectExample" resultMap="BaseResultMap">
     select
@@ -104,9 +105,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into project (id, project_name, proxy_address, 
-      port, is_secure)
+      port, is_secure, is_open
+      )
     values (#{id,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{proxyAddress,jdbcType=VARCHAR}, 
-      #{port,jdbcType=INTEGER}, #{isSecure,jdbcType=INTEGER})
+      #{port,jdbcType=INTEGER}, #{isSecure,jdbcType=INTEGER}, #{isOpen,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.gtmdmock.admin.model.entity.Project">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -127,6 +130,9 @@
       <if test="isSecure != null">
         is_secure,
       </if>
+      <if test="isOpen != null">
+        is_open,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       #{id,jdbcType=INTEGER},
@@ -141,6 +147,9 @@
       </if>
       <if test="isSecure != null">
         #{isSecure,jdbcType=INTEGER},
+      </if>
+      <if test="isOpen != null">
+        #{isOpen,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -168,6 +177,9 @@
       <if test="record.isSecure != null">
         is_secure = #{record.isSecure,jdbcType=INTEGER},
       </if>
+      <if test="record.isOpen != null">
+        is_open = #{record.isOpen,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -179,7 +191,8 @@
       project_name = #{record.projectName,jdbcType=VARCHAR},
       proxy_address = #{record.proxyAddress,jdbcType=VARCHAR},
       port = #{record.port,jdbcType=INTEGER},
-      is_secure = #{record.isSecure,jdbcType=INTEGER}
+      is_secure = #{record.isSecure,jdbcType=INTEGER},
+      is_open = #{record.isOpen,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -199,6 +212,9 @@
       <if test="isSecure != null">
         is_secure = #{isSecure,jdbcType=INTEGER},
       </if>
+      <if test="isOpen != null">
+        is_open = #{isOpen,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -207,7 +223,8 @@
     set project_name = #{projectName,jdbcType=VARCHAR},
       proxy_address = #{proxyAddress,jdbcType=VARCHAR},
       port = #{port,jdbcType=INTEGER},
-      is_secure = #{isSecure,jdbcType=INTEGER}
+      is_secure = #{isSecure,jdbcType=INTEGER},
+      is_open = #{isOpen,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

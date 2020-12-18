@@ -11,6 +11,8 @@ public class Project {
 
     private Integer isSecure;
 
+    private Integer isOpen;
+
     public Integer getId() {
         return id;
     }
@@ -49,5 +51,13 @@ public class Project {
 
     public void setIsSecure(Integer isSecure) {
         this.isSecure = isSecure;
+    }
+
+    public Integer getIsOpen() {
+        return isOpen;
+    }
+
+    public void setIsOpen(Integer isOpen) {
+        this.isOpen = isOpen;
     }
 }

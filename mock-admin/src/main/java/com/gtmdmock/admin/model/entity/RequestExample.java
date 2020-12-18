@@ -903,6 +903,66 @@ public class RequestExample {
             addCriterion("path_params not between", value1, value2, "pathParams");
             return (Criteria) this;
         }
+
+        public Criteria andIsOpenIsNull() {
+            addCriterion("is_open is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOpenIsNotNull() {
+            addCriterion("is_open is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOpenEqualTo(Integer value) {
+            addCriterion("is_open =", value, "isOpen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOpenNotEqualTo(Integer value) {
+            addCriterion("is_open <>", value, "isOpen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOpenGreaterThan(Integer value) {
+            addCriterion("is_open >", value, "isOpen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOpenGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_open >=", value, "isOpen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOpenLessThan(Integer value) {
+            addCriterion("is_open <", value, "isOpen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOpenLessThanOrEqualTo(Integer value) {
+            addCriterion("is_open <=", value, "isOpen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOpenIn(List<Integer> values) {
+            addCriterion("is_open in", values, "isOpen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOpenNotIn(List<Integer> values) {
+            addCriterion("is_open not in", values, "isOpen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOpenBetween(Integer value1, Integer value2) {
+            addCriterion("is_open between", value1, value2, "isOpen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsOpenNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_open not between", value1, value2, "isOpen");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

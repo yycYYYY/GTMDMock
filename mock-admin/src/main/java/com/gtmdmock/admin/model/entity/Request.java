@@ -25,6 +25,8 @@ public class Request {
 
     private String pathParams;
 
+    private Integer isOpen;
+
     public Integer getId() {
         return id;
     }
@@ -119,5 +121,13 @@ public class Request {
 
     public void setPathParams(String pathParams) {
         this.pathParams = pathParams == null ? null : pathParams.trim();
+    }
+
+    public Integer getIsOpen() {
+        return isOpen;
+    }
+
+    public void setIsOpen(Integer isOpen) {
+        this.isOpen = isOpen;
     }
 }
