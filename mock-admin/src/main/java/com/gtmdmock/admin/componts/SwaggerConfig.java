@@ -16,8 +16,6 @@ import java.util.List;
 
 
 /**
- *
- *
  * @Profile 注解 标识加载在dev和test文件使用
  */
 @Configuration
@@ -51,8 +49,8 @@ public class SwaggerConfig {
      * @return
      */
     private ApiInfo apiInfo() {
-        Contact contact = new Contact("yuyongchao", "", "");
-        return new ApiInfoBuilder().title("MockServer接口文档").description("dev by yuyongchao").contact(contact)
+        Contact contact = new Contact("test", "", "");
+        return new ApiInfoBuilder().title("MockServer接口文档").description("dev by test").contact(contact)
                 .version("1.0.0").build();
     }
 
@@ -72,7 +70,7 @@ public class SwaggerConfig {
      */
 //    private List<Parameter> globalParamBuilder(){
 //        List<Parameter> pars = new ArrayList<>();
-//        pars.add(parameterBuilder("token","令牌","string","header",false).build());
+//        pars.add(parameterBuilder("token","Authorization Bearer {access_token}","string","header",false).build());
 //        return pars;
 //    }
 

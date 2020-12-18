@@ -3,7 +3,7 @@ package com.gtmdmock.admin.model.enums;
 public enum BaseResponseEnums {
     SUCCESS(200,"success"),
     FAIL(1,"fail"),
-    ERROR(502,"error");
+    ERROR(500,"error");
 
     int code;
     String message;
