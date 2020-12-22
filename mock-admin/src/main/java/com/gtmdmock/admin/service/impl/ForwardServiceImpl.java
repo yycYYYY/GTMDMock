@@ -8,6 +8,8 @@ import com.gtmdmock.admin.service.RequestService;
 import com.gtmdmock.core.Bootstrap;
 import com.gtmdmock.core.expectation.ExpectationsAction;
 import com.gtmdmock.core.forward.ForwardTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ import java.util.Optional;
 
 @Service
 public class ForwardServiceImpl implements ForwardService {
+
+    private final Logger logger = LoggerFactory.getLogger(ForwardServiceImpl.class);
 
     @Autowired
     ForwardMapper forwardMapper;

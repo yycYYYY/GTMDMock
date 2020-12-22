@@ -2,6 +2,7 @@ package com.gtmdmock.admin.service;
 
 import com.gtmdmock.admin.model.entity.Project;
 import com.gtmdmock.core.client.ClientInfo;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -30,4 +31,6 @@ public interface ProjectService {
     ClientInfo getClientInfo(Project project);
 
     List<ClientInfo> getAllClientInfos();
+
+    void replay(Integer projectId,String path, Integer save);
 }

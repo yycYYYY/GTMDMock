@@ -10,6 +10,8 @@ import com.gtmdmock.core.Bootstrap;
 import com.gtmdmock.core.expectation.ExpectationsAction;
 import com.gtmdmock.core.forward.OverrideForwardTemplate;
 import javafx.print.PageOrientation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ import java.util.Optional;
 
 @Service
 public class OverrideForwardServiceImpl implements OverrideForwardService {
+
+    private final Logger logger = LoggerFactory.getLogger(OverrideForwardServiceImpl.class);
 
     @Autowired
     OverrideForwardMapper overrideForwardMapper;

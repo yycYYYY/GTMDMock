@@ -129,7 +129,7 @@ public class ReplayServiceImpl implements ReplayService {
         Request request = new Request();
         //下面没做空指针处理，可能也有毛病
         request.setIsSecure(httpRequest.isSecure()?1:0);
-        request.setMatcherType("response");
+        request.setResponseType("response");
         request.setIsKeepAlive(httpRequest.isKeepAlive()?1:0);
         //这里可能有问题
         request.setMethod(httpRequest.getMethod("get"));
