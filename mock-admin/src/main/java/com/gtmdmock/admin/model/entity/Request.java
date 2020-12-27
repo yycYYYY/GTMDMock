@@ -5,7 +5,7 @@ public class Request {
 
     private Integer expectationsId;
 
-    private String matcherType;
+    private String responseType;
 
     private String path;
 
@@ -43,12 +43,12 @@ public class Request {
         this.expectationsId = expectationsId;
     }
 
-    public String getMatcherType() {
-        return matcherType;
+    public String getResponseType() {
+        return responseType;
     }
 
-    public void setMatcherType(String matcherType) {
-        this.matcherType = matcherType == null ? null : matcherType.trim();
+    public void setResponseType(String responseType) {
+        this.responseType = responseType == null ? null : responseType.trim();
     }
 
     public String getPath() {

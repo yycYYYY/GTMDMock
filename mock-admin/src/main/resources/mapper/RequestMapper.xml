@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.gtmdmock.admin.model.entity.Request">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="expectations_id" jdbcType="INTEGER" property="expectationsId" />
-    <result column="matcher_type" jdbcType="VARCHAR" property="matcherType" />
+    <result column="response_type" jdbcType="VARCHAR" property="responseType" />
     <result column="path" jdbcType="VARCHAR" property="path" />
     <result column="method" jdbcType="VARCHAR" property="method" />
     <result column="body" jdbcType="VARCHAR" property="body" />
@@ -75,7 +75,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, expectations_id, matcher_type, path, method, body, is_secure, is_keep_alive, 
+    id, expectations_id, response_type, path, method, body, is_secure, is_keep_alive,
     headers, cookies, query_params, path_params, is_open
   </sql>
   <select id="selectByExample" parameterType="com.gtmdmock.admin.model.entity.RequestExample" resultMap="BaseResultMap">
@@ -112,12 +112,12 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into request (id, expectations_id, matcher_type, 
+    insert into request (id, expectations_id, response_type,
       path, method, body, 
       is_secure, is_keep_alive, headers, 
       cookies, query_params, path_params, 
       is_open)
-    values (#{id,jdbcType=INTEGER}, #{expectationsId,jdbcType=INTEGER}, #{matcherType,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{expectationsId,jdbcType=INTEGER}, #{responseType,jdbcType=VARCHAR},
       #{path,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, #{body,jdbcType=VARCHAR}, 
       #{isSecure,jdbcType=INTEGER}, #{isKeepAlive,jdbcType=INTEGER}, #{headers,jdbcType=VARCHAR}, 
       #{cookies,jdbcType=VARCHAR}, #{queryParams,jdbcType=VARCHAR}, #{pathParams,jdbcType=VARCHAR}, 
@@ -133,8 +133,8 @@
       <if test="expectationsId != null">
         expectations_id,
       </if>
-      <if test="matcherType != null">
-        matcher_type,
+      <if test="responseType != null">
+        response_type,
       </if>
       <if test="path != null">
         path,
@@ -172,8 +172,8 @@
       <if test="expectationsId != null">
         #{expectationsId,jdbcType=INTEGER},
       </if>
-      <if test="matcherType != null">
-        #{matcherType,jdbcType=VARCHAR},
+      <if test="responseType != null">
+        #{responseType,jdbcType=VARCHAR},
       </if>
       <if test="path != null">
         #{path,jdbcType=VARCHAR},
@@ -222,8 +222,8 @@
       <if test="record.expectationsId != null">
         expectations_id = #{record.expectationsId,jdbcType=INTEGER},
       </if>
-      <if test="record.matcherType != null">
-        matcher_type = #{record.matcherType,jdbcType=VARCHAR},
+      <if test="record.responseType != null">
+        response_type = #{record.responseType,jdbcType=VARCHAR},
       </if>
       <if test="record.path != null">
         path = #{record.path,jdbcType=VARCHAR},
@@ -264,7 +264,7 @@
     update request
     set id = #{record.id,jdbcType=INTEGER},
       expectations_id = #{record.expectationsId,jdbcType=INTEGER},
-      matcher_type = #{record.matcherType,jdbcType=VARCHAR},
+      response_type = #{record.responseType,jdbcType=VARCHAR},
       path = #{record.path,jdbcType=VARCHAR},
       method = #{record.method,jdbcType=VARCHAR},
       body = #{record.body,jdbcType=VARCHAR},
@@ -285,8 +285,8 @@
       <if test="expectationsId != null">
         expectations_id = #{expectationsId,jdbcType=INTEGER},
       </if>
-      <if test="matcherType != null">
-        matcher_type = #{matcherType,jdbcType=VARCHAR},
+      <if test="responseType != null">
+        response_type = #{responseType,jdbcType=VARCHAR},
       </if>
       <if test="path != null">
         path = #{path,jdbcType=VARCHAR},
@@ -324,7 +324,7 @@
   <update id="updateByPrimaryKey" parameterType="com.gtmdmock.admin.model.entity.Request">
     update request
     set expectations_id = #{expectationsId,jdbcType=INTEGER},
-      matcher_type = #{matcherType,jdbcType=VARCHAR},
+      response_type = #{responseType,jdbcType=VARCHAR},
       path = #{path,jdbcType=VARCHAR},
       method = #{method,jdbcType=VARCHAR},
       body = #{body,jdbcType=VARCHAR},

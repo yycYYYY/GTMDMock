@@ -102,7 +102,7 @@ public class RequestServiceImpl implements RequestService {
         Optional.ofNullable(request.getExpectationsId()).ifPresent(requestMatcher::setExpectationId);
         Optional.ofNullable(request.getMethod()).ifPresent(requestMatcher::setMethod);
         Optional.ofNullable(request.getId()).ifPresent(requestMatcher::setRequestId);
-        Optional.ofNullable(request.getMatcherType()).ifPresent(requestMatcher::setMatcherType);
+        Optional.ofNullable(request.getResponseType()).ifPresent(requestMatcher::setMatcherType);
 
         if (request.getHeaders() != null && !request.getHeaders().equals("")){
             requestMatcher.setHeaders(JsonUtils.StringToMap(request.getHeaders()));

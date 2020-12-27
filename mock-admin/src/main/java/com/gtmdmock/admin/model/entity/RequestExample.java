@@ -224,73 +224,73 @@ public class RequestExample {
             return (Criteria) this;
         }
 
-        public Criteria andMatcherTypeIsNull() {
-            addCriterion("matcher_type is null");
+        public Criteria andResponseTypeIsNull() {
+            addCriterion("response_type is null");
             return (Criteria) this;
         }
 
-        public Criteria andMatcherTypeIsNotNull() {
-            addCriterion("matcher_type is not null");
+        public Criteria andResponseTypeIsNotNull() {
+            addCriterion("response_type is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMatcherTypeEqualTo(String value) {
-            addCriterion("matcher_type =", value, "matcherType");
+        public Criteria andResponseTypeEqualTo(String value) {
+            addCriterion("response_type =", value, "responseType");
             return (Criteria) this;
         }
 
-        public Criteria andMatcherTypeNotEqualTo(String value) {
-            addCriterion("matcher_type <>", value, "matcherType");
+        public Criteria andResponseTypeNotEqualTo(String value) {
+            addCriterion("response_type <>", value, "responseType");
             return (Criteria) this;
         }
 
-        public Criteria andMatcherTypeGreaterThan(String value) {
-            addCriterion("matcher_type >", value, "matcherType");
+        public Criteria andResponseTypeGreaterThan(String value) {
+            addCriterion("response_type >", value, "responseType");
             return (Criteria) this;
         }
 
-        public Criteria andMatcherTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("matcher_type >=", value, "matcherType");
+        public Criteria andResponseTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("response_type >=", value, "responseType");
             return (Criteria) this;
         }
 
-        public Criteria andMatcherTypeLessThan(String value) {
-            addCriterion("matcher_type <", value, "matcherType");
+        public Criteria andResponseTypeLessThan(String value) {
+            addCriterion("response_type <", value, "responseType");
             return (Criteria) this;
         }
 
-        public Criteria andMatcherTypeLessThanOrEqualTo(String value) {
-            addCriterion("matcher_type <=", value, "matcherType");
+        public Criteria andResponseTypeLessThanOrEqualTo(String value) {
+            addCriterion("response_type <=", value, "responseType");
             return (Criteria) this;
         }
 
-        public Criteria andMatcherTypeLike(String value) {
-            addCriterion("matcher_type like", value, "matcherType");
+        public Criteria andResponseTypeLike(String value) {
+            addCriterion("response_type like", value, "responseType");
             return (Criteria) this;
         }
 
-        public Criteria andMatcherTypeNotLike(String value) {
-            addCriterion("matcher_type not like", value, "matcherType");
+        public Criteria andResponseTypeNotLike(String value) {
+            addCriterion("response_type not like", value, "responseType");
             return (Criteria) this;
         }
 
-        public Criteria andMatcherTypeIn(List<String> values) {
-            addCriterion("matcher_type in", values, "matcherType");
+        public Criteria andResponseTypeIn(List<String> values) {
+            addCriterion("response_type in", values, "responseType");
             return (Criteria) this;
         }
 
-        public Criteria andMatcherTypeNotIn(List<String> values) {
-            addCriterion("matcher_type not in", values, "matcherType");
+        public Criteria andResponseTypeNotIn(List<String> values) {
+            addCriterion("response_type not in", values, "responseType");
             return (Criteria) this;
         }
 
-        public Criteria andMatcherTypeBetween(String value1, String value2) {
-            addCriterion("matcher_type between", value1, value2, "matcherType");
+        public Criteria andResponseTypeBetween(String value1, String value2) {
+            addCriterion("response_type between", value1, value2, "responseType");
             return (Criteria) this;
         }
 
-        public Criteria andMatcherTypeNotBetween(String value1, String value2) {
-            addCriterion("matcher_type not between", value1, value2, "matcherType");
+        public Criteria andResponseTypeNotBetween(String value1, String value2) {
+            addCriterion("response_type not between", value1, value2, "responseType");
             return (Criteria) this;
         }
 
