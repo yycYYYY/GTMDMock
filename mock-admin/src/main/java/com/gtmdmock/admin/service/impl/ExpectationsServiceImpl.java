@@ -3,8 +3,13 @@ package com.gtmdmock.admin.service.impl;
 import com.gtmdmock.admin.model.entity.Expectations;
 
 import com.gtmdmock.admin.model.entity.ExpectationsExample;
+import com.gtmdmock.admin.model.entity.Request;
 import com.gtmdmock.admin.model.mapper.ExpectationsMapper;
-import com.gtmdmock.admin.service.ExpectationsService;;
+import com.gtmdmock.admin.service.ExpectationsService;
+import com.gtmdmock.admin.service.RequestService;
+import com.gtmdmock.core.Bootstrap;
+import com.gtmdmock.core.expectation.ExpectationAction;
+import com.gtmdmock.core.expectation.ExpectationsAction;
 import com.gtmdmock.core.expectation.ExpectationsTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +23,16 @@ import java.util.Optional;
 public class ExpectationsServiceImpl implements ExpectationsService {
 
     @Autowired
-    private ExpectationsMapper expectationsMapper;
+    ExpectationsMapper expectationsMapper;
+
+    @Autowired
+    RequestService requestService;
+
+    private final Bootstrap bootstrap = Bootstrap.getInstance();
+
+    private final ExpectationsAction expectationsAction = bootstrap.getExpectationsAction();
+
+    private final ExpectationAction expectationUtils = new ExpectationAction();
 
     @Override
     public void insertExpectations(Expectations expectations) {
@@ -36,22 +50,14 @@ public class ExpectationsServiceImpl implements ExpectationsService {
     }
 
     @Override
-    public void insertExpectationsToCore(Expectations expectations) {
-        this.insertExpectations(expectations);
-        //TODO:  insertExpectationsToCore
-
-    }
-
-    @Override
-    public void updateExpectationsOfCore(Expectations expectations) {
-        this.updateExpectations(expectations);
-//        TODO:updateExpectationsToCore
-    }
-
-    @Override
     public void deleteExpectationsOfCoreById(Integer id) {
         this.deleteExpectationsById(id);
-//        TODO:deleteExpectationsOfCoreById
+        ExpectationsTemplate template = expectationsAction.getExpectationTemplate(id);
+        List<Request> requestList = requestService.getRequestByExpectationsId(id);
+        for (Request request:requestList){
+            template.deleteExpectation(expectationUtils.genExpectation(
+                    requestService.getRequestOfCore(request).buildRequest()));
+        }
     }
 
     @Override

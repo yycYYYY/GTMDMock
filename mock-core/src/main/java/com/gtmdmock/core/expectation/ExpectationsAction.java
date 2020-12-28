@@ -30,10 +30,6 @@ public class ExpectationsAction {
         return templates;
     }
 
-    //获取某expectations下所有的expectation的requestId
-
-    //获取某个requestId下的response和forward
-
     //获取某个ExpectationsTemplate
     public ExpectationsTemplate getExpectationTemplate(Integer expectationsId){
         for (ExpectationsTemplate template: this.expectations){
@@ -44,18 +40,6 @@ public class ExpectationsAction {
         logger.info("没有找到此id的expectationTemplate：[{}]",expectationsId);
         return null;
     }
-
-    //初始化期望集
-
-    //期望集增加期望
-
-    //期望集删除期望
-
-    //期望集修改期望
-
-    //查询期望集 项目
-
-    //查询期望集 归属人
 
     public List<ExpectationsTemplate> getAllExpectations() {
         return expectations;

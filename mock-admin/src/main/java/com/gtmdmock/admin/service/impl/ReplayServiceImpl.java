@@ -64,7 +64,7 @@ public class ReplayServiceImpl implements ReplayService {
     public Boolean replayAllAndSave(Integer projectId) {
 
         Expectations expectations = getNewExpectations(projectId);
-        expectationsService.insertExpectationsToCore(expectations);
+        expectationsService.insertExpectations(expectations);
         int expectationsId = expectations.getId();
         logger.info("录制-->新增录制结果期望集，期望集id：{}",expectationsId);
 
@@ -87,7 +87,7 @@ public class ReplayServiceImpl implements ReplayService {
     public Boolean replayAndSave(Integer projectId, String path) {
 
         Expectations expectations = getNewExpectations(projectId);
-        expectationsService.insertExpectationsToCore(expectations);
+        expectationsService.insertExpectations(expectations);
         int expectationsId = expectations.getId();
         logger.info("录制-->新增录制结果期望集，期望集id：{}",expectationsId);
 

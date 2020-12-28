@@ -30,11 +30,11 @@ public class ExpectationsController {
         return BaseResponseVO.success(pageInfo);
     }
 
-    @ApiOperation("新增一个期望集，如果isOpen为1，在添加的同时，也会同步至core")
+    @ApiOperation("新增一个期望集")
     @PostMapping("/add")
     public BaseResponseVO addExpectations(@RequestBody Expectations expectations){
 
-        expectationsService.insertExpectationsToCore(expectations);
+        expectationsService.insertExpectations(expectations);
         return BaseResponseVO.success("success");
     }
 
@@ -42,7 +42,7 @@ public class ExpectationsController {
     @PostMapping("/update")
     public BaseResponseVO updateExpectations(@RequestBody Expectations expectations){
 
-        expectationsService.updateExpectationsOfCore(expectations);
+        expectationsService.updateExpectations(expectations);
         return BaseResponseVO.success("success");
     }
 

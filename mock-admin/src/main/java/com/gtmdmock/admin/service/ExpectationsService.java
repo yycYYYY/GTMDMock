@@ -15,10 +15,6 @@ public interface ExpectationsService {
 
     void deleteExpectationsById(Integer id);
 
-    void insertExpectationsToCore(Expectations expectations);
-
-    void updateExpectationsOfCore(Expectations expectations);
-
     void deleteExpectationsOfCoreById(Integer id);
 
     Expectations getExpectationsById(Integer id);

@@ -39,7 +39,7 @@ public class ExpectationsTemplate {
         this.server = server;
     }
 
-    //这种解决bug的方式，是强行打补丁，有问题，优化的时候，需要看下，怎么把问题，在对象实例化阶段解决掉
+    //这种解决bug的方式，是强行打补丁，优化的时候，需要看下，怎么把问题，在对象实例化阶段解决掉
     public List<Expectation> getExpectationList() {
         if (this.expectationList == null){
             this.setExpectationList(new ArrayList<>());
@@ -84,9 +84,6 @@ public class ExpectationsTemplate {
             }
         }
     }
-
-    //拼装expectations，可以写在构造器里，也可以写在单独方法里，被构造器调用
-    public void splitExpectations(){}
 
     //添加或修改一个expectation
     public boolean updateExpectation(Expectation expectation){
