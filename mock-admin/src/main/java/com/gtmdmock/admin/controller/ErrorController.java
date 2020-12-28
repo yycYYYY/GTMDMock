@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ErrorController {
 
-    //TODO:同步至core的部分还没写
-
     @Autowired
     ErrorService errorService;
 
@@ -31,7 +29,7 @@ public class ErrorController {
     @PostMapping("/add")
     public BaseResponseVO addError(@RequestBody Error error){
 
-        errorService.insertError(error);
+        errorService.insertErrorToCore(error);
         return BaseResponseVO.success("success");
     }
 
@@ -39,14 +37,14 @@ public class ErrorController {
     @PostMapping("/upd")
     public BaseResponseVO updateError(@RequestBody Error error){
 
-        errorService.updateError(error);
+        errorService.updateErrorOfCore(error);
         return BaseResponseVO.success("success");
     }
 
     @ApiOperation(value = "删除一个error")
     @GetMapping("/del")
     public BaseResponseVO deleteError(@RequestParam(value = "requestId") Integer requestId){
-        errorService.deleteErrorByRequestId(requestId);
+        errorService.deleteErrorOfCore(requestId);
         return BaseResponseVO.success("success");
     }
 }

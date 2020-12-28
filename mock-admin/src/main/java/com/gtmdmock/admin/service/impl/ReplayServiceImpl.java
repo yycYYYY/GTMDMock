@@ -62,7 +62,7 @@ public class ReplayServiceImpl implements ReplayService {
 
     @Override
     public Boolean replayAllAndSave(Integer projectId) {
-        //TODO:如果往库里存的话，肯定有一种情况会发生，就是接口的响应长度大于数据库可存储的最大长度，这个要想下怎么解决
+
         Expectations expectations = getNewExpectations(projectId);
         expectationsService.insertExpectationsToCore(expectations);
         int expectationsId = expectations.getId();

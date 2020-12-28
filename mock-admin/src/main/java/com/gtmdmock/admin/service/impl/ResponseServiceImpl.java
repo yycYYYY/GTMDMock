@@ -1,5 +1,6 @@
 package com.gtmdmock.admin.service.impl;
 
+import com.gtmdmock.admin.model.entity.Request;
 import com.gtmdmock.admin.model.entity.RequestExample;
 import com.gtmdmock.admin.model.entity.Response;
 import com.gtmdmock.admin.model.entity.ResponseExample;
@@ -9,12 +10,16 @@ import com.gtmdmock.admin.service.RequestService;
 import com.gtmdmock.admin.service.ResponseService;
 import com.gtmdmock.admin.utils.JsonUtils;
 import com.gtmdmock.core.Bootstrap;
+import com.gtmdmock.core.expectation.ExpectationAction;
 import com.gtmdmock.core.expectation.ExpectationsAction;
 import com.gtmdmock.core.expectation.ExpectationsTemplate;
 import com.gtmdmock.core.request.RequestMatcher;
 import com.gtmdmock.core.response.ResponseTemplate;
+import org.mockserver.mock.Expectation;
 import org.mockserver.model.HttpResponse;
 import org.mockserver.model.MediaType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +37,13 @@ public class ResponseServiceImpl implements ResponseService {
     @Autowired
     RequestService requestService;
 
+    private final Logger logger = LoggerFactory.getLogger(ResponseServiceImpl.class);
+
     private final Bootstrap bootstrap = Bootstrap.getInstance();
 
     private final ExpectationsAction expectationsAction = bootstrap.getExpectationsAction();
+
+    private final ExpectationAction expectationUtils = new ExpectationAction();
 
     @Override
     public void insertResponse(Response response) {
@@ -61,20 +70,38 @@ public class ResponseServiceImpl implements ResponseService {
     @Override
     public void insertResponseToCOre(Response response) {
         this.insertResponse(response);
-        //TODO:增加core中的response，完了战线拉的太长，有点想不起来之前的代码逻辑了，周末看下
-        RequestMatcher request = requestService.getRequestOfCore(requestService.getRequestById(response.getRequestId()));
+        Request request = requestService.getRequestById(response.getRequestId());
+        RequestMatcher requestMatcher = requestService.getRequestOfCore(request);
+
+        Expectation expectation = expectationUtils.genExpectation(requestMatcher.buildRequest(),getResponseOfCore(response).buildResponse());
+        ExpectationsTemplate template = expectationsAction.getExpectationTemplate(request.getExpectationsId());
+        logger.info("在{}期望集下requestId为{}的响应",request.getExpectationsId(),request.getId());
+
+        template.updateExpectation(expectation);
     }
 
     @Override
     public void updateResponseOfCore(Response response) {
         this.updateResponse(response);
-        //TODO:更新core中的response
+        Request request = requestService.getRequestById(response.getRequestId());
+        RequestMatcher requestMatcher = requestService.getRequestOfCore(request);
+
+        Expectation expectation = expectationUtils.genExpectation(requestMatcher.buildRequest(),getResponseOfCore(response).buildResponse());
+        ExpectationsTemplate template = expectationsAction.getExpectationTemplate(request.getExpectationsId());
+
+        template.updateExpectation(expectation);
     }
 
     @Override
     public void deleteResponseOfCore(Integer requestId) {
         this.deleteResponseById(requestId);
-        //TODO:删除core中的response
+        Request request = requestService.getRequestById(requestId);
+        RequestMatcher requestMatcher = requestService.getRequestOfCore(request);
+
+        Expectation expectation = expectationUtils.genExpectation(requestMatcher.buildRequest());
+        ExpectationsTemplate template = expectationsAction.getExpectationTemplate(request.getExpectationsId());
+
+        template.updateExpectation(expectation);
     }
 
     @Override

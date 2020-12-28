@@ -67,7 +67,6 @@ public class ProjectServiceImpl implements ProjectService {
     public void insertProjectToCore(Project project) {
         this.inertProject(project);
         clientAction.newClient(getClientInfo(project));
-
     }
 
     @Override

@@ -21,9 +21,7 @@ public interface OverrideForwardService {
 
     void updateOverrideForwardOfCore(OverrideForward overrideForward);
 
-    void deleteOverrideForwardOfCoreById(Integer id);
-
-    void deleteOverrideForwardOfCoreByRequestId(Integer requestID);
+    void deleteOverrideForwardOfCore(Integer requestId);
 
     OverrideForward getOverrideForwardByRequestId(Integer requestId);
 

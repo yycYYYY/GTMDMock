@@ -48,7 +48,7 @@ public class OverrideForwardController {
     @ApiOperation(value = "删除一个overrideForward,并同步至core")
     @GetMapping("/del")
     public BaseResponseVO deleteOverrideForward(@RequestParam(value = "projectId") Integer requestId){
-        overrideForwardService.deleteOverrideForwardOfCoreById(requestId);
+        overrideForwardService.deleteOverrideForwardOfCore(requestId);
         return BaseResponseVO.success("success");
     }
 }

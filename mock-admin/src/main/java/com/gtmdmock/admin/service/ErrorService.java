@@ -17,6 +17,12 @@ public interface ErrorService {
 
     void deleteErrorByRequestId(Integer requestId);
 
+    void insertErrorToCore(Error error);
+
+    void updateErrorOfCore(Error error);
+
+    void deleteErrorOfCore(Integer requestId);
+
     Error getErrorByRequestId(Integer requestId);
 
     ErrorTemplate getErrorOfCore(Error error);

@@ -2,9 +2,17 @@ package com.gtmdmock.admin.service.impl;
 
 import com.gtmdmock.admin.model.entity.Error;
 import com.gtmdmock.admin.model.entity.ErrorExample;
+import com.gtmdmock.admin.model.entity.Request;
 import com.gtmdmock.admin.model.mapper.ErrorMapper;
 import com.gtmdmock.admin.service.ErrorService;
+import com.gtmdmock.admin.service.RequestService;
+import com.gtmdmock.core.Bootstrap;
+import com.gtmdmock.core.expectation.ExpectationAction;
+import com.gtmdmock.core.expectation.ExpectationsAction;
+import com.gtmdmock.core.expectation.ExpectationsTemplate;
 import com.gtmdmock.core.httperror.ErrorTemplate;
+import com.gtmdmock.core.request.RequestMatcher;
+import org.mockserver.mock.Expectation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +29,15 @@ public class ErrorServiceImpl implements ErrorService {
 
     @Autowired
     ErrorMapper errorMapper;
+
+    @Autowired
+    RequestService requestService;
+
+    private final Bootstrap bootstrap = Bootstrap.getInstance();
+
+    private final ExpectationsAction expectationsAction = bootstrap.getExpectationsAction();
+
+    private final ExpectationAction expectationUtils = new ExpectationAction();
 
     @Override
     public void insertError(Error error) {
@@ -42,6 +59,45 @@ public class ErrorServiceImpl implements ErrorService {
         ErrorExample example = new ErrorExample();
         example.createCriteria().andRequestIdEqualTo(requestId);
         errorMapper.deleteByExample(example);
+    }
+
+    @Override
+    public void insertErrorToCore(Error error) {
+        this.insertError(error);
+        Request request = requestService.getRequestById(error.getRequestId());
+        RequestMatcher requestMatcher = requestService.getRequestOfCore(request);
+
+        Expectation expectation = expectationUtils.genExpectation(requestMatcher.buildRequest(),getErrorOfCore(error).buildError());
+        ExpectationsTemplate template = expectationsAction.getExpectationTemplate(request.getExpectationsId());
+        logger.info("在{}期望集下requestId为{}的error",request.getExpectationsId(),request.getId());
+
+        template.updateExpectation(expectation);
+    }
+
+    @Override
+    public void updateErrorOfCore(Error error) {
+        this.updateError(error);
+
+        Request request = requestService.getRequestById(error.getRequestId());
+        RequestMatcher requestMatcher = requestService.getRequestOfCore(request);
+
+        Expectation expectation = expectationUtils.genExpectation(requestMatcher.buildRequest(),getErrorOfCore(error).buildError());
+        ExpectationsTemplate template = expectationsAction.getExpectationTemplate(request.getExpectationsId());
+        logger.info("在{}期望集下requestId为{}的error",request.getExpectationsId(),request.getId());
+
+        template.updateExpectation(expectation);
+    }
+
+    @Override
+    public void deleteErrorOfCore(Integer requestId) {
+        this.deleteErrorByRequestId(requestId);
+        Request request = requestService.getRequestById(requestId);
+        RequestMatcher requestMatcher = requestService.getRequestOfCore(request);
+
+        Expectation expectation = expectationUtils.genExpectation(requestMatcher.buildRequest());
+        ExpectationsTemplate template = expectationsAction.getExpectationTemplate(request.getExpectationsId());
+
+        template.updateExpectation(expectation);
     }
 
     @Override
