@@ -13,7 +13,6 @@ import com.gtmdmock.core.expectation.ExpectationsAction;
 import com.gtmdmock.core.expectation.ExpectationsTemplate;
 import com.gtmdmock.core.forward.OverrideForwardTemplate;
 import com.gtmdmock.core.request.RequestMatcher;
-import javafx.print.PageOrientation;
 import org.mockserver.mock.Expectation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
