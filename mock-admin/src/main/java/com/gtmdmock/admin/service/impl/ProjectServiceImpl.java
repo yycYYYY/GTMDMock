@@ -1,18 +1,28 @@
 package com.gtmdmock.admin.service.impl;
 
-import com.gtmdmock.admin.model.entity.Project;
-import com.gtmdmock.admin.model.entity.ProjectExample;
+import com.gtmdmock.admin.model.entity.*;
 import com.gtmdmock.admin.model.mapper.ProjectMapper;
+import com.gtmdmock.admin.service.ExpectationsService;
 import com.gtmdmock.admin.service.ProjectService;
+import com.gtmdmock.admin.service.RequestService;
+import com.gtmdmock.admin.service.ResponseService;
 import com.gtmdmock.core.Bootstrap;
 import com.gtmdmock.core.client.ClientAction;
 import com.gtmdmock.core.client.ClientInfo;
+import com.gtmdmock.core.client.ServerClient;
+import com.gtmdmock.core.expectation.ExpectationAction;
+import org.mockserver.mock.Expectation;
 import org.mockserver.model.HttpForward;
+import org.mockserver.model.HttpRequest;
+import org.mockserver.model.HttpResponse;
+import org.mockserver.model.LogEventRequestAndResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,12 +32,21 @@ public class ProjectServiceImpl implements ProjectService {
 
     private final Logger logger = LoggerFactory.getLogger("ProjectServiceImpl.class");
 
-    private final Bootstrap bootstrap = Bootstrap.getInstance();
+    private final ClientAction clientAction = Bootstrap.getInstance().getClientAction();
 
-    ClientAction clientAction = bootstrap.getClientAction();
+    private final ExpectationAction expectationAction = new ExpectationAction();
 
     @Autowired
     ProjectMapper projectMapper;
+
+    @Autowired
+    ExpectationsService expectationsService;
+
+    @Autowired
+    RequestService requestService;
+
+    @Autowired
+    ResponseService responseService;
 
     @Override
     public Project getProjectByName(String name) {
@@ -72,7 +91,6 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void updateProjectOfCore(Project project) {
         this.updateProject(project);
-        ClientAction clientAction = bootstrap.getClientAction();
         clientAction.deleteClient(project.getId());
         clientAction.newClient(getClientInfo(project));
     }
@@ -112,5 +130,113 @@ public class ProjectServiceImpl implements ProjectService {
             infos.add(info);
         }
         return infos;
+    }
+
+    @Override
+    public void replay(Integer projectId, String path, Integer save) {
+        if (save == 0){
+            replay(projectId,path);
+        }else {
+            replayAndSave(projectId,path);
+        }
+
+    }
+
+    /**
+     * 将录制的期望回放
+     * @param projectId 工程id
+     * @param path 需要录制的路径（所以此路径下的请求，都将被录制）
+     */
+    public void replay(Integer projectId, String path) {
+        String finalPath = path + "/*";
+        ServerClient client = clientAction.getClient(projectId);
+
+        LogEventRequestAndResponse[] logEventRequestAndResponses =
+                clientAction.retrieveRequestAndResponseByPath(client,finalPath);
+        for (LogEventRequestAndResponse requestAndResponse: logEventRequestAndResponses){
+            //将RequestAndResponse注册到client中
+            insertRequestAndResponseTOClient(client,requestAndResponse);
+        }
+    }
+
+    public void replayAndSave(Integer projectId, String path) {
+
+        Expectations expectations = getNewExpectations(projectId);
+        expectationsService.insertExpectations(expectations);
+        int expectationsId = expectations.getId();
+        logger.info("录制-->新增录制结果期望集，期望集id：{}",expectationsId);
+
+        String finalPath = path + "/*";
+        ServerClient client = clientAction.getClient(projectId);
+
+        LogEventRequestAndResponse[] logEventRequestAndResponses =
+                clientAction.retrieveRequestAndResponseByPath(client,finalPath);
+
+        for (LogEventRequestAndResponse requestAndResponse: logEventRequestAndResponses){
+            //将RequestAndResponse注册到client中
+            insertRequestAndResponseTOClient(client,requestAndResponse);
+            int requestId = saveRequestToAdmin(expectationsId,(HttpRequest) requestAndResponse.getHttpRequest());
+            saveResponseToAdmin(requestId,requestAndResponse.getHttpResponse());
+        }
+    }
+
+
+    private void insertRequestAndResponseTOClient(ServerClient client,LogEventRequestAndResponse requestAndResponse){
+        Expectation expectation = expectationAction.genExpectation((HttpRequest) requestAndResponse.getHttpRequest(),
+                requestAndResponse.getHttpResponse());
+        client.upsert(expectation);
+    }
+
+    private Expectations getNewExpectations(Integer projectId){
+
+        DateTimeFormatter FORMAT_FOURTEEN = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        Expectations expectations = new Expectations();
+        String name = "录制期望集" + FORMAT_FOURTEEN.format(LocalDateTime.now());
+
+        expectations.setProjectId(projectId);
+        expectations.setExpectationsName(name);
+        return expectations;
+    }
+
+    /**
+     * 将录制的请求，保存至admin
+     * 此处有个逻辑需要注意，在第一次录制并注册到core时，保留的时request所有的信息
+     * 但保存到admin时，只保留了部分信息，对于header cookie之类的信息没有保存
+     * 如果以后有需求，这里可以做下保存
+     * @param expectationsId 期望集id
+     * @param httpRequest 录制好的request（core）
+     * @return 保存到admin中的requestId
+     */
+    private Integer saveRequestToAdmin(Integer expectationsId,HttpRequest httpRequest){
+
+        Request request = new Request();
+        //下面没做空指针处理，可能也有毛病
+        request.setIsSecure(httpRequest.isSecure()?1:0);
+        request.setResponseType("response");
+        request.setIsKeepAlive(httpRequest.isKeepAlive()?1:0);
+        //这里可能有问题
+        request.setMethod(httpRequest.getMethod("get"));
+        request.setPath(httpRequest.getPath().toString());
+        request.setExpectationsId(expectationsId);
+        requestService.insertRequest(request);
+        logger.info("录制-->新增一个request，id:{}",request.getId());
+        return request.getId();
+    }
+
+    private void saveResponseToAdmin(Integer requestId, HttpResponse httpResponse){
+        Response response = new Response();
+        response.setRequestId(requestId);
+        response.setStatusCode(httpResponse.getStatusCode());
+        response.setContentType(httpResponse.getBody().getContentType());
+        response.setBody(httpResponse.getBodyAsString());
+        //TODO:这里对于header和cookie的处理可能是有问题的
+        if (Optional.ofNullable(httpResponse.getHeaders()).isPresent()){
+            response.setHeaders((httpResponse.getHeaders().toString()));
+        }
+        if (Optional.ofNullable(httpResponse.getCookies()).isPresent()){
+            response.setCookies((httpResponse.getCookies().toString()));
+        }
+        responseService.insertResponse(response);
+        logger.info("录制-->新增一个response，id:{}",response.getId());
     }
 }

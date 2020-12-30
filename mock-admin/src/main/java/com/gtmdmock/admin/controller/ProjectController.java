@@ -59,4 +59,13 @@ public class ProjectController {
         projectService.deleteProjectOfCore(projectId);
         return BaseResponseVO.success("success");
     }
+
+    @ApiOperation(value = "回放某个路径下，所有的请求响应。注意入参path不能以/结尾")
+    @GetMapping("/replay")
+    public BaseResponseVO replay(@RequestParam(value = "projectId") Integer projectId,
+                                 @RequestParam(value = "path",defaultValue = "")String path,
+                                 @RequestParam(value = "save",defaultValue = "0")Integer save){
+        projectService.replay(projectId,path,save);
+        return BaseResponseVO.success("操作成功");
+    }
 }

@@ -12,6 +12,8 @@ import com.gtmdmock.core.httperror.ErrorTemplate;
 import com.gtmdmock.core.request.RequestMatcher;
 import com.gtmdmock.core.response.ResponseTemplate;
 import org.mockserver.mock.Expectation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ import java.util.List;
 
 @Service
 public class ExpectationServiceImpl implements ExpectationService {
+
+    private final Logger logger = LoggerFactory.getLogger(ExpectationServiceImpl.class);
 
     @Autowired
     ExpectationsMapper expectationsMapper;
