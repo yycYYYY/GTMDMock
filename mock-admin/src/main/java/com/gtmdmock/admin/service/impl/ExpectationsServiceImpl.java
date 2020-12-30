@@ -47,6 +47,15 @@ public class ExpectationsServiceImpl implements ExpectationsService {
     @Override
     public void deleteExpectationsById(Integer id) {
         expectationsMapper.deleteByPrimaryKey(id);
+        requestService.deleteRequestsByExpectationsId(id);
+    }
+
+    @Override
+    public void deleteExpectationsByProjectId(Integer projectId) {
+        List<Expectations> expectationsList = getAllExpectationsOfAdminByProjectId(projectId);
+        for (Expectations expectations: expectationsList){
+            deleteExpectationsById(expectations.getId());
+        }
     }
 
     @Override

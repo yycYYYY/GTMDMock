@@ -75,6 +75,14 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    public void deleteRequestsByExpectationsId(Integer expectationsId) {
+        List<Request> requestList = getRequestByExpectationsId(expectationsId);
+        for (Request request: requestList){
+            deleteRequest(request.getId());
+        }
+    }
+
+    @Override
     public List<Request> getAllRequests() {
         RequestExample example = new RequestExample();
         example.createCriteria().andIdIsNotNull();

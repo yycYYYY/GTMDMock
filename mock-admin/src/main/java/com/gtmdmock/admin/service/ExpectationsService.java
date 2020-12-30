@@ -15,6 +15,8 @@ public interface ExpectationsService {
 
     void deleteExpectationsById(Integer id);
 
+    void deleteExpectationsByProjectId(Integer projectId);
+
     void deleteExpectationsOfCoreById(Integer id);
 
     Expectations getExpectationsById(Integer id);

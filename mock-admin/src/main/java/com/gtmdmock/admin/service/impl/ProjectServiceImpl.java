@@ -73,6 +73,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void deleteProjectById(Integer id) {
         projectMapper.deleteByPrimaryKey(id);
+        expectationsService.deleteExpectationsByProjectId(id);
     }
 
     @Override
@@ -229,7 +230,7 @@ public class ProjectServiceImpl implements ProjectService {
         response.setStatusCode(httpResponse.getStatusCode());
         response.setContentType(httpResponse.getBody().getContentType());
         response.setBody(httpResponse.getBodyAsString());
-        //TODO:这里对于header和cookie的处理可能是有问题的
+        //这里对于header和cookie的处理可能是有问题的
         if (Optional.ofNullable(httpResponse.getHeaders()).isPresent()){
             response.setHeaders((httpResponse.getHeaders().toString()));
         }

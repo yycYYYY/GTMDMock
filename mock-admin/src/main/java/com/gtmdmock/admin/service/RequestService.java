@@ -19,6 +19,8 @@ public interface RequestService {
 
     void  deleteRequestOfCore(Integer id);
 
+    void deleteRequestsByExpectationsId(Integer expectationsId);
+
     List<Request> getAllRequests();
 
     Request getRequestById(Integer id);
