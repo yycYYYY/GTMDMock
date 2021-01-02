@@ -1,8 +1,10 @@
 package com.gtmdmock.admin.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.gtmdmock.admin.model.entity.Request;
 import com.gtmdmock.admin.model.entity.RequestExample;
 import com.gtmdmock.admin.model.mapper.RequestMapper;
+import com.gtmdmock.admin.service.ExpectationService;
 import com.gtmdmock.admin.service.RequestService;
 import com.gtmdmock.admin.utils.JsonUtils;
 import com.gtmdmock.core.Bootstrap;
@@ -11,6 +13,7 @@ import com.gtmdmock.core.expectation.ExpectationsAction;
 import com.gtmdmock.core.expectation.ExpectationsTemplate;
 import com.gtmdmock.core.request.RequestMatcher;
 
+import org.mockserver.mock.Expectation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,8 @@ public class RequestServiceImpl implements RequestService {
 
     @Autowired
     RequestMapper requestMapper;
+
+    ExpectationService expectationService;
 
     @Override
     public void insertRequest(Request request) {
@@ -103,6 +108,14 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    public List<Request> getRequestByExpectationsId(Integer expectationsId, Integer pageNumber, Integer pageSize) {
+        PageHelper.startPage(pageNumber,pageSize);
+        RequestExample example = new RequestExample();
+        example.createCriteria().andExpectationsIdEqualTo(expectationsId);
+        return requestMapper.selectByExample(example);
+    }
+
+    @Override
     public RequestMatcher getRequestOfCore(Request request) {
         RequestMatcher requestMatcher = new RequestMatcher();
         Optional.ofNullable(request.getPath()).ifPresent(requestMatcher::setPath);
@@ -146,5 +159,19 @@ public class RequestServiceImpl implements RequestService {
             httpRequests.add(getRequestOfCore(request));
         }
         return httpRequests;
+    }
+
+    @Override
+    public void switchRequest(Integer requestId, Integer isOpen) {
+        Request request = getRequestById(requestId);
+        ExpectationsTemplate template = expectationsAction.getExpectationTemplate(request.getExpectationsId());
+        request.setIsOpen(isOpen);
+        updateRequest(request);
+        Expectation expectation = expectationService.getExpectation(getRequestOfCore(request));
+        if (isOpen == 1){
+            template.updateExpectation(expectation);
+        }else {
+            template.deleteExpectation(expectation);
+        }
     }
 }

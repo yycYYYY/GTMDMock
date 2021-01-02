@@ -1,5 +1,6 @@
 package com.gtmdmock.admin.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.gtmdmock.admin.model.entity.*;
 import com.gtmdmock.admin.model.mapper.ProjectMapper;
 import com.gtmdmock.admin.service.ExpectationsService;
@@ -11,6 +12,8 @@ import com.gtmdmock.core.client.ClientAction;
 import com.gtmdmock.core.client.ClientInfo;
 import com.gtmdmock.core.client.ServerClient;
 import com.gtmdmock.core.expectation.ExpectationAction;
+import com.gtmdmock.core.expectation.ExpectationsAction;
+import com.gtmdmock.core.expectation.ExpectationsTemplate;
 import org.mockserver.mock.Expectation;
 import org.mockserver.model.HttpForward;
 import org.mockserver.model.HttpRequest;
@@ -33,6 +36,8 @@ public class ProjectServiceImpl implements ProjectService {
     private final Logger logger = LoggerFactory.getLogger("ProjectServiceImpl.class");
 
     private final ClientAction clientAction = Bootstrap.getInstance().getClientAction();
+
+    private final ExpectationsAction expectationsAction = Bootstrap.getInstance().getExpectationsAction();
 
     private final ExpectationAction expectationAction = new ExpectationAction();
 
@@ -61,7 +66,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void inertProject(Project project) {
+    public void insertProject(Project project) {
         projectMapper.insert(project);
     }
 
@@ -85,7 +90,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void insertProjectToCore(Project project) {
-        this.inertProject(project);
+        this.insertProject(project);
         clientAction.newClient(getClientInfo(project));
     }
 
@@ -109,6 +114,15 @@ public class ProjectServiceImpl implements ProjectService {
         return projectMapper.selectByExample(example);
     }
 
+    //有分页的获取全部
+    @Override
+    public List<Project> getAllProjects(Integer pageNumber, Integer pageSize) {
+        PageHelper.startPage(pageNumber,pageSize);
+        ProjectExample example = new ProjectExample();
+        example.createCriteria().andIdIsNotNull();
+        return projectMapper.selectByExample(example);
+    }
+
     @Override
     public ClientInfo getClientInfo(Project project) {
         ClientInfo info = new ClientInfo();
@@ -122,13 +136,16 @@ public class ProjectServiceImpl implements ProjectService {
         return info;
     }
 
+    //获取所有isOpen为1的项目
     @Override
-    public List<ClientInfo> getAllClientInfos() {
+    public List<ClientInfo> getAllOpenClientInfos() {
         List<Project> configs = getAllProjects();
         List<ClientInfo> infos = new ArrayList<>();
         for (Project config:configs){
-            ClientInfo info = getClientInfo(config);
-            infos.add(info);
+            if (config.getIsOpen() == 1){
+                ClientInfo info = getClientInfo(config);
+                infos.add(info);
+            }
         }
         return infos;
     }
@@ -141,6 +158,23 @@ public class ProjectServiceImpl implements ProjectService {
             replayAndSave(projectId,path);
         }
 
+    }
+
+    @Override
+    public void switchProject(Integer projectId, Integer isOpen) {
+        Project project = getProjectById(projectId);
+        project.setIsOpen(isOpen);
+        updateProject(project);
+        if (isOpen == 1){
+            ServerClient client = clientAction.newClient(getClientInfo(project));
+            List<ExpectationsTemplate> templates = expectationsAction.getExpectationsTemplatesByProjectId(projectId);
+            for (ExpectationsTemplate template: templates){
+                template.setServer(client);
+                template.setOpen();
+            }
+        }else {
+            clientAction.deleteClient(projectId);
+        }
     }
 
     /**

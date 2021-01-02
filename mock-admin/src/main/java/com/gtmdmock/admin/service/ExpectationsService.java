@@ -25,5 +25,7 @@ public interface ExpectationsService {
 
     List<Expectations> getAllExpectationsOfAdminByProjectId(Integer projectId);
 
-    List<ExpectationsTemplate> getAllExpectationsOfCore();
+    List<Expectations> getAllExpectationsOfAdminByProjectId(Integer projectId, Integer pageNumber, Integer pageSize);
+
+    List<ExpectationsTemplate> getAllOpenExpectationsOfCore();
 }

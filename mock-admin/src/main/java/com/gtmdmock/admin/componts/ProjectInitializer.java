@@ -35,12 +35,12 @@ public class ProjectInitializer implements ApplicationRunner {
 
     private void initProject(){
 
-        List<ClientInfo> infos = projectService.getAllClientInfos();
+        List<ClientInfo> infos = projectService.getAllOpenClientInfos();
         bootstrap.initClients(infos);
     }
 
     private void initExpectations(){
-        List<ExpectationsTemplate> expectations = expectationsService.getAllExpectationsOfCore();
+        List<ExpectationsTemplate> expectations = expectationsService.getAllOpenExpectationsOfCore();
         bootstrap.initExpectations(expectations);
 
         for (ExpectationsTemplate expectationsTemplate: bootstrap.getAllExpectations()){

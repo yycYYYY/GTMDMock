@@ -12,7 +12,7 @@ public interface ProjectService {
 
     Project getProjectById(Integer id);
 
-    void inertProject(Project project);
+    void insertProject(Project project);
 
     void updateProject(Project project);
 
@@ -28,9 +28,13 @@ public interface ProjectService {
 
     List<Project> getAllProjects();
 
+    List<Project> getAllProjects(Integer pageNumber, Integer pageSize);
+
     ClientInfo getClientInfo(Project project);
 
-    List<ClientInfo> getAllClientInfos();
+    List<ClientInfo> getAllOpenClientInfos();
 
     void replay(Integer projectId,String path, Integer save);
+
+    void switchProject(Integer projectId, Integer isOpen);
 }

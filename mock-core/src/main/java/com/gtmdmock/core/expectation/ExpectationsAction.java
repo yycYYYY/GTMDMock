@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * 期望集容器：用于管理core中所有的期望集
+ */
 public class ExpectationsAction {
 
     private final Logger logger = LoggerFactory.getLogger(ExpectationsAction.class);
@@ -39,6 +42,20 @@ public class ExpectationsAction {
         }
         logger.info("没有找到此id的expectationTemplate：[{}]",expectationsId);
         return null;
+    }
+
+    //获取某个project下所有的ExpectationsTemplate
+    public List<ExpectationsTemplate> getExpectationsTemplatesByProjectId(Integer projectId){
+        List<ExpectationsTemplate> templates = new ArrayList();
+        for (ExpectationsTemplate template: this.expectations){
+            if (projectId.equals(template.getProjectId())){
+                templates.add(template);
+            }
+        }
+        if (templates.isEmpty()){
+            logger.info("{}项目的ExpectationsTemplate不存在",projectId);
+        }
+        return templates;
     }
 
     public List<ExpectationsTemplate> getAllExpectations() {

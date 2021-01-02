@@ -5,8 +5,10 @@ import org.mockserver.mock.Expectation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+/**
+ * 期望集模版，用于管理core中的期望集操作、操作与serverClient的映射关系。例如core的期望集的开启、关闭、初始化等
+ */
 public class ExpectationsTemplate {
 
     private Integer projectId;
@@ -86,7 +88,7 @@ public class ExpectationsTemplate {
     }
 
     //添加或修改一个expectation
-    public boolean updateExpectation(Expectation expectation){
+    public void updateExpectation(Expectation expectation){
         try{
 
             if (this.expectationList == null || this.expectationList.isEmpty()){
@@ -100,22 +102,18 @@ public class ExpectationsTemplate {
 
         }catch (Exception e){
             e.printStackTrace();
-            return false;
         }
-        return true;
     }
 
     //在expectations中删除一个期望
-    public boolean deleteExpectation(Expectation expectation){
+    public void deleteExpectation(Expectation expectation){
         try {
             this.server.clear(expectation.getHttpRequest());
             //TODO:这里删除期望的代码可能有点问题，后续需要优化，这种实际上在内存中应该没有删掉旧的期望实例，可能造成内存泄露
             this.expectationList.remove(expectation);
         }catch (Exception e){
             e.printStackTrace();
-            return false;
         }
-        return true;
     }
 
     public ExpectationsTemplate buildExpectations(){

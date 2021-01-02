@@ -1,6 +1,5 @@
 package com.gtmdmock.admin.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.gtmdmock.admin.model.entity.Expectations;
 import com.gtmdmock.admin.model.vo.BaseResponseVO;
@@ -22,12 +21,11 @@ public class ExpectationsController {
 
     @ApiOperation("获取某个project下的所有期望集")
     @GetMapping("/list")
-    public BaseResponseVO getAllExpectations(@RequestParam(value = "pn",defaultValue = "1") Integer pageNumber,
-                                             @RequestParam(value = "projectId") Integer projectId){
-        PageHelper.startPage(pageNumber,5);
-        List<Expectations> expectations = expectationsService.getAllExpectationsOfAdminByProjectId(projectId);
-        PageInfo<Expectations> pageInfo = new PageInfo<>(expectations);
-        return BaseResponseVO.success(pageInfo);
+    public BaseResponseVO getAllExpectations(@RequestParam(value = "projectId") Integer projectId,
+                                             @RequestParam(value = "pn",defaultValue = "1") Integer pageNumber,
+                                             @RequestParam(value = "limit", defaultValue = "10") Integer limit){
+        List<Expectations> expectations = expectationsService.getAllExpectationsOfAdminByProjectId(projectId,pageNumber,limit);
+        return BaseResponseVO.success(new PageInfo<>(expectations));
     }
 
     @ApiOperation("新增一个期望集")

@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.gtmdmock.admin.model.entity.Project;
 import com.gtmdmock.admin.model.vo.BaseResponseVO;
-
 import com.gtmdmock.admin.service.ProjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,12 +22,11 @@ public class ProjectController {
 
     @ApiOperation(value = "获取所有的项目")
     @GetMapping("/list")
-    public BaseResponseVO getAllProjects(@RequestParam(value = "pn",defaultValue = "1") Integer pageNumber){
+    public BaseResponseVO getAllProjects(@RequestParam(value = "pn", defaultValue = "1") Integer pageNumber,
+                                         @RequestParam(value = "limit", defaultValue = "5") Integer limit){
 
-        PageHelper.startPage(pageNumber,5);
-        List<Project> projects = projectService.getAllProjects();
-        PageInfo<Project> pageInfo = new PageInfo<>(projects);
-        return BaseResponseVO.success(pageInfo);
+        List<Project> projects = projectService.getAllProjects(pageNumber,limit);
+        return BaseResponseVO.success(new PageInfo<>(projects));
     }
 
     @ApiOperation(value = "根据projectId获取项目")
@@ -42,7 +40,11 @@ public class ProjectController {
     @PostMapping("/add")
     public BaseResponseVO addProject(@RequestBody Project project){
 
-        projectService.insertProjectToCore(project);
+        if (project.getIsOpen() == 1){
+            projectService.insertProjectToCore(project);
+        }else {
+            projectService.insertProject(project);
+        }
         return BaseResponseVO.success("success");
     }
 
@@ -67,5 +69,11 @@ public class ProjectController {
                                  @RequestParam(value = "save",defaultValue = "0")Integer save){
         projectService.replay(projectId,path,save);
         return BaseResponseVO.success("操作成功");
+    }
+
+    public BaseResponseVO switchProject(@RequestParam(value = "projectId") Integer projectId,
+                                        @RequestParam(value = "isOpen") Integer isOpen){
+        projectService.switchProject(projectId,isOpen);
+        return BaseResponseVO.success("success");
     }
 }

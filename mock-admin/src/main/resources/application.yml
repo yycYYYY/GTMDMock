@@ -19,15 +19,16 @@ spring:
       test-while-idle: true
       test-on-borrow: false
 
-  pagehelper:
-    helperDialect: mysql
-    reasonable: true
-
-
 mybatis:
   configuration:
     mapUnderscoreToCamelCase: true
   mapper-locations: classpath:mapper/*.xml
+
+  pagehelper:
+    helper-dialect: mysql
+    reasonable: true
+    support-methods-arguments: true
+    params: count=countSql
 
 springfox:
   documentation:

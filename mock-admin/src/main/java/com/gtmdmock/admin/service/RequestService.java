@@ -27,7 +27,11 @@ public interface RequestService {
 
     List<Request> getRequestByExpectationsId(Integer expectationsId);
 
+    List<Request> getRequestByExpectationsId(Integer expectationsId, Integer pageNumber, Integer pageSize);
+
     RequestMatcher getRequestOfCore(Request request);
 
     List<RequestMatcher> getRequestsOfCore(List<Request> requests);
+
+    void switchRequest(Integer requestId, Integer isOpen);
 }
