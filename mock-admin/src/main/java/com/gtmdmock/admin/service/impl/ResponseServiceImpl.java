@@ -111,14 +111,7 @@ public class ResponseServiceImpl implements ResponseService {
 
         ResponseExample example = new ResponseExample();
         example.createCriteria().andRequestIdEqualTo(requestId);
-        Response response = null;
-        try {
-            response = responseMapper.selectByExample(example).get(0);
-        }catch (Exception ignored){
-            ignored.printStackTrace();
-            logger.info("{}此request没有response",requestId);
-        }
-        return response;
+        return responseMapper.selectByExample(example).get(0);
     }
 
     @Override

@@ -105,7 +105,7 @@ public class ClientAction {
 
     //初始化客户端期望信息
     public void clientInit(){
-        List<ExpectationsTemplate> expectations = ExpectationsAction.genAllExpections();
+        List<ExpectationsTemplate> expectations = ExpectationsAction.genAllExpectations();
         if (expectations != null) {
             for (ExpectationsTemplate e: expectations) {
 

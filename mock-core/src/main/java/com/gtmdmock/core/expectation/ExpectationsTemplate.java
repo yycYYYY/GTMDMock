@@ -2,6 +2,7 @@ package com.gtmdmock.core.expectation;
 
 import com.gtmdmock.core.client.ServerClient;
 import org.mockserver.mock.Expectation;
+import org.mockserver.model.ClearType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +71,7 @@ public class ExpectationsTemplate {
     }
 
     public void initClient() {
-        if (this.isOpen() && expectationList != null  && !expectationList.isEmpty()){
+        if (this.isOpen() && expectationList != null  && !expectationList.isEmpty() && this.server != null){
             //这里不用担心，重复增加期望，框架本身做了处理
             for (Expectation expectation: this.expectationList) {
                 this.server.upsert(expectation);
@@ -108,7 +109,7 @@ public class ExpectationsTemplate {
     //在expectations中删除一个期望
     public void deleteExpectation(Expectation expectation){
         try {
-            this.server.clear(expectation.getHttpRequest());
+            this.server.clear(expectation.getHttpRequest(), ClearType.ALL);
             //TODO:这里删除期望的代码可能有点问题，后续需要优化，这种实际上在内存中应该没有删掉旧的期望实例，可能造成内存泄露
             this.expectationList.remove(expectation);
         }catch (Exception e){

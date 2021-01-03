@@ -15,10 +15,7 @@ import com.gtmdmock.core.expectation.ExpectationAction;
 import com.gtmdmock.core.expectation.ExpectationsAction;
 import com.gtmdmock.core.expectation.ExpectationsTemplate;
 import org.mockserver.mock.Expectation;
-import org.mockserver.model.HttpForward;
-import org.mockserver.model.HttpRequest;
-import org.mockserver.model.HttpResponse;
-import org.mockserver.model.LogEventRequestAndResponse;
+import org.mockserver.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -184,21 +181,14 @@ public class ProjectServiceImpl implements ProjectService {
      * @param path 需要录制的路径（所以此路径下的请求，都将被录制）
      */
     public void replay(Integer projectId, String path) {
-        String finalPath = path + "/*";
+        String finalPath = path + "/.*";
         ServerClient client = clientAction.getClient(projectId);
 
-        LogEventRequestAndResponse[] logEventRequestAndResponses;
-
-        if (path.equals("")){
-            logEventRequestAndResponses = clientAction.retrieveAllRequestAndResponse(client);
-        }else {
-            logEventRequestAndResponses = clientAction.retrieveRequestAndResponseByPath(client,finalPath);
-        }
-
+        LogEventRequestAndResponse[] logEventRequestAndResponses = clientAction.retrieveRequestAndResponseByPath(client,finalPath);
 
         for (LogEventRequestAndResponse requestAndResponse: logEventRequestAndResponses){
             //将RequestAndResponse注册到client中
-            insertRequestAndResponseTOClient(client,requestAndResponse);
+            insertRequestAndResponseTOClient(client,requestAndResponse,null);
         }
     }
 
@@ -209,30 +199,43 @@ public class ProjectServiceImpl implements ProjectService {
         int expectationsId = expectations.getId();
         logger.info("录制-->新增录制结果期望集，期望集id：{}",expectationsId);
 
-        String finalPath = path + "/*";
+        String finalPath = path + "/.*";
         ServerClient client = clientAction.getClient(projectId);
 
-        LogEventRequestAndResponse[] logEventRequestAndResponses;
-
-        if (path.equals("")){
-            logEventRequestAndResponses = clientAction.retrieveAllRequestAndResponse(client);
-        }else {
-            logEventRequestAndResponses = clientAction.retrieveRequestAndResponseByPath(client,finalPath);
-        }
-
+        LogEventRequestAndResponse[] logEventRequestAndResponses = clientAction.retrieveRequestAndResponseByPath(client,finalPath);
 
         for (LogEventRequestAndResponse requestAndResponse: logEventRequestAndResponses){
             //将RequestAndResponse注册到client中
-            insertRequestAndResponseTOClient(client,requestAndResponse);
+            insertRequestAndResponseTOClient(client,requestAndResponse,expectationsId);
             int requestId = saveRequestToAdmin(expectationsId,(HttpRequest) requestAndResponse.getHttpRequest());
             saveResponseToAdmin(requestId,requestAndResponse.getHttpResponse());
         }
     }
 
 
-    private void insertRequestAndResponseTOClient(ServerClient client,LogEventRequestAndResponse requestAndResponse){
-        Expectation expectation = expectationAction.genExpectation((HttpRequest) requestAndResponse.getHttpRequest(),
-                requestAndResponse.getHttpResponse());
+    private void insertRequestAndResponseTOClient(ServerClient client,LogEventRequestAndResponse requestAndResponse, Integer expectationsId){
+        HttpResponse tempResponse = requestAndResponse.getHttpResponse();
+        HttpRequest tempRequest = (HttpRequest) requestAndResponse.getHttpRequest();
+        ExpectationsTemplate template = new ExpectationsTemplate();
+        if (expectationsId != null){
+            template.setProjectId(client.getProjectId());
+            template.setServer(client);
+            template.setExpectationsId(expectationsId);
+        }
+
+        //这里只对了状态码和body做了录制，如果对其他信息也有需求，可以后续添加
+        HttpResponse response = HttpResponse.response()
+                .withBody(tempResponse.getBody())
+                .withStatusCode(tempResponse.getStatusCode());
+
+        //这里只对了部分内容做了录制，如果对其他信息也有需求，可以后续添加
+        HttpRequest request = HttpRequest.request()
+                .withPath(tempRequest.getPath())
+                .withBody(tempRequest.getBody())
+                .withMethod(tempRequest.getMethod())
+                .withSecure(tempRequest.isSecure());
+
+        Expectation expectation = expectationAction.genExpectation(request, response);
         client.upsert(expectation);
     }
 

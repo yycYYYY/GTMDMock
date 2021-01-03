@@ -17,7 +17,7 @@ public class ExpectationsAction {
     private List<ExpectationsTemplate> expectations;
 
     //生成当前所有配置的expectations
-    public static List<ExpectationsTemplate> genAllExpections() {
+    public static List<ExpectationsTemplate> genAllExpectations() {
         return null;
     }
 
