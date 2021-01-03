@@ -160,6 +160,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     }
 
+    //TODO:关闭开启的逻辑关联可能需要商榷下
     @Override
     public void switchProject(Integer projectId, Integer isOpen) {
         Project project = getProjectById(projectId);
@@ -186,8 +187,15 @@ public class ProjectServiceImpl implements ProjectService {
         String finalPath = path + "/*";
         ServerClient client = clientAction.getClient(projectId);
 
-        LogEventRequestAndResponse[] logEventRequestAndResponses =
-                clientAction.retrieveRequestAndResponseByPath(client,finalPath);
+        LogEventRequestAndResponse[] logEventRequestAndResponses;
+
+        if (path.equals("")){
+            logEventRequestAndResponses = clientAction.retrieveAllRequestAndResponse(client);
+        }else {
+            logEventRequestAndResponses = clientAction.retrieveRequestAndResponseByPath(client,finalPath);
+        }
+
+
         for (LogEventRequestAndResponse requestAndResponse: logEventRequestAndResponses){
             //将RequestAndResponse注册到client中
             insertRequestAndResponseTOClient(client,requestAndResponse);
@@ -204,8 +212,14 @@ public class ProjectServiceImpl implements ProjectService {
         String finalPath = path + "/*";
         ServerClient client = clientAction.getClient(projectId);
 
-        LogEventRequestAndResponse[] logEventRequestAndResponses =
-                clientAction.retrieveRequestAndResponseByPath(client,finalPath);
+        LogEventRequestAndResponse[] logEventRequestAndResponses;
+
+        if (path.equals("")){
+            logEventRequestAndResponses = clientAction.retrieveAllRequestAndResponse(client);
+        }else {
+            logEventRequestAndResponses = clientAction.retrieveRequestAndResponseByPath(client,finalPath);
+        }
+
 
         for (LogEventRequestAndResponse requestAndResponse: logEventRequestAndResponses){
             //将RequestAndResponse注册到client中
@@ -230,6 +244,7 @@ public class ProjectServiceImpl implements ProjectService {
 
         expectations.setProjectId(projectId);
         expectations.setExpectationsName(name);
+        expectations.setIsOpen(1);
         return expectations;
     }
 
@@ -253,6 +268,7 @@ public class ProjectServiceImpl implements ProjectService {
         request.setMethod(httpRequest.getMethod("get"));
         request.setPath(httpRequest.getPath().toString());
         request.setExpectationsId(expectationsId);
+        request.setIsOpen(1);
         requestService.insertRequest(request);
         logger.info("录制-->新增一个request，id:{}",request.getId());
         return request.getId();
@@ -264,13 +280,13 @@ public class ProjectServiceImpl implements ProjectService {
         response.setStatusCode(httpResponse.getStatusCode());
         response.setContentType(httpResponse.getBody().getContentType());
         response.setBody(httpResponse.getBodyAsString());
-        //这里对于header和cookie的处理可能是有问题的
-        if (Optional.ofNullable(httpResponse.getHeaders()).isPresent()){
-            response.setHeaders((httpResponse.getHeaders().toString()));
-        }
-        if (Optional.ofNullable(httpResponse.getCookies()).isPresent()){
-            response.setCookies((httpResponse.getCookies().toString()));
-        }
+        //这里对于header和cookie的处理可能是有问题的,框架本身存储的headers value中包含了[]不符合http规范，导致返回给调用方，报错
+//        if (Optional.ofNullable(httpResponse.getHeaders()).isPresent()){
+//            response.setHeaders((httpResponse.getHeaders().toString()));
+//        }
+//        if (Optional.ofNullable(httpResponse.getCookies()).isPresent()){
+//            response.setCookies((httpResponse.getCookies().toString()));
+//        }
         responseService.insertResponse(response);
         logger.info("录制-->新增一个response，id:{}",response.getId());
     }

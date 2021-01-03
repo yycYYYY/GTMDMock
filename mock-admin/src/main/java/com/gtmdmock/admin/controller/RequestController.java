@@ -62,6 +62,8 @@ public class RequestController {
         return BaseResponseVO.success("success");
     }
 
+    @ApiOperation("开启/关闭一个期望")
+    @GetMapping("/switch")
     public BaseResponseVO switchProject(@RequestParam(value = "requestId") Integer requestId,
                                         @RequestParam(value = "isOpen") Integer isOpen){
         requestService.switchRequest(requestId,isOpen);

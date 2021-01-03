@@ -91,9 +91,11 @@ public class ForwardServiceImpl implements ForwardService {
     public void deleteForwardOfCore(Integer requestId) {
         this.deleteForwardByRequestId(requestId);
         Request request = requestService.getRequestById(requestId);
-        RequestMatcher requestMatcher = requestService.getRequestOfCore(request);
 
-        Expectation expectation = expectationUtils.genExpectation(requestMatcher.buildRequest());
+        request.setResponseType("none");
+        requestService.updateRequest(request);
+
+        Expectation expectation = expectationUtils.genExpectation(requestService.getRequestOfCore(request).buildRequest());
         ExpectationsTemplate template = expectationsAction.getExpectationTemplate(request.getExpectationsId());
 
         template.updateExpectation(expectation);

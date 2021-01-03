@@ -70,6 +70,9 @@ public class ExpectationServiceImpl implements ExpectationService {
                         .getOverrideForwardOfCore(overrideForwardService
                         .getOverrideForwardByRequestId(requestMatcher.getRequestId()));
                 return action.genExpectation(requestMatcher.buildRequest(),overrideForwardTemplate.buildOverrideForward());
+
+            case "none":
+                return action.genExpectation(requestMatcher.buildRequest());
         }
 
         return null;

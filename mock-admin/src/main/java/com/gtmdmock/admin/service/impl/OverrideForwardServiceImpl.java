@@ -96,9 +96,11 @@ public class OverrideForwardServiceImpl implements OverrideForwardService {
     public void deleteOverrideForwardOfCore(Integer requestId) {
         this.deleteOverrideForwardByRequestId(requestId);
         Request request = requestService.getRequestById(requestId);
-        RequestMatcher requestMatcher = requestService.getRequestOfCore(request);
 
-        Expectation expectation = expectationUtils.genExpectation(requestMatcher.buildRequest());
+        request.setResponseType("none");
+        requestService.updateRequest(request);
+
+        Expectation expectation = expectationUtils.genExpectation(requestService.getRequestOfCore(request).buildRequest());
         ExpectationsTemplate template = expectationsAction.getExpectationTemplate(request.getExpectationsId());
 
         template.updateExpectation(expectation);

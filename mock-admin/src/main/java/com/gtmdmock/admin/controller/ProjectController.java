@@ -71,6 +71,8 @@ public class ProjectController {
         return BaseResponseVO.success("操作成功");
     }
 
+    @ApiOperation(value = "开启关闭某个项目")
+    @GetMapping("/switch")
     public BaseResponseVO switchProject(@RequestParam(value = "projectId") Integer projectId,
                                         @RequestParam(value = "isOpen") Integer isOpen){
         projectService.switchProject(projectId,isOpen);

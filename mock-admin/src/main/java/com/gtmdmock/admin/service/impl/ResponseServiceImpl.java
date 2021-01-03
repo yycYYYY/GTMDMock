@@ -94,8 +94,10 @@ public class ResponseServiceImpl implements ResponseService {
 
     @Override
     public void deleteResponseOfCore(Integer requestId) {
-        this.deleteResponseById(requestId);
+        this.deleteResponseByRequestId(requestId);
         Request request = requestService.getRequestById(requestId);
+        request.setResponseType("none");
+        requestService.updateRequest(request);
         RequestMatcher requestMatcher = requestService.getRequestOfCore(request);
 
         Expectation expectation = expectationUtils.genExpectation(requestMatcher.buildRequest());
@@ -109,7 +111,14 @@ public class ResponseServiceImpl implements ResponseService {
 
         ResponseExample example = new ResponseExample();
         example.createCriteria().andRequestIdEqualTo(requestId);
-        return responseMapper.selectByExample(example).get(0);
+        Response response = null;
+        try {
+            response = responseMapper.selectByExample(example).get(0);
+        }catch (Exception ignored){
+            ignored.printStackTrace();
+            logger.info("{}此request没有response",requestId);
+        }
+        return response;
     }
 
     @Override

@@ -47,14 +47,21 @@ public class ExpectationsController {
     @ApiOperation("删除一个工程下的所有期望集")
     @GetMapping("/delAll")
     public BaseResponseVO deleteAllExpectations(@RequestParam(value = "projectId") Integer projectId){
-
+        expectationsService.deleteExpectationsByProjectId(projectId);
         return BaseResponseVO.success("success");
     }
 
-    @ApiOperation("通过expectations删除一个期望集")
+    @ApiOperation("通过expectationsId删除一个期望集")
     @GetMapping("/del")
-    public BaseResponseVO deleteExpectations(@RequestParam(value = "expectations") Integer expectationsId){
+    public BaseResponseVO deleteExpectations(@RequestParam(value = "expectationsId") Integer expectationsId){
         expectationsService.deleteExpectationsOfCoreById(expectationsId);
+        return BaseResponseVO.success("success");
+    }
+
+    @ApiOperation("开启/关闭一个期望集")
+    @GetMapping("/switch")
+    public BaseResponseVO switchExpectations(@RequestParam(value = "expectationsId") Integer expectationsId){
+//        expectationsService.switchExpectations(expectationsId);
         return BaseResponseVO.success("success");
     }
 }

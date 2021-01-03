@@ -119,42 +119,34 @@ public class ClientAction {
     //获取所有的记录expectations
     public Expectation[] retrieveAllExpectations(ServerClient client){
 
-        Expectation[] expectations = client.retrieveRecordedExpectations(
+        return client.retrieveRecordedExpectations(
                 request()
         );
-
-        return expectations;
     }
 
     //获取某Path下所有的记录expectations
     public Expectation[] retrieveExpectationsByPath(ServerClient client,String path){
 
-        Expectation[] expectations = client.retrieveRecordedExpectations(
+        return client.retrieveRecordedExpectations(
                 request()
                 .withPath(path)
         );
-
-        return expectations;
     }
 
     //获取所有的记录RequestAndResponse
     public LogEventRequestAndResponse[] retrieveAllRequestAndResponse(ServerClient client){
 
-        LogEventRequestAndResponse[] logEventRequestAndResponses = client.retrieveRecordedRequestsAndResponses(
+        return client.retrieveRecordedRequestsAndResponses(
                 request()
         );
-
-        return logEventRequestAndResponses;
     }
 
     //获取某Path下所有的记录RequestAndResponse
     public LogEventRequestAndResponse[] retrieveRequestAndResponseByPath(ServerClient client,String path){
 
-        LogEventRequestAndResponse[] logEventRequestAndResponses = client.retrieveRecordedRequestsAndResponses(
+        return client.retrieveRecordedRequestsAndResponses(
                 request()
                         .withPath(path)
         );
-
-        return logEventRequestAndResponses;
     }
 }
