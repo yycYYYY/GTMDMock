@@ -149,4 +149,6 @@ public class ClientAction {
                         .withPath(path)
         );
     }
+
+//    TODO：现在还有一个问题还没有做，在项目部署之后，还需要做一个清除内存中全量log的功能：每天固定时间，清除log；每次录制操作之后清除log；暴漏一个清除log的方法入口，写个shell脚本监听内存使用，超过份额自动调一下
 }

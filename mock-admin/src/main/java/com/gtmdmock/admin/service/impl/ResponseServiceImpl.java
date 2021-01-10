@@ -71,6 +71,8 @@ public class ResponseServiceImpl implements ResponseService {
     public void insertResponseToCOre(Response response) {
         this.insertResponse(response);
         Request request = requestService.getRequestById(response.getRequestId());
+        request.setResponseType("response");
+        requestService.updateRequest(request);
         RequestMatcher requestMatcher = requestService.getRequestOfCore(request);
 
         Expectation expectation = expectationUtils.genExpectation(requestMatcher.buildRequest(),getResponseOfCore(response).buildResponse());

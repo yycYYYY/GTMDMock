@@ -47,7 +47,7 @@ public class RequestController {
         return BaseResponseVO.success("添加成功");
     }
 
-    @ApiOperation(value = "更新一个request，可以通过更改isOpen字段，来开启/关闭request所属的期望是否生效")
+    @ApiOperation(value = "更新一个request")
     @PostMapping("/upd")
     public BaseResponseVO updateRequest(@RequestBody Request request){
 

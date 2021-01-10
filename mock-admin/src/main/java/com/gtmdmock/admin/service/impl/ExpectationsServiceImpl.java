@@ -35,6 +35,7 @@ public class ExpectationsServiceImpl implements ExpectationsService {
     @Override
     public void insertExpectations(Expectations expectations) {
         expectationsMapper.insert(expectations);
+        expectationsAction.addExpectationsTemplate(getExpectationsOfCore(expectations));
     }
 
     @Override
@@ -92,6 +93,16 @@ public class ExpectationsServiceImpl implements ExpectationsService {
         ExpectationsExample example = new ExpectationsExample();
         example.createCriteria().andProjectIdEqualTo(projectId);
         return expectationsMapper.selectByExample(example);
+    }
+
+    public ExpectationsTemplate getExpectationsOfCore(Expectations expectations){
+        ExpectationsTemplate template = new ExpectationsTemplate();
+        Optional.ofNullable(expectations.getProjectId()).ifPresent(template::setProjectId);
+        Optional.ofNullable(expectations.getId()).ifPresent(template::setExpectationsId);
+        template.setServer(bootstrap.getClients().get(expectations.getProjectId()));
+
+        return template;
+
     }
 
     @Override

@@ -67,6 +67,8 @@ public class OverrideForwardServiceImpl implements OverrideForwardService {
         this.insertOverrideForward(overrideForward);
 
         Request request = requestService.getRequestById(overrideForward.getRequestId());
+        request.setResponseType("overrideForward");
+        requestService.updateRequest(request);
         RequestMatcher requestMatcher = requestService.getRequestOfCore(request);
 
         Expectation expectation = expectationUtils.genExpectation(requestMatcher.buildRequest(),getOverrideForwardOfCore(overrideForward).buildOverrideForward());

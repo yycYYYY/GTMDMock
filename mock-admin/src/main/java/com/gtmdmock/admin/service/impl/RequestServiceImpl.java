@@ -1,11 +1,11 @@
 package com.gtmdmock.admin.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.gtmdmock.admin.model.entity.ForwardExample;
 import com.gtmdmock.admin.model.entity.Request;
 import com.gtmdmock.admin.model.entity.RequestExample;
 import com.gtmdmock.admin.model.mapper.RequestMapper;
-import com.gtmdmock.admin.service.ExpectationService;
-import com.gtmdmock.admin.service.RequestService;
+import com.gtmdmock.admin.service.*;
 import com.gtmdmock.admin.utils.JsonUtils;
 import com.gtmdmock.core.Bootstrap;
 import com.gtmdmock.core.expectation.ExpectationAction;
@@ -37,7 +37,20 @@ public class RequestServiceImpl implements RequestService {
     @Autowired
     RequestMapper requestMapper;
 
+    @Autowired
     ExpectationService expectationService;
+
+    @Autowired
+    ErrorService errorService;
+
+    @Autowired
+    ResponseService responseService;
+
+    @Autowired
+    OverrideForwardService overrideForwardService;
+
+    @Autowired
+    ForwardService forwardService;
 
     @Override
     public void insertRequest(Request request) {
@@ -52,6 +65,21 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void deleteRequest(Integer id) {
+
+        switch (getRequestById(id).getResponseType()){
+            case "response":
+                responseService.deleteResponseByRequestId(id);
+                break;
+            case "error":
+                errorService.deleteErrorByRequestId(id);
+                break;
+            case "overrideForward":
+                overrideForwardService.deleteOverrideForwardByRequestId(id);
+                break;
+            case "forward":
+                forwardService.deleteForwardByRequestId(id);
+        }
+
         requestMapper.deleteByPrimaryKey(id);
     }
 

@@ -65,6 +65,8 @@ public class ForwardServiceImpl implements ForwardService {
     public void insertForwardToCore(Forward forward) {
         this.insertForward(forward);
         Request request = requestService.getRequestById(forward.getRequestId());
+        request.setResponseType("forward");
+        requestService.updateRequest(request);
         RequestMatcher requestMatcher = requestService.getRequestOfCore(request);
 
         Expectation expectation = expectationUtils.genExpectation(requestMatcher.buildRequest(),getForwardOfCore(forward).buildForward());

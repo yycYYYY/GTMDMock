@@ -58,6 +58,10 @@ public class ExpectationsAction {
         return templates;
     }
 
+    public void addExpectationsTemplate(ExpectationsTemplate expectationsTemplate){
+        this.expectations.add(expectationsTemplate);
+    }
+
     public List<ExpectationsTemplate> getAllExpectations() {
         return expectations;
     }

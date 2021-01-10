@@ -36,7 +36,7 @@ public class ExpectationsController {
         return BaseResponseVO.success("success");
     }
 
-    @ApiOperation("更新一个期望集，可以通过更改isOpen字段，来开启/关闭期望集是否生效")
+    @ApiOperation("更新一个期望集")
     @PostMapping("/update")
     public BaseResponseVO updateExpectations(@RequestBody Expectations expectations){
 

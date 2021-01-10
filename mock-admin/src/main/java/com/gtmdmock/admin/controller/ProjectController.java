@@ -48,7 +48,7 @@ public class ProjectController {
         return BaseResponseVO.success("success");
     }
 
-    @ApiOperation(value = "更新一个项目，可以通过更改isOpen字段，来开启/关闭项目是否生效")
+    @ApiOperation(value = "更新一个项目")
     @PostMapping("/upd")
     public BaseResponseVO updateProject(@RequestBody Project project){
         projectService.updateProjectOfCore(project);

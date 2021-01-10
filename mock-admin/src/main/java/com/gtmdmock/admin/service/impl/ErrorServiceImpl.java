@@ -79,6 +79,8 @@ public class ErrorServiceImpl implements ErrorService {
         this.updateError(error);
 
         Request request = requestService.getRequestById(error.getRequestId());
+        request.setResponseType("error");
+        requestService.updateRequest(request);
         RequestMatcher requestMatcher = requestService.getRequestOfCore(request);
 
         Expectation expectation = expectationUtils.genExpectation(requestMatcher.buildRequest(),getErrorOfCore(error).buildError());

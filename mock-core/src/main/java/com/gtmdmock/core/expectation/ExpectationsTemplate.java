@@ -92,7 +92,7 @@ public class ExpectationsTemplate {
     public void updateExpectation(Expectation expectation){
         try{
 
-            if (this.expectationList == null || this.expectationList.isEmpty()){
+            if (this.expectationList == null){
                 this.setExpectationList(new ArrayList<>());
                 this.updateExpectation(expectation);
                 this.server.upsert(expectation);
