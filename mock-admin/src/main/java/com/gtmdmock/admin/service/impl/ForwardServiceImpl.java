@@ -1,5 +1,6 @@
 package com.gtmdmock.admin.service.impl;
 
+import com.gtmdmock.admin.model.constants.ResponseTypeConstants;
 import com.gtmdmock.admin.model.entity.Forward;
 import com.gtmdmock.admin.model.entity.ForwardExample;
 import com.gtmdmock.admin.model.entity.Request;
@@ -52,10 +53,17 @@ public class ForwardServiceImpl implements ForwardService {
     @Override
     public void deleteForwardById(Integer id) {
         forwardMapper.deleteByPrimaryKey(id);
+
     }
 
     @Override
     public void deleteForwardByRequestId(Integer requestId) {
+
+        Request request = requestService.getRequestById(requestId);
+
+        request.setResponseType(ResponseTypeConstants.NONE);
+        requestService.updateRequest(request);
+
         ForwardExample example = new ForwardExample();
         example.createCriteria().andRequestIdEqualTo(requestId);
         forwardMapper.deleteByExample(example);
@@ -65,7 +73,7 @@ public class ForwardServiceImpl implements ForwardService {
     public void insertForwardToCore(Forward forward) {
         this.insertForward(forward);
         Request request = requestService.getRequestById(forward.getRequestId());
-        request.setResponseType("forward");
+        request.setResponseType(ResponseTypeConstants.FORWARD);
         requestService.updateRequest(request);
         RequestMatcher requestMatcher = requestService.getRequestOfCore(request);
 
@@ -94,7 +102,7 @@ public class ForwardServiceImpl implements ForwardService {
         this.deleteForwardByRequestId(requestId);
         Request request = requestService.getRequestById(requestId);
 
-        request.setResponseType("none");
+        request.setResponseType(ResponseTypeConstants.NONE);
         requestService.updateRequest(request);
 
         Expectation expectation = expectationUtils.genExpectation(requestService.getRequestOfCore(request).buildRequest());

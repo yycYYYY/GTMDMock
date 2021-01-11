@@ -1,5 +1,6 @@
 package com.gtmdmock.admin.service.impl;
 
+import com.gtmdmock.admin.model.constants.ResponseTypeConstants;
 import com.gtmdmock.admin.model.entity.Request;
 import com.gtmdmock.admin.model.entity.RequestExample;
 import com.gtmdmock.admin.model.entity.Response;
@@ -62,6 +63,11 @@ public class ResponseServiceImpl implements ResponseService {
 
     @Override
     public void deleteResponseByRequestId(Integer requestId) {
+
+        Request request = requestService.getRequestById(requestId);
+        request.setResponseType(ResponseTypeConstants.NONE);
+        requestService.updateRequest(request);
+
         ResponseExample example = new ResponseExample();
         example.createCriteria().andRequestIdEqualTo(requestId);
         responseMapper.deleteByExample(example);
@@ -71,7 +77,7 @@ public class ResponseServiceImpl implements ResponseService {
     public void insertResponseToCOre(Response response) {
         this.insertResponse(response);
         Request request = requestService.getRequestById(response.getRequestId());
-        request.setResponseType("response");
+        request.setResponseType(ResponseTypeConstants.RESPONSE);
         requestService.updateRequest(request);
         RequestMatcher requestMatcher = requestService.getRequestOfCore(request);
 
@@ -98,7 +104,7 @@ public class ResponseServiceImpl implements ResponseService {
     public void deleteResponseOfCore(Integer requestId) {
         this.deleteResponseByRequestId(requestId);
         Request request = requestService.getRequestById(requestId);
-        request.setResponseType("none");
+        request.setResponseType(ResponseTypeConstants.NONE);
         requestService.updateRequest(request);
         RequestMatcher requestMatcher = requestService.getRequestOfCore(request);
 

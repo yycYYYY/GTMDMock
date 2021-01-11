@@ -1,6 +1,7 @@
 package com.gtmdmock.admin.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.gtmdmock.admin.model.constants.ResponseTypeConstants;
 import com.gtmdmock.admin.model.entity.ForwardExample;
 import com.gtmdmock.admin.model.entity.Request;
 import com.gtmdmock.admin.model.entity.RequestExample;
@@ -67,16 +68,16 @@ public class RequestServiceImpl implements RequestService {
     public void deleteRequest(Integer id) {
 
         switch (getRequestById(id).getResponseType()){
-            case "response":
+            case ResponseTypeConstants.RESPONSE:
                 responseService.deleteResponseByRequestId(id);
                 break;
-            case "error":
+            case ResponseTypeConstants.ERROR:
                 errorService.deleteErrorByRequestId(id);
                 break;
-            case "overrideForward":
+            case ResponseTypeConstants.OVERRIDE_FORWARD:
                 overrideForwardService.deleteOverrideForwardByRequestId(id);
                 break;
-            case "forward":
+            case ResponseTypeConstants.FORWARD:
                 forwardService.deleteForwardByRequestId(id);
         }
 

@@ -1,5 +1,6 @@
 package com.gtmdmock.admin.service.impl;
 
+import com.gtmdmock.admin.model.constants.ResponseTypeConstants;
 import com.gtmdmock.admin.model.entity.Expectations;
 import com.gtmdmock.admin.model.entity.ExpectationsExample;
 import com.gtmdmock.admin.model.mapper.ExpectationsMapper;
@@ -47,31 +48,31 @@ public class ExpectationServiceImpl implements ExpectationService {
     public Expectation getExpectation(RequestMatcher requestMatcher) {
 
         switch (requestMatcher.getMatcherType()){
-            case "response":
+            case ResponseTypeConstants.RESPONSE:
                 ResponseTemplate responseTemplate = responseService
                         .getResponseOfCore(responseService
                                 .getResponsesByRequestId(requestMatcher.getRequestId()));
                 return action.genExpectation(requestMatcher.buildRequest(),responseTemplate.buildResponse());
 
-            case "forward":
+            case ResponseTypeConstants.FORWARD:
                 ForwardTemplate forwardTemplate = forwardService
                         .getForwardOfCore(forwardService
                                 .getForwardByRequestId(requestMatcher.getRequestId()));
                 return action.genExpectation(requestMatcher.buildRequest(),forwardTemplate.buildForward());
 
-            case "error":
+            case ResponseTypeConstants.ERROR:
                 ErrorTemplate errorTemplate = errorService
                         .getErrorOfCore(errorService
                         .getErrorByRequestId(requestMatcher.getRequestId()));
                 return action.genExpectation(requestMatcher.buildRequest(),errorTemplate.buildError());
 
-            case "overrideForward":
+            case ResponseTypeConstants.OVERRIDE_FORWARD:
                 OverrideForwardTemplate overrideForwardTemplate = overrideForwardService
                         .getOverrideForwardOfCore(overrideForwardService
                         .getOverrideForwardByRequestId(requestMatcher.getRequestId()));
                 return action.genExpectation(requestMatcher.buildRequest(),overrideForwardTemplate.buildOverrideForward());
 
-            case "none":
+            case ResponseTypeConstants.NONE:
                 return action.genExpectation(requestMatcher.buildRequest());
         }
 

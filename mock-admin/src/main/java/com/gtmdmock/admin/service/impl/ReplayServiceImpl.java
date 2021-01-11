@@ -1,5 +1,6 @@
 package com.gtmdmock.admin.service.impl;
 
+import com.gtmdmock.admin.model.constants.ResponseTypeConstants;
 import com.gtmdmock.admin.model.entity.Expectations;
 import com.gtmdmock.admin.model.entity.Request;
 import com.gtmdmock.admin.model.entity.Response;
@@ -129,7 +130,7 @@ public class ReplayServiceImpl implements ReplayService {
         Request request = new Request();
         //下面没做空指针处理，可能也有毛病
         request.setIsSecure(httpRequest.isSecure()?1:0);
-        request.setResponseType("response");
+        request.setResponseType(ResponseTypeConstants.RESPONSE);
         request.setIsKeepAlive(httpRequest.isKeepAlive()?1:0);
         //这里可能有问题
         request.setMethod(httpRequest.getMethod("get"));

@@ -1,6 +1,7 @@
 package com.gtmdmock.admin.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.gtmdmock.admin.model.constants.ResponseTypeConstants;
 import com.gtmdmock.admin.model.entity.*;
 import com.gtmdmock.admin.model.mapper.ProjectMapper;
 import com.gtmdmock.admin.service.ExpectationsService;
@@ -265,7 +266,7 @@ public class ProjectServiceImpl implements ProjectService {
         Request request = new Request();
         //下面没做空指针处理，可能也有毛病
         request.setIsSecure(httpRequest.isSecure()?1:0);
-        request.setResponseType("response");
+        request.setResponseType(ResponseTypeConstants.RESPONSE);
         request.setIsKeepAlive(httpRequest.isKeepAlive()?1:0);
         //这里可能有问题
         request.setMethod(httpRequest.getMethod("get"));

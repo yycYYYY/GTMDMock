@@ -1,5 +1,6 @@
 package com.gtmdmock.admin.service.impl;
 
+import com.gtmdmock.admin.model.constants.ResponseTypeConstants;
 import com.gtmdmock.admin.model.entity.OverrideForward;
 import com.gtmdmock.admin.model.entity.OverrideForwardExample;
 import com.gtmdmock.admin.model.entity.Request;
@@ -56,6 +57,12 @@ public class OverrideForwardServiceImpl implements OverrideForwardService {
 
     @Override
     public void deleteOverrideForwardByRequestId(Integer requestID) {
+
+        Request request = requestService.getRequestById(requestID);
+
+        request.setResponseType(ResponseTypeConstants.NONE);
+        requestService.updateRequest(request);
+
         OverrideForwardExample example = new OverrideForwardExample();
         example.createCriteria().andRequestIdEqualTo(requestID);
         overrideForwardMapper.deleteByExample(example);
@@ -67,7 +74,7 @@ public class OverrideForwardServiceImpl implements OverrideForwardService {
         this.insertOverrideForward(overrideForward);
 
         Request request = requestService.getRequestById(overrideForward.getRequestId());
-        request.setResponseType("overrideForward");
+        request.setResponseType(ResponseTypeConstants.OVERRIDE_FORWARD);
         requestService.updateRequest(request);
         RequestMatcher requestMatcher = requestService.getRequestOfCore(request);
 
@@ -99,7 +106,7 @@ public class OverrideForwardServiceImpl implements OverrideForwardService {
         this.deleteOverrideForwardByRequestId(requestId);
         Request request = requestService.getRequestById(requestId);
 
-        request.setResponseType("none");
+        request.setResponseType(ResponseTypeConstants.NONE);
         requestService.updateRequest(request);
 
         Expectation expectation = expectationUtils.genExpectation(requestService.getRequestOfCore(request).buildRequest());
