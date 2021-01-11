@@ -11,7 +11,7 @@ import com.gtmdmock.admin.service.ResponseService;
 import com.gtmdmock.core.Bootstrap;
 import com.gtmdmock.core.client.ClientAction;
 import com.gtmdmock.core.client.ServerClient;
-import com.gtmdmock.core.expectation.ExpectationAction;
+import com.gtmdmock.core.expectation.ExpectationGenerator;
 import org.mockserver.mock.Expectation;
 import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
@@ -33,7 +33,7 @@ public class ReplayServiceImpl implements ReplayService {
 
     private final ClientAction clientAction = Bootstrap.getInstance().getClientAction();
 
-    private final ExpectationAction expectationAction = new ExpectationAction();
+    private final ExpectationGenerator expectationGenerator = new ExpectationGenerator();
 
     @Autowired
     ExpectationsService expectationsService;
@@ -109,7 +109,7 @@ public class ReplayServiceImpl implements ReplayService {
 
 
     private void insertRequestAndResponseTOClient(ServerClient client,LogEventRequestAndResponse requestAndResponse){
-        Expectation expectation = expectationAction.genExpectation((HttpRequest) requestAndResponse.getHttpRequest(),
+        Expectation expectation = expectationGenerator.genExpectation((HttpRequest) requestAndResponse.getHttpRequest(),
                 requestAndResponse.getHttpResponse());
         client.upsert(expectation);
     }

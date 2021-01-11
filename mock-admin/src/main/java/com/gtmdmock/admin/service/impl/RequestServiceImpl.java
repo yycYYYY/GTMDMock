@@ -2,14 +2,13 @@ package com.gtmdmock.admin.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.gtmdmock.admin.model.constants.ResponseTypeConstants;
-import com.gtmdmock.admin.model.entity.ForwardExample;
 import com.gtmdmock.admin.model.entity.Request;
 import com.gtmdmock.admin.model.entity.RequestExample;
 import com.gtmdmock.admin.model.mapper.RequestMapper;
 import com.gtmdmock.admin.service.*;
 import com.gtmdmock.admin.utils.JsonUtils;
 import com.gtmdmock.core.Bootstrap;
-import com.gtmdmock.core.expectation.ExpectationAction;
+import com.gtmdmock.core.expectation.ExpectationGenerator;
 import com.gtmdmock.core.expectation.ExpectationsAction;
 import com.gtmdmock.core.expectation.ExpectationsTemplate;
 import com.gtmdmock.core.request.RequestMatcher;
@@ -33,7 +32,7 @@ public class RequestServiceImpl implements RequestService {
 
     private final ExpectationsAction expectationsAction = bootstrap.getExpectationsAction();
 
-    private final ExpectationAction expectationUtils = new ExpectationAction();
+    private final ExpectationGenerator expectationUtils = new ExpectationGenerator();
 
     @Autowired
     RequestMapper requestMapper;

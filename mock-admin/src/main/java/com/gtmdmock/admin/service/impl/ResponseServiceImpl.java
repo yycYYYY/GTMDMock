@@ -2,22 +2,19 @@ package com.gtmdmock.admin.service.impl;
 
 import com.gtmdmock.admin.model.constants.ResponseTypeConstants;
 import com.gtmdmock.admin.model.entity.Request;
-import com.gtmdmock.admin.model.entity.RequestExample;
 import com.gtmdmock.admin.model.entity.Response;
 import com.gtmdmock.admin.model.entity.ResponseExample;
-import com.gtmdmock.admin.model.mapper.RequestMapper;
 import com.gtmdmock.admin.model.mapper.ResponseMapper;
 import com.gtmdmock.admin.service.RequestService;
 import com.gtmdmock.admin.service.ResponseService;
 import com.gtmdmock.admin.utils.JsonUtils;
 import com.gtmdmock.core.Bootstrap;
-import com.gtmdmock.core.expectation.ExpectationAction;
+import com.gtmdmock.core.expectation.ExpectationGenerator;
 import com.gtmdmock.core.expectation.ExpectationsAction;
 import com.gtmdmock.core.expectation.ExpectationsTemplate;
 import com.gtmdmock.core.request.RequestMatcher;
 import com.gtmdmock.core.response.ResponseTemplate;
 import org.mockserver.mock.Expectation;
-import org.mockserver.model.HttpResponse;
 import org.mockserver.model.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +23,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -44,7 +40,7 @@ public class ResponseServiceImpl implements ResponseService {
 
     private final ExpectationsAction expectationsAction = bootstrap.getExpectationsAction();
 
-    private final ExpectationAction expectationUtils = new ExpectationAction();
+    private final ExpectationGenerator expectationUtils = new ExpectationGenerator();
 
     @Override
     public void insertResponse(Response response) {

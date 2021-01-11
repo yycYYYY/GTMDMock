@@ -12,7 +12,7 @@ import com.gtmdmock.core.Bootstrap;
 import com.gtmdmock.core.client.ClientAction;
 import com.gtmdmock.core.client.ClientInfo;
 import com.gtmdmock.core.client.ServerClient;
-import com.gtmdmock.core.expectation.ExpectationAction;
+import com.gtmdmock.core.expectation.ExpectationGenerator;
 import com.gtmdmock.core.expectation.ExpectationsAction;
 import com.gtmdmock.core.expectation.ExpectationsTemplate;
 import org.mockserver.mock.Expectation;
@@ -37,7 +37,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     private final ExpectationsAction expectationsAction = Bootstrap.getInstance().getExpectationsAction();
 
-    private final ExpectationAction expectationAction = new ExpectationAction();
+    private final ExpectationGenerator expectationGenerator = new ExpectationGenerator();
 
     @Autowired
     ProjectMapper projectMapper;
@@ -236,7 +236,7 @@ public class ProjectServiceImpl implements ProjectService {
                 .withMethod(tempRequest.getMethod())
                 .withSecure(tempRequest.isSecure());
 
-        Expectation expectation = expectationAction.genExpectation(request, response);
+        Expectation expectation = expectationGenerator.genExpectation(request, response);
         client.upsert(expectation);
     }
 

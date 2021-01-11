@@ -4,9 +4,8 @@ import com.gtmdmock.admin.model.constants.ResponseTypeConstants;
 import com.gtmdmock.admin.model.entity.Expectations;
 import com.gtmdmock.admin.model.entity.ExpectationsExample;
 import com.gtmdmock.admin.model.mapper.ExpectationsMapper;
-import com.gtmdmock.admin.model.mapper.ResponseMapper;
 import com.gtmdmock.admin.service.*;
-import com.gtmdmock.core.expectation.ExpectationAction;
+import com.gtmdmock.core.expectation.ExpectationGenerator;
 import com.gtmdmock.core.forward.ForwardTemplate;
 import com.gtmdmock.core.forward.OverrideForwardTemplate;
 import com.gtmdmock.core.httperror.ErrorTemplate;
@@ -40,7 +39,7 @@ public class ExpectationServiceImpl implements ExpectationService {
     @Autowired
     ErrorService errorService;
 
-    ExpectationAction action = new ExpectationAction();
+    ExpectationGenerator action = new ExpectationGenerator();
 
 
 

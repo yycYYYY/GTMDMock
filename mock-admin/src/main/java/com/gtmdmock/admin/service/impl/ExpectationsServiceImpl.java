@@ -8,7 +8,7 @@ import com.gtmdmock.admin.model.mapper.ExpectationsMapper;
 import com.gtmdmock.admin.service.ExpectationsService;
 import com.gtmdmock.admin.service.RequestService;
 import com.gtmdmock.core.Bootstrap;
-import com.gtmdmock.core.expectation.ExpectationAction;
+import com.gtmdmock.core.expectation.ExpectationGenerator;
 import com.gtmdmock.core.expectation.ExpectationsAction;
 import com.gtmdmock.core.expectation.ExpectationsTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class ExpectationsServiceImpl implements ExpectationsService {
 
     private final ExpectationsAction expectationsAction = bootstrap.getExpectationsAction();
 
-    private final ExpectationAction expectationUtils = new ExpectationAction();
+    private final ExpectationGenerator expectationUtils = new ExpectationGenerator();
 
     @Override
     public void insertExpectations(Expectations expectations) {

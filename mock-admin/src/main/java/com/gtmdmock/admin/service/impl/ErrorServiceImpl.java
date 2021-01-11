@@ -7,7 +7,7 @@ import com.gtmdmock.admin.model.mapper.ErrorMapper;
 import com.gtmdmock.admin.service.ErrorService;
 import com.gtmdmock.admin.service.RequestService;
 import com.gtmdmock.core.Bootstrap;
-import com.gtmdmock.core.expectation.ExpectationAction;
+import com.gtmdmock.core.expectation.ExpectationGenerator;
 import com.gtmdmock.core.expectation.ExpectationsAction;
 import com.gtmdmock.core.expectation.ExpectationsTemplate;
 import com.gtmdmock.core.httperror.ErrorTemplate;
@@ -37,7 +37,7 @@ public class ErrorServiceImpl implements ErrorService {
 
     private final ExpectationsAction expectationsAction = bootstrap.getExpectationsAction();
 
-    private final ExpectationAction expectationUtils = new ExpectationAction();
+    private final ExpectationGenerator expectationUtils = new ExpectationGenerator();
 
     @Override
     public void insertError(Error error) {
