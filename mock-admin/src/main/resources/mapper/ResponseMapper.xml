@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gtmdmock.admin.model.mapper.ResponseMapper">
+  <resultMap id="BaseResultMap" type="com.gtmdmock.admin.model.entity.Response">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="request_id" jdbcType="INTEGER" property="requestId" />
+    <result column="status_code" jdbcType="INTEGER" property="statusCode" />
+    <result column="content_type" jdbcType="VARCHAR" property="contentType" />
+    <result column="body" jdbcType="VARCHAR" property="body" />
+    <result column="headers" jdbcType="VARCHAR" property="headers" />
+    <result column="cookies" jdbcType="VARCHAR" property="cookies" />
+    <result column="delay" jdbcType="INTEGER" property="delay" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, request_id, status_code, content_type, body, headers, cookies, delay
+  </sql>
+  <select id="selectByExample" parameterType="com.gtmdmock.admin.model.entity.ResponseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from response
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from response
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from response
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gtmdmock.admin.model.entity.ResponseExample">
+    delete from response
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gtmdmock.admin.model.entity.Response">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into response (id, request_id, status_code, 
+      content_type, body, headers, 
+      cookies, delay)
+    values (#{id,jdbcType=INTEGER}, #{requestId,jdbcType=INTEGER}, #{statusCode,jdbcType=INTEGER}, 
+      #{contentType,jdbcType=VARCHAR}, #{body,jdbcType=VARCHAR}, #{headers,jdbcType=VARCHAR}, 
+      #{cookies,jdbcType=VARCHAR}, #{delay,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gtmdmock.admin.model.entity.Response">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into response
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      <if test="requestId != null">
+        request_id,
+      </if>
+      <if test="statusCode != null">
+        status_code,
+      </if>
+      <if test="contentType != null">
+        content_type,
+      </if>
+      <if test="body != null">
+        body,
+      </if>
+      <if test="headers != null">
+        headers,
+      </if>
+      <if test="cookies != null">
+        cookies,
+      </if>
+      <if test="delay != null">
+        delay,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=INTEGER},
+      <if test="requestId != null">
+        #{requestId,jdbcType=INTEGER},
+      </if>
+      <if test="statusCode != null">
+        #{statusCode,jdbcType=INTEGER},
+      </if>
+      <if test="contentType != null">
+        #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null">
+        #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="headers != null">
+        #{headers,jdbcType=VARCHAR},
+      </if>
+      <if test="cookies != null">
+        #{cookies,jdbcType=VARCHAR},
+      </if>
+      <if test="delay != null">
+        #{delay,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gtmdmock.admin.model.entity.ResponseExample" resultType="java.lang.Long">
+    select count(*) from response
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update response
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.requestId != null">
+        request_id = #{record.requestId,jdbcType=INTEGER},
+      </if>
+      <if test="record.statusCode != null">
+        status_code = #{record.statusCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.contentType != null">
+        content_type = #{record.contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.body != null">
+        body = #{record.body,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headers != null">
+        headers = #{record.headers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cookies != null">
+        cookies = #{record.cookies,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delay != null">
+        delay = #{record.delay,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update response
+    set id = #{record.id,jdbcType=INTEGER},
+      request_id = #{record.requestId,jdbcType=INTEGER},
+      status_code = #{record.statusCode,jdbcType=INTEGER},
+      content_type = #{record.contentType,jdbcType=VARCHAR},
+      body = #{record.body,jdbcType=VARCHAR},
+      headers = #{record.headers,jdbcType=VARCHAR},
+      cookies = #{record.cookies,jdbcType=VARCHAR},
+      delay = #{record.delay,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gtmdmock.admin.model.entity.Response">
+    update response
+    <set>
+      <if test="requestId != null">
+        request_id = #{requestId,jdbcType=INTEGER},
+      </if>
+      <if test="statusCode != null">
+        status_code = #{statusCode,jdbcType=INTEGER},
+      </if>
+      <if test="contentType != null">
+        content_type = #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null">
+        body = #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="headers != null">
+        headers = #{headers,jdbcType=VARCHAR},
+      </if>
+      <if test="cookies != null">
+        cookies = #{cookies,jdbcType=VARCHAR},
+      </if>
+      <if test="delay != null">
+        delay = #{delay,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gtmdmock.admin.model.entity.Response">
+    update response
+    set request_id = #{requestId,jdbcType=INTEGER},
+      status_code = #{statusCode,jdbcType=INTEGER},
+      content_type = #{contentType,jdbcType=VARCHAR},
+      body = #{body,jdbcType=VARCHAR},
+      headers = #{headers,jdbcType=VARCHAR},
+      cookies = #{cookies,jdbcType=VARCHAR},
+      delay = #{delay,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

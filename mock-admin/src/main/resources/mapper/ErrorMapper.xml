@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gtmdmock.admin.model.mapper.ErrorMapper">
+  <resultMap id="BaseResultMap" type="com.gtmdmock.admin.model.entity.Error">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="request_id" jdbcType="INTEGER" property="requestId" />
+    <result column="response" jdbcType="VARCHAR" property="response" />
+    <result column="is_drop_connection" jdbcType="INTEGER" property="isDropConnection" />
+    <result column="delay" jdbcType="INTEGER" property="delay" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, request_id, response, is_drop_connection, delay
+  </sql>
+  <select id="selectByExample" parameterType="com.gtmdmock.admin.model.entity.ErrorExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from error
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from error
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from error
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gtmdmock.admin.model.entity.ErrorExample">
+    delete from error
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gtmdmock.admin.model.entity.Error">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into error (id, request_id, response, 
+      is_drop_connection, delay)
+    values (#{id,jdbcType=INTEGER}, #{requestId,jdbcType=INTEGER}, #{response,jdbcType=VARCHAR}, 
+      #{isDropConnection,jdbcType=INTEGER}, #{delay,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gtmdmock.admin.model.entity.Error">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into error
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      <if test="requestId != null">
+        request_id,
+      </if>
+      <if test="response != null">
+        response,
+      </if>
+      <if test="isDropConnection != null">
+        is_drop_connection,
+      </if>
+      <if test="delay != null">
+        delay,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=INTEGER},
+      <if test="requestId != null">
+        #{requestId,jdbcType=INTEGER},
+      </if>
+      <if test="response != null">
+        #{response,jdbcType=VARCHAR},
+      </if>
+      <if test="isDropConnection != null">
+        #{isDropConnection,jdbcType=INTEGER},
+      </if>
+      <if test="delay != null">
+        #{delay,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gtmdmock.admin.model.entity.ErrorExample" resultType="java.lang.Long">
+    select count(*) from error
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update error
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.requestId != null">
+        request_id = #{record.requestId,jdbcType=INTEGER},
+      </if>
+      <if test="record.response != null">
+        response = #{record.response,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDropConnection != null">
+        is_drop_connection = #{record.isDropConnection,jdbcType=INTEGER},
+      </if>
+      <if test="record.delay != null">
+        delay = #{record.delay,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update error
+    set id = #{record.id,jdbcType=INTEGER},
+      request_id = #{record.requestId,jdbcType=INTEGER},
+      response = #{record.response,jdbcType=VARCHAR},
+      is_drop_connection = #{record.isDropConnection,jdbcType=INTEGER},
+      delay = #{record.delay,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gtmdmock.admin.model.entity.Error">
+    update error
+    <set>
+      <if test="requestId != null">
+        request_id = #{requestId,jdbcType=INTEGER},
+      </if>
+      <if test="response != null">
+        response = #{response,jdbcType=VARCHAR},
+      </if>
+      <if test="isDropConnection != null">
+        is_drop_connection = #{isDropConnection,jdbcType=INTEGER},
+      </if>
+      <if test="delay != null">
+        delay = #{delay,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gtmdmock.admin.model.entity.Error">
+    update error
+    set request_id = #{requestId,jdbcType=INTEGER},
+      response = #{response,jdbcType=VARCHAR},
+      is_drop_connection = #{isDropConnection,jdbcType=INTEGER},
+      delay = #{delay,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
