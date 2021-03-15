@@ -15,7 +15,7 @@ public class GeneratorSqlMap {
         List<String> warnings = new ArrayList<>();
         boolean overwrite = true;
         //指定逆向工程配置文件
-        File configFile = new File("D:\\projects\\base_java\\gtmdmock\\mock-admin\\src\\main\\resources\\generatorConfig.xml");
+        File configFile = new File("/Users/admin/IdeaProjects/gtmdmock/mock-admin/src/main/resources/generatorConfig.xml");
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config =cp.parseConfiguration(configFile);
         DefaultShellCallback callback = new DefaultShellCallback(overwrite);

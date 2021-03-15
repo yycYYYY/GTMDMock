@@ -158,7 +158,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     }
 
-    //TODO:关闭开启的逻辑关联可能需要商榷下
+    //TODO:关闭开启的逻辑关联可能需要商榷下，项目的开关可能要改，期望集的开关逻辑还没写，期望的开关由于是原子性的，不涉及额外逻辑
     @Override
     public void switchProject(Integer projectId, Integer isOpen) {
         Project project = getProjectById(projectId);

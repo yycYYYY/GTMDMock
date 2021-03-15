@@ -16,11 +16,6 @@ public class ExpectationsAction {
 
     private List<ExpectationsTemplate> expectations;
 
-    //生成当前所有配置的expectations
-    public static List<ExpectationsTemplate> genAllExpectations() {
-        return null;
-    }
-
     //获取某project下所有的expectations
     public List<ExpectationsTemplate> getExpectations(Integer projectId){
         List<ExpectationsTemplate> templates = new ArrayList<>();

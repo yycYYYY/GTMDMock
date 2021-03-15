@@ -103,19 +103,6 @@ public class ClientAction {
         return clients;
     }
 
-    //初始化客户端期望信息
-    public void clientInit(){
-        List<ExpectationsTemplate> expectations = ExpectationsAction.genAllExpectations();
-        if (expectations != null) {
-            for (ExpectationsTemplate e: expectations) {
-
-                ServerClient client = this.clients.get(e.getProjectId());
-                e.setServer(client);
-                e.initClient();
-            }
-        }
-    }
-
     //获取所有的记录expectations
     public Expectation[] retrieveAllExpectations(ServerClient client){
 
@@ -150,5 +137,5 @@ public class ClientAction {
         );
     }
 
-//    TODO：现在还有一个问题还没有做，在项目部署之后，还需要做一个清除内存中全量log的功能：每天固定时间，清除log；每次录制操作之后清除log；暴漏一个清除log的方法入口，写个shell脚本监听内存使用，超过份额自动调一下
+//    TODO：现在还有一个问题还没有做，在项目部署之后，还需要做一个清除内存中全量log的功能：每天固定时间，清除log；或者每次录制操作之后清除log；或者暴漏一个清除log的方法入口，写个shell脚本监听内存使用，超过份额自动调一下
 }

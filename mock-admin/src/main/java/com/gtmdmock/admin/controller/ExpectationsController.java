@@ -61,7 +61,7 @@ public class ExpectationsController {
     @ApiOperation("开启/关闭一个期望集")
     @GetMapping("/switch")
     public BaseResponseVO switchExpectations(@RequestParam(value = "expectationsId") Integer expectationsId){
-//        expectationsService.switchExpectations(expectationsId);
+        expectationsService.switchExpectations(expectationsId);
         return BaseResponseVO.success("success");
     }
 }

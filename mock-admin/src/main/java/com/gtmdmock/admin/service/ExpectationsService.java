@@ -28,4 +28,6 @@ public interface ExpectationsService {
     List<Expectations> getAllExpectationsOfAdminByProjectId(Integer projectId, Integer pageNumber, Integer pageSize);
 
     List<ExpectationsTemplate> getAllOpenExpectationsOfCore();
+
+    void switchExpectations(Integer expectationsId);
 }

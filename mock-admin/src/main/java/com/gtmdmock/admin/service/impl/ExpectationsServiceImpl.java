@@ -121,4 +121,9 @@ public class ExpectationsServiceImpl implements ExpectationsService {
         }
         return templates;
     }
+
+    @Override
+    public void switchExpectations(Integer expectationsId) {
+
+    }
 }

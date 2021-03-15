@@ -69,4 +69,10 @@ public class ProxyServerClient {
 
     }
 
+    public static void main(String[] args) {
+        ProxyServerClient proxyServerClient = new ProxyServerClient();
+        proxyServerClient.setPort(8889);
+        proxyServerClient.init();
+    }
+
 }
