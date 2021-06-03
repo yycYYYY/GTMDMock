@@ -37,7 +37,7 @@ public class ExpectationsController {
     }
 
     @ApiOperation("更新一个期望集")
-    @PostMapping("/update")
+    @PostMapping("/upd")
     public BaseResponseVO updateExpectations(@RequestBody Expectations expectations){
 
         expectationsService.updateExpectations(expectations);

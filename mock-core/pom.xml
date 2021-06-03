@@ -6,11 +6,20 @@
         <artifactId>gtmdmock</artifactId>
         <groupId>com.gtmd</groupId>
         <version>0.0.1-SNAPSHOT</version>
+<!--        <relativePath>../pom.xml</relativePath>-->
     </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
 
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mock-core</artifactId>
+
+    <packaging>jar</packaging>
 
     <dependencies>
         <!--  apache mock server  -->
@@ -28,18 +37,16 @@
             <groupId>org.mock-server</groupId>
             <artifactId>mockserver-core</artifactId>
             <version>5.11.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.6.6</version>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>guava</artifactId>
+                    <groupId>com.google.guava</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-io</artifactId>
+                    <groupId>commons-io</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
