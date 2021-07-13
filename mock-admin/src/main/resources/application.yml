@@ -33,3 +33,11 @@ mybatis:
 springfox:
   documentation:
     swagger:
+
+logging:
+  pattern:
+    console: "%clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger){cyan} %clr([%4.4L]){cyan} %clr(:){faint} %m%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  level:
+    com.gtmd: debug
+  file: /Users/admin/logs/mockserver.log

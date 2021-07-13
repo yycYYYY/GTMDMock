@@ -73,9 +73,10 @@ public class ExpectationServiceImpl implements ExpectationService {
 
             case ResponseTypeConstants.NONE:
                 return action.genExpectation(requestMatcher.buildRequest());
-        }
 
-        return null;
+            default:
+                throw new RuntimeException("未知的响应类型");
+        }
     }
 
     @Override

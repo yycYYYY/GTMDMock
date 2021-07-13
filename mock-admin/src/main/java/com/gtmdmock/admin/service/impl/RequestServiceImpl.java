@@ -78,6 +78,9 @@ public class RequestServiceImpl implements RequestService {
                 break;
             case ResponseTypeConstants.FORWARD:
                 forwardService.deleteForwardByRequestId(id);
+                break;
+            default:
+                throw new RuntimeException("未知的响应类型！");
         }
 
         requestMapper.deleteByPrimaryKey(id);
@@ -153,19 +156,19 @@ public class RequestServiceImpl implements RequestService {
         Optional.ofNullable(request.getId()).ifPresent(requestMatcher::setRequestId);
         Optional.ofNullable(request.getResponseType()).ifPresent(requestMatcher::setMatcherType);
 
-        if (request.getHeaders() != null && !request.getHeaders().equals("")){
+        if (request.getHeaders() != null && !"".equals(request.getHeaders())){
             requestMatcher.setHeaders(JsonUtils.StringToMap(request.getHeaders()));
         }
 
-        if (request.getCookies() != null && !request.getCookies().equals("")){
+        if (request.getCookies() != null && !"".equals(request.getCookies())){
             requestMatcher.setCookies(JsonUtils.StringToMap(request.getCookies()));
         }
 
-        if (request.getPathParams() != null && !request.getPathParams().equals("")){
+        if (request.getPathParams() != null && !"".equals(request.getPathParams())){
             requestMatcher.setPathParams(JsonUtils.StringToMap(request.getPathParams()));
         }
 
-        if (request.getQueryParams() != null && !request.getQueryParams().equals("")){
+        if (request.getQueryParams() != null && !"".equals(request.getQueryParams())){
             requestMatcher.setQueryParams(JsonUtils.StringToMap(request.getQueryParams()));
         }
 

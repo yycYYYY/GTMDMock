@@ -66,6 +66,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void insertProject(Project project) {
         projectMapper.insert(project);
+        logger.info("新增项目:{},端口为:{}", project.getProjectName(), project.getPort());
     }
 
     @Override
